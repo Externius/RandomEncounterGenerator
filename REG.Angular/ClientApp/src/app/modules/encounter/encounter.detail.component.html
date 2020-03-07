@@ -1,0 +1,79 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">{{'encounter.detailtitle' | translate}}</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="onDismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">{{ 'encounter.monstername' | translate }}</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" readonly value="{{detail.name}}">
+    </div>
+    <label class="col-sm-2 col-form-label">{{ 'encounter.type' | translate }}</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" readonly value="{{detail.type}}">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">{{ 'encounter.size' | translate }}</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" readonly value="{{detail.size}}">
+    </div>
+    <label class="col-sm-2 col-form-label">{{ 'encounter.challengerating' | translate }}</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" readonly value="{{detail.challengeRating}}">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">{{ 'encounter.speed' | translate }}</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" readonly value="{{detail.speed}}">
+    </div>
+    <label class="col-sm-2 col-form-label">{{ 'encounter.alignment' | translate }}</label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" readonly value="{{detail.alignment}}">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-1 col-form-label">{{ 'encounter.strength' | translate }}</label>
+    <div class="col-sm-1">
+      <input class="form-control" type="text" readonly value="{{detail.strength}}">
+    </div>
+    <label class="col-sm-1 col-form-label">{{ 'encounter.dexterity' | translate }}</label>
+    <div class="col-sm-1">
+      <input class="form-control" type="text" readonly value="{{detail.dexterity}}">
+    </div>
+    <label class="col-sm-1 col-form-label">{{ 'encounter.constitution' | translate }}</label>
+    <div class="col-sm-1">
+      <input class="form-control" type="text" readonly value="{{detail.constitution}}">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-1 col-form-label">{{ 'encounter.intelligence' | translate }}</label>
+    <div class="col-sm-1">
+      <input class="form-control" type="text" readonly value="{{detail.intelligence}}">
+    </div>
+    <label class="col-sm-1 col-form-label">{{ 'encounter.wisdom' | translate }}</label>
+    <div class="col-sm-1">
+      <input class="form-control" type="text" readonly value="{{detail.wisdom}}">
+    </div>
+    <label class="col-sm-1 col-form-label">{{ 'encounter.charisma' | translate }}</label>
+    <div class="col-sm-1">
+      <input class="form-control" type="text" readonly value="{{detail.charisma}}">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-1 col-form-label">{{ 'encounter.hp' | translate }}</label>
+    <div class="col-sm-1">
+      <input class="form-control" type="text" readonly value="{{detail.hp}}">
+    </div>
+    <label class="col-sm-1 col-form-label">{{ 'encounter.ac' | translate }}</label>
+    <div class="col-sm-1">
+      <input class="form-control" type="text" readonly value="{{detail.ac}}">
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="onConfirm()">{{'common.ok' | translate }}</button>
+</div>

@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">{{title}}</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="onDismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row col-sm-12" [innerHTML]="message"></div>
+  <div *ngIf="stackTrace !== ''" class="alert alert-warning text-break" style="max-height: 20rem; overflow: auto;"
+    [innerHTML]="stackTrace">
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="onConfirm()">{{'common.ok' | translate }}</button>
+</div>

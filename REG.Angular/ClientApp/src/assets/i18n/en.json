@@ -1,0 +1,39 @@
+{
+  "encounter": {
+    "type": "Monster type",
+    "partylevel": "Party level",
+    "partysize": "Party size",
+    "monstername": "Monster name",
+    "xp": "XP",
+    "count": "Amount",
+    "difficulty": "Difficulty",
+    "detailtitle": "Monster details",
+    "challengerating": "Challange rating",
+    "size": "Size",
+    "alignment": "Alignment",
+    "hp": "HP",
+    "ac": "AC",
+    "strength": "STR",
+    "dexterity": "DEX",
+    "constitution": "CON",
+    "intelligence": "INT",
+    "wisdom": "WIS",
+    "charisma": "CHA",
+    "speed":  "Speed"
+  },
+  "home": {
+    "encountermenu": "Encounter",
+    "homemenu": "Home",
+    "title": "Random encounter generator",
+    "welcome": "This is a ASP.NET Core 3.1 Angular project for generating random encounters using D&D5th Edition SRD monsters."
+  },
+  "common": {
+    "generate": "Generate",
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "error": {
+    "title": "Error"
+  }
+}

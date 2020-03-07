@@ -1,0 +1,39 @@
+{
+  "encounter": {
+    "type": "Szörny típus",
+    "partylevel": "Csapat szint",
+    "partysize": "Csapat méret",
+    "monstername": "Szörny neve",
+    "xp": "TP",
+    "count": "Mennyiség",
+    "difficulty": "Nehézség",
+    "detailtitle": "Szörny adatai",
+    "challengerating": "Kihívási szint",
+    "size": "Méret",
+    "alignment": "Jellem",
+    "hp": "HP",
+    "ac": "AC",
+    "strength": "STR",
+    "dexterity": "DEX",
+    "constitution": "CON",
+    "intelligence": "INT",
+    "wisdom": "WIS",
+    "charisma": "CHA",
+    "speed": "Sebesség"
+  },
+  "home": {
+    "encountermenu": "Találkozás",
+    "homemenu": "Otthon",
+    "title": "Véletlen találkozás generátor",
+    "welcome": "Ez egy ASP.NET Core 3.1 Angular projekt véletlen találkozások generálására, D&D 5. kiadású SRD szörnyek felhasználásával."
+  },
+  "common": {
+    "generate": "Létrehoz",
+    "ok": "Ok",
+    "cancel": "Mégse",
+    "save": "Mentés"
+  },
+  "error": {
+    "title": "Hiba"
+  }
+}
