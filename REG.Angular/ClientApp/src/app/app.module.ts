@@ -25,6 +25,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ServerErrorInterceptor } from './core/interceptors/server.error.interceptor';
 import { AlertDialogComponent } from './core/alertdialog/alertdialog.component';
 import { SortableHeaderDirective } from './shared/directive/sortable.directive';
+import { SavingThrowPipe } from './shared/pipes/savingthrow.pipe';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -42,7 +43,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     HomeComponent,
     SortableHeaderDirective,
     EncounterListComponent,
-    EncounterDetailComponent
+    EncounterDetailComponent,
+    SavingThrowPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -65,7 +67,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       }
     })
   ],
-   exports: [TranslateModule],
+  exports: [
+    TranslateModule,
+    SavingThrowPipe
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

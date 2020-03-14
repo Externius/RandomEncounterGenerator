@@ -10,8 +10,12 @@ namespace REG.Core.Services.Automapper
         {
             CreateMap<Monster, EncounterDetail>(MemberList.None)
                 .ForMember(d => d.ChallengeRating, opt => opt.MapFrom(s => s.Challenge_Rating))
+                .ForMember(d => d.SterngthSave, opt => opt.MapFrom(s => s.Strength_Save))
+                .ForMember(d => d.DexteritySave, opt => opt.MapFrom(s => s.Dexterity_Save))
                 .ForMember(d => d.ConstitutionSave, opt => opt.MapFrom(s => s.Constitution_Save))
+                .ForMember(d => d.IntelligenceSave, opt => opt.MapFrom(s => s.Intelligence_Save))
                 .ForMember(d => d.WisdomSave, opt => opt.MapFrom(s => s.Wisdom_Save))
+                .ForMember(d => d.CharismaSave, opt => opt.MapFrom(s => s.Charisma_Save))
                 .ForMember(d => d.HP, opt => opt.MapFrom(s => s.Hit_Points))
                 .ForMember(d => d.AC, opt => opt.MapFrom(s => s.Armor_Class))
                 .ForMember(d => d.HitDice, opt => opt.MapFrom(s => s.Hit_Dice))

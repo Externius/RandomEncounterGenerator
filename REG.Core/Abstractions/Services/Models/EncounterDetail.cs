@@ -22,9 +22,12 @@
         public int Intelligence { get; set; }
         public int Wisdom { get; set; }
         public int Charisma { get; set; }
+        public int SterngthSave { get; set; }
+        public int DexteritySave { get; set; }
         public int ConstitutionSave { get; set; }
         public int IntelligenceSave { get; set; }
         public int WisdomSave { get; set; }
+        public int CharismaSave { get; set; }
         public int History { get; set; }
         public int Perception { get; set; }
         public string DamageVulnerabilities { get; set; }

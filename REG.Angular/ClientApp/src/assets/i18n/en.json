@@ -19,7 +19,7 @@
     "intelligence": "INT",
     "wisdom": "WIS",
     "charisma": "CHA",
-    "speed":  "Speed"
+    "speed": "Speed"
   },
   "home": {
     "encountermenu": "Encounter",

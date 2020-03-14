@@ -19,9 +19,12 @@ export class EncounterDetailModel {
   intelligence: number;
   wisdom: number;
   charisma: number;
+  strengthSave: number;
   constitutionSave: number;
+  dexteritySave: number;
   intelligenceSave: number;
   wisdomSave: number;
+  charismaSave: number;
   history: number;
   perception: number;
   damageVulnerabilities: string;

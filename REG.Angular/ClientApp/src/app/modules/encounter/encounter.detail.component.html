@@ -36,41 +36,83 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-1 col-form-label">{{ 'encounter.strength' | translate }}</label>
-    <div class="col-sm-1">
-      <input class="form-control" type="text" readonly value="{{detail.strength}}">
+    <div class="input-group mb-3 col-sm-4">
+      <div class="input-group-prepend">
+        <label class="input-group-text font-weight-bold ability">{{ 'encounter.strength' | translate }}</label>
+      </div>
+      <input type="text" class="form-control text-center" readonly
+        value="{{detail.strength}} ({{calcMod(detail.strength)}})">
+      <div class="input-group-append">
+        <label class="input-group-text saving-throw">{{detail.strengthSave | savingThrow: detail.strength}}</label>
+      </div>
     </div>
-    <label class="col-sm-1 col-form-label">{{ 'encounter.dexterity' | translate }}</label>
-    <div class="col-sm-1">
-      <input class="form-control" type="text" readonly value="{{detail.dexterity}}">
+    <div class="input-group mb-3 col-sm-4">
+      <div class="input-group-prepend">
+        <label class="input-group-text font-weight-bold ability">{{ 'encounter.dexterity' | translate }}</label>
+      </div>
+      <input type="text" class="form-control text-center" readonly
+        value="{{detail.dexterity}} ({{calcMod(detail.dexterity)}})">
+      <div class="input-group-append">
+        <label class="input-group-text saving-throw">{{detail.dexteritySave | savingThrow: detail.dexterity}}</label>
+      </div>
     </div>
-    <label class="col-sm-1 col-form-label">{{ 'encounter.constitution' | translate }}</label>
-    <div class="col-sm-1">
-      <input class="form-control" type="text" readonly value="{{detail.constitution}}">
+    <div class="input-group mb-3 col-sm-4">
+      <div class="input-group-prepend">
+        <label class="input-group-text font-weight-bold ability">{{ 'encounter.constitution' | translate }}</label>
+      </div>
+      <input type="text" class="form-control text-center" readonly
+        value="{{detail.constitution}} ({{calcMod(detail.constitution)}})">
+      <div class="input-group-append">
+        <label
+          class="input-group-text saving-throw">{{detail.constitutionSave | savingThrow: detail.constitution}}</label>
+      </div>
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-1 col-form-label">{{ 'encounter.intelligence' | translate }}</label>
-    <div class="col-sm-1">
-      <input class="form-control" type="text" readonly value="{{detail.intelligence}}">
+    <div class="input-group mb-3 col-sm-4">
+      <div class="input-group-prepend">
+        <label class="input-group-text font-weight-bold ability">{{ 'encounter.intelligence' | translate }}</label>
+      </div>
+      <input type="text" class="form-control text-center" readonly
+        value="{{detail.intelligence}} ({{calcMod(detail.intelligence)}})">
+      <div class="input-group-append">
+        <label
+          class="input-group-text saving-throw">{{detail.intelligenceSave | savingThrow: detail.intelligence}}</label>
+      </div>
     </div>
-    <label class="col-sm-1 col-form-label">{{ 'encounter.wisdom' | translate }}</label>
-    <div class="col-sm-1">
-      <input class="form-control" type="text" readonly value="{{detail.wisdom}}">
+    <div class="input-group mb-3 col-sm-4">
+      <div class="input-group-prepend">
+        <label class="input-group-text font-weight-bold ability">{{ 'encounter.wisdom' | translate }}</label>
+      </div>
+      <input type="text" class="form-control text-center" readonly
+        value="{{detail.wisdom}} ({{calcMod(detail.wisdom)}})">
+      <div class="input-group-append">
+        <label class="input-group-text saving-throw">{{detail.wisdomSave | savingThrow: detail.wisdom}}</label>
+      </div>
     </div>
-    <label class="col-sm-1 col-form-label">{{ 'encounter.charisma' | translate }}</label>
-    <div class="col-sm-1">
-      <input class="form-control" type="text" readonly value="{{detail.charisma}}">
+    <div class="input-group mb-3 col-sm-4">
+      <div class="input-group-prepend">
+        <label class="input-group-text font-weight-bold ability">{{ 'encounter.charisma' | translate }}</label>
+      </div>
+      <input type="text" class="form-control text-center" readonly
+        value="{{detail.charisma}} ({{calcMod(detail.charisma)}})">
+      <div class="input-group-append">
+        <label class="input-group-text saving-throw">{{detail.charismaSave | savingThrow: detail.charisma}}</label>
+      </div>
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-1 col-form-label">{{ 'encounter.hp' | translate }}</label>
-    <div class="col-sm-1">
-      <input class="form-control" type="text" readonly value="{{detail.hp}}">
+    <div class="input-group mb-3 col-sm-2">
+      <div class="input-group-prepend">
+        <label class="input-group-text font-weight-bold ability">{{ 'encounter.hp' | translate }}</label>
+      </div>
+      <input type="text" class="form-control text-center" readonly value="{{detail.hp}}">
     </div>
-    <label class="col-sm-1 col-form-label">{{ 'encounter.ac' | translate }}</label>
-    <div class="col-sm-1">
-      <input class="form-control" type="text" readonly value="{{detail.ac}}">
+    <div class="input-group mb-3 col-sm-2">
+      <div class="input-group-prepend">
+        <label class="input-group-text font-weight-bold ability">{{ 'encounter.ac' | translate }}</label>
+      </div>
+      <input type="text" class="form-control text-center" readonly value="{{detail.ac}}">
     </div>
   </div>
 </div>

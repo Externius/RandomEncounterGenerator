@@ -16,6 +16,14 @@ export class EncounterDetailComponent {
   constructor(public activeModal: NgbActiveModal) {
   }
 
+  calcMod(ability: number): string {
+    const result = -5 + Math.floor(ability / 2);
+    if (result > 0) {
+      return '+' + result;
+    }
+    return result.toString();
+  }
+
   onConfirm(): void {
     this.activeModal.close(true);
   }

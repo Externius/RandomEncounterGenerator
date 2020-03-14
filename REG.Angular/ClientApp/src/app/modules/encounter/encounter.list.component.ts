@@ -60,6 +60,7 @@ export class EncounterListComponent implements OnInit {
       .subscribe(
         (data: JSON) => {
           Object.assign(this.encounterModel, data);
+          this._orignialDetails = [];
           Object.assign(this._orignialDetails, this.encounterModel.encounters);
         },
         (error) => {
