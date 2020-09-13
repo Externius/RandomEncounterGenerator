@@ -158,11 +158,7 @@ namespace REG.Core.Services
                     {
                         try
                         {
-                            if (option.Difficulty.HasValue)
-                                result.Encounters.Add(GetMonster(sumxp, option.Difficulty.Value));
-                            else
-                                result.Encounters.Add(GetMonster());
-
+                            result.Encounters.Add(GetMonster(option.Difficulty));
                             maxTryNumber--;
                         }
                         catch (ServiceException)
@@ -227,27 +223,30 @@ namespace REG.Core.Services
             return max;
         }
 
-        private EncounterDetail GetMonster(int currentXP = 0, Difficulty? difficulty = null)
+        private EncounterDetail GetMonster(Difficulty? difficulty = null)
         {
             var monsterCount = Monsters.Count;
             var monster = 0;
+            var indexes = new List<int>(Enumerable.Range(0, _multipliers.GetLength(0)));
 
             while (monster < monsterCount)
             {
                 var currentMonster = Monsters[GetRandomInt(0, Monsters.Count)];
                 Monsters.Remove(currentMonster);
                 var monsterXP = GetMonsterXP(currentMonster);
+                indexes.Shuffle();
 
                 if (difficulty.HasValue)
                 {
-                    for (int i = _multipliers.GetLength(0) - 1; i > -1; i--)
+                    var difficultyXp = XpList.First(l => l.Key == difficulty).Value;
+                    foreach (var i in indexes)
                     {
                         var count = (int)_multipliers[i, 0];
                         var allXP = monsterXP * count * _multipliers[i, 1];
-                        if (allXP <= currentXP)
+                        if (allXP >= difficultyXp && XpList.OrderByDescending(l => l.Value).First(l => allXP > l.Value).Key == difficulty)
                         {
                             var encounterDetail = _mapper.Map<EncounterDetail>(currentMonster);
-                            encounterDetail.XP = monsterXP * count;
+                            encounterDetail.XP = (int)allXP;
                             encounterDetail.Count = count;
                             encounterDetail.Difficulty = difficulty.Value.GetName(Resources.Enum.ResourceManager);
                             Enum.TryParse(encounterDetail.Type, out MonsterType type);
@@ -258,8 +257,6 @@ namespace REG.Core.Services
                 }
                 else
                 {
-                    var indexes = new List<int>(Enumerable.Range(0, _multipliers.GetLength(0)));
-                    indexes.Shuffle();
                     foreach (var i in indexes)
                     {
                         var count = (int)_multipliers[i, 0];
@@ -269,7 +266,7 @@ namespace REG.Core.Services
                             if (allXP <= xp.Value)
                             {
                                 var encounterDetail = _mapper.Map<EncounterDetail>(currentMonster);
-                                encounterDetail.XP = monsterXP * count;
+                                encounterDetail.XP = (int)allXP;
                                 encounterDetail.Count = count;
                                 encounterDetail.Difficulty = xp.Key.GetName(Resources.Enum.ResourceManager);
                                 Enum.TryParse(encounterDetail.Type, out MonsterType type);

@@ -19,7 +19,18 @@
     "intelligence": "INT",
     "wisdom": "WIS",
     "charisma": "CHA",
-    "speed": "Speed"
+    "speed": "Speed",
+    "actions": "Actions",
+    "legendaryActions": "Legendary actions",
+    "specialAbilities": "Special abilities",
+    "reactions": "Reactions"
+  },
+  "action": {
+    "name": "Name",
+    "desc": "Description",
+    "attackBonus": "Attack bonus",
+    "dmgBonus": "Damage bonus",
+    "dmgDice": "Damage dice"
   },
   "home": {
     "encountermenu": "Encounter",

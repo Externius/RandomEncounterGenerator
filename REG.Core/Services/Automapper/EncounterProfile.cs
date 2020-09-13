@@ -23,6 +23,8 @@ namespace REG.Core.Services.Automapper
                 .ForMember(d => d.DamageImmunities, opt => opt.MapFrom(s => s.Damage_Immunities))
                 .ForMember(d => d.DamageResistances, opt => opt.MapFrom(s => s.Damage_Resistances))
                 .ForMember(d => d.DamageVulnerabilities, opt => opt.MapFrom(s => s.Damage_Vulnerabilities))
+                .ForMember(d => d.SpecialAbilities, opt => opt.MapFrom(s => s.Special_Abilities))
+                .ForMember(d => d.LegendaryActions, opt => opt.MapFrom(s => s.Legendary_Actions))
                 .ForMember(d => d.IntelligenceSave, opt => opt.MapFrom(s => s.Intelligence_Save));
         }
     }

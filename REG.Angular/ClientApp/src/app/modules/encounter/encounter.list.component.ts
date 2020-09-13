@@ -15,8 +15,8 @@ export const compare = (v1, v2) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
   providers: [EncounterListService]
 })
 export class EncounterListComponent implements OnInit {
-  _monsterTypes: any[];
-  difficulties: any[];
+  _monsterTypes: [];
+  difficulties: [];
   partyLevels: number[] = [];
   partySizes: number[] = [];
   _orignialDetails: EncounterDetailModel[] = [];
@@ -42,17 +42,17 @@ export class EncounterListComponent implements OnInit {
   ngOnInit() {
     this.encounterListService.getMonsterTypes()
       .subscribe(data => {
-        this._monsterTypes = data as any[];
+        this._monsterTypes = data as [];
       });
     this.encounterListService.getDifficulties()
       .subscribe(data => {
-        this.difficulties = data as any[];
+        this.difficulties = data as [];
       });
     this.encounterOptionsForm = this.formBuilder.group(this.encounterOptions);
   }
 
   onSubmit() {
-    if (this.encounterOptionsForm.value.monsterTypes == null) { // workaround for first empty select
+    if (this.encounterOptionsForm.value.monsterTypes === null) { // workaround for first empty select
       this.encounterOptionsForm.value.monsterTypes = [];
     }
 

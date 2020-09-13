@@ -22,7 +22,7 @@ namespace REG.Core.Helpers
             string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "/Jsons/" + fileName);
             return JsonSerializer.Deserialize<List<T>>(json, new JsonSerializerOptions
             {
-                PropertyNameCaseInsensitive = true,
+                PropertyNameCaseInsensitive = true
             });
         }
     }

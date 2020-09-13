@@ -1,3 +1,27 @@
+export class SpecialAbility {
+  name: string;
+  desc: string;
+  attack_Bonus: number;
+  damage_Dice: string;
+}
+export class Action {
+  name: string;
+  desc: string;
+  attack_Bonus: number;
+  damage_Dice: string;
+  damage_Bonus: number;
+}
+export class LegendaryAction {
+  name: string;
+  desc: string;
+  attack_Bonus: number;
+  damage_Dice: string;
+}
+export class Reaction {
+  name: string;
+  desc: string;
+  attack_Bonus: number;
+}
 export class EncounterDetailModel {
   xp: number;
   count: number;
@@ -31,6 +55,10 @@ export class EncounterDetailModel {
   damageResistances: string;
   damageImmunities: string;
   conditionImmunities: string;
+  specialAbilities: SpecialAbility[];
+  actions: Action[];
+  reactions: Reaction[];
+  legendaryActions: LegendaryAction[];
 }
 export class EncounterModel {
   sumXp: number;

@@ -1,4 +1,7 @@
-﻿namespace REG.Core.Abstractions.Services.Models
+﻿using REG.Core.Abstractions.Services.Models.Json;
+using System.Collections.Generic;
+
+namespace REG.Core.Abstractions.Services.Models
 {
     public class EncounterDetail
     {
@@ -34,5 +37,16 @@
         public string DamageResistances { get; set; }
         public string DamageImmunities { get; set; }
         public string ConditionImmunities { get; set; }
+        public List<SpecialAbility> SpecialAbilities { get; set; }
+        public List<Action> Actions { get; set; }
+        public List<LegendaryAction> LegendaryActions { get; set; }
+        public List<Reaction> Reactions { get; set; }
+        public EncounterDetail()
+        {
+            SpecialAbilities = new List<SpecialAbility>();
+            Actions = new List<Action>();
+            LegendaryActions = new List<LegendaryAction>();
+            Reactions = new List<Reaction>();
+        }
     }
 }

@@ -10,7 +10,6 @@ import { EncounterService } from '../../core/http/encounter.service';
     providers: [EncounterService]
   })
 export class EncounterDetailComponent {
-
   @Input() detail: EncounterDetailModel;
 
   constructor(public activeModal: NgbActiveModal) {

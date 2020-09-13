@@ -19,7 +19,18 @@
     "intelligence": "INT",
     "wisdom": "WIS",
     "charisma": "CHA",
-    "speed": "Sebesség"
+    "speed": "Sebesség",
+    "actions": "Akciók",
+    "legendaryActions": "Legendás akciók",
+    "specialAbilities": "Speciális képességek",
+    "reactions": "Rakciók"
+  },
+  "action": {
+    "name": "Név",
+    "desc": "Leírás",
+    "attackBonus": "Támadás bónusz",
+    "dmgBonus": "Sebzés bónusz",
+    "dmgDice": "Sebzés kocka"
   },
   "home": {
     "encountermenu": "Találkozás",

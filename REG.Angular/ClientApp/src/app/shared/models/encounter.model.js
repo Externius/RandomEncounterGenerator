@@ -1,5 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var SpecialAbility = /** @class */ (function () {
+    function SpecialAbility() {
+    }
+    return SpecialAbility;
+}());
+exports.SpecialAbility = SpecialAbility;
+var Action = /** @class */ (function () {
+    function Action() {
+    }
+    return Action;
+}());
+exports.Action = Action;
+var LegendaryAction = /** @class */ (function () {
+    function LegendaryAction() {
+    }
+    return LegendaryAction;
+}());
+exports.LegendaryAction = LegendaryAction;
+var Reaction = /** @class */ (function () {
+    function Reaction() {
+    }
+    return Reaction;
+}());
+exports.Reaction = Reaction;
 var EncounterDetailModel = /** @class */ (function () {
     function EncounterDetailModel() {
     }

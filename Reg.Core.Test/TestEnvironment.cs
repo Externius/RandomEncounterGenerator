@@ -6,10 +6,7 @@ using Microsoft.Extensions.Logging;
 using REG.Core.Abstractions.Services;
 using REG.Core.Services;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using System.Text;
 
 namespace REG.Core.Test
 {
