@@ -18,7 +18,7 @@
     <div class="row">
       <label for="monsterTypes" class="col-md-2 col-form-label">{{ 'encounter.type' | translate }}</label>
       <div class="col-md-3 text-left">
-        <ng-select [multiple]="true" [items]="_monsterTypes" bindLabel="Key" bindValue="Value" id="monsterType"
+        <ng-select [multiple]="true" [items]="_monsterTypes" bindLabel="key" bindValue="value" id="monsterType"
           formControlName="monsterTypes">
         </ng-select>
       </div>
@@ -26,7 +26,7 @@
     <div class="row">
       <label for="difficulty" class="col-md-2 col-form-label">{{ 'encounter.difficulty' | translate }}</label>
       <div class="col-md-3 text-left">
-        <ng-select [items]="difficulties" bindLabel="Key" bindValue="Value" id="difficulty"
+        <ng-select [items]="difficulties" bindLabel="key" bindValue="value" id="difficulty"
           formControlName="difficulty">
         </ng-select>
       </div>

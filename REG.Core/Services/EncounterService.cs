@@ -99,7 +99,7 @@ namespace REG.Core.Services
             _logger = logger;
         }
 
-        public async Task<List<KeyValuePair<string,int>>> GetEnumListAsync<T>() where T : struct
+        public async Task<List<KeyValuePair<string, int>>> GetEnumListAsync<T>() where T : struct
         {
             if (!typeof(T).IsEnum)
                 throw new InvalidOperationException("Type parameter must be Enum.");
@@ -107,7 +107,7 @@ namespace REG.Core.Services
             return await Task.Run(() =>
             {
                 var list = new List<KeyValuePair<string, int>>();
- 
+                
                 foreach (var e in Enum.GetValues(typeof(T)))
                 {
                     list.Add(new KeyValuePair<string, int>((e as Enum).GetName(Resources.Enum.ResourceManager), (int)e));
@@ -190,7 +190,7 @@ namespace REG.Core.Services
             return _thresholds[PartyLevel, difficulty] * PartySize;
         }
 
-        private void ValidateOption(EncounterOption option)
+        private static void ValidateOption(EncounterOption option)
         {
             var exceptions = new List<ServiceException>();
 
@@ -205,18 +205,18 @@ namespace REG.Core.Services
                 throw new ServiceAggregateException(exceptions);
         }
 
-        private void CheckPossible(int sumXP, SortedSet<int> monsterXps)
+        private static void CheckPossible(int sumXP, SortedSet<int> monsterXps)
         {
             if (sumXP > monsterXps.First())
                 return;
             throw new ServiceException(ServiceException.EncounterNotPossible);
         }
-        private int GetMonsterXP(Monster monster)
+        private static int GetMonsterXP(Monster monster)
         {
             return _challengeRatingXP[_challengeRating.IndexOf(monster.Challenge_Rating)];
         }
 
-        private int GetRandomInt(int min, int max)
+        private static int GetRandomInt(int min, int max)
         {
             if (max != min)
                 return ThreadSafeRandom.ThisThreadsRandom.Next(max - min) + min;
@@ -243,14 +243,14 @@ namespace REG.Core.Services
                     {
                         var count = (int)_multipliers[i, 0];
                         var allXP = monsterXP * count * _multipliers[i, 1];
-                        if (allXP >= difficultyXp && XpList.OrderByDescending(l => l.Value).First(l => allXP > l.Value).Key == difficulty)
+                        if (allXP >= difficultyXp && XpList.OrderByDescending(l => l.Value).First(l => allXP >= l.Value).Key == difficulty)
                         {
                             var encounterDetail = _mapper.Map<EncounterDetail>(currentMonster);
                             encounterDetail.XP = (int)allXP;
                             encounterDetail.Count = count;
                             encounterDetail.Difficulty = difficulty.Value.GetName(Resources.Enum.ResourceManager);
-                            Enum.TryParse(encounterDetail.Type, out MonsterType type);
-                            encounterDetail.Type = type.GetName(Resources.Enum.ResourceManager);
+                            if (Enum.TryParse(encounterDetail.Type, out MonsterType type))
+                                encounterDetail.Type = type.GetName(Resources.Enum.ResourceManager);
                             return encounterDetail;
                         }
                     }
@@ -269,8 +269,8 @@ namespace REG.Core.Services
                                 encounterDetail.XP = (int)allXP;
                                 encounterDetail.Count = count;
                                 encounterDetail.Difficulty = xp.Key.GetName(Resources.Enum.ResourceManager);
-                                Enum.TryParse(encounterDetail.Type, out MonsterType type);
-                                encounterDetail.Type = type.GetName(Resources.Enum.ResourceManager);
+                                if (Enum.TryParse(encounterDetail.Type, out MonsterType type))
+                                    encounterDetail.Type = type.GetName(Resources.Enum.ResourceManager);
                                 return encounterDetail;
                             }
                         }

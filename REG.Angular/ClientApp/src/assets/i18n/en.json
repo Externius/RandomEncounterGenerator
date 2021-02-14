@@ -36,7 +36,7 @@
     "encountermenu": "Encounter",
     "homemenu": "Home",
     "title": "Random encounter generator",
-    "welcome": "This is a ASP.NET Core 3.1 Angular project for generating random encounters using D&D5th Edition SRD monsters."
+    "welcome": "This is a ASP.NET Core 5.0 Angular project for generating random encounters using D&D5th Edition SRD monsters."
   },
   "common": {
     "generate": "Generate",
