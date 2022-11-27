@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { EncounterListService } from './encounter.list.service';
-import { EncounterOptionModel, EncounterModel, EncounterDetailModel } from '../../shared/models/encounter.model';
+import { EncounterOptionModel, EncounterModel, EncounterDetailModel, SpecialAbility, Action, Reaction, LegendaryAction } from '../../shared/models/encounter.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { SortEvent, SortableHeaderDirective } from '../../shared/directive/sortable.directive';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EncounterDetailComponent } from './encounter.detail.component';
 
-export const compare = (v1, v2) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | SpecialAbility[] | Action[] | Reaction[] | LegendaryAction[],
+  v2: string | number | SpecialAbility[] | Action[] | Reaction[] | LegendaryAction[]) => (v1 < v2 ? -1 : v1 > v2 ? 1 : 0);
 
 @Component({
   selector: 'app-encounter',
@@ -15,16 +16,16 @@ export const compare = (v1, v2) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
   providers: [EncounterListService]
 })
 export class EncounterListComponent implements OnInit {
-  _monsterTypes: [];
-  difficulties: [];
+  _monsterTypes!: [];
+  difficulties!: [];
   partyLevels: number[] = [];
   partySizes: number[] = [];
   _orignialDetails: EncounterDetailModel[] = [];
   serverError = '';
-  encounterOptionsForm: FormGroup;
+  encounterOptionsForm!: FormGroup;
   encounterOptions: EncounterOptionModel = new EncounterOptionModel();
   encounterModel: EncounterModel = new EncounterModel();
-  @ViewChildren(SortableHeaderDirective) headers: QueryList<SortableHeaderDirective>;
+  @ViewChildren(SortableHeaderDirective) headers!: QueryList<SortableHeaderDirective>;
   faInfoCircle = faInfoCircle;
 
   constructor(
@@ -58,7 +59,7 @@ export class EncounterListComponent implements OnInit {
 
     this.encounterListService.generate(JSON.stringify(this.encounterOptionsForm.value))
       .subscribe(
-        (data: JSON) => {
+        (data: Object) => {
           Object.assign(this.encounterModel, data);
           this._orignialDetails = [];
           Object.assign(this._orignialDetails, this.encounterModel.encounters);
@@ -76,7 +77,7 @@ export class EncounterListComponent implements OnInit {
       }
     });
 
-    if (direction === '') {
+    if (direction === '' || column === '') {
       this.encounterModel.encounters = this._orignialDetails;
     } else {
       this.encounterModel.encounters = [...this._orignialDetails].sort((a, b) => {

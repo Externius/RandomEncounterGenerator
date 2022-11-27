@@ -3,7 +3,9 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "types": [],
-    "lib": [ "esnext", "dom" ]
+    "lib": [ "esnext", "dom" ],
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "src/test.ts",

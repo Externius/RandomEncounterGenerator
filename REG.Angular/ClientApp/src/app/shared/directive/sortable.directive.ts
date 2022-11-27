@@ -1,19 +1,22 @@
 import { Directive, EventEmitter, Input, Output, HostBinding, HostListener } from '@angular/core';
+import { EncounterDetailModel } from '../models/encounter.model';
 
 export type SortDirection = 'asc' | 'desc' | '';
+export type SortColumn = keyof EncounterDetailModel | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 
 export interface SortEvent {
-  column: string;
+  column: SortColumn;
   direction: SortDirection;
 }
 
 @Directive({
   selector: 'th[sortable]',
 })
+
 export class SortableHeaderDirective {
 
-  @Input() sortable: string;
+  @Input() sortable: SortColumn = '';
   @Input() direction: SortDirection = '';
   @Output() sort = new EventEmitter<SortEvent>();
 

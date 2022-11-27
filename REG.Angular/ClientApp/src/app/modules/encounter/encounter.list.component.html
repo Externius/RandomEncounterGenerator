@@ -1,12 +1,11 @@
 <div class="col-md-12">
-  <form [formGroup]="encounterOptionsForm" (ngSubmit)="onSubmit(encounterOptionsForm.value)">
+  <form [formGroup]="encounterOptionsForm" (ngSubmit)="onSubmit()">
     <div class="row">
       <label for="partyLevel" class="col-md-2 col-form-label">{{ 'encounter.partylevel' | translate }}</label>
       <div class="col-md-3 text-left">
         <ng-select [items]="partyLevels" [clearable]="false" id="partyLevel" formControlName="partyLevel">
         </ng-select>
       </div>
-      <button class="btn btn-primary" type="submit">{{ 'common.generate' | translate }}</button>
     </div>
     <div class="row">
       <label for="partySize" class="col-md-2 col-form-label">{{ 'encounter.partysize' | translate }}</label>
@@ -30,6 +29,9 @@
           formControlName="difficulty">
         </ng-select>
       </div>
+    </div>
+    <div class="row">
+      <button class="btn btn-primary" type="submit">{{ 'common.generate' | translate }}</button>
     </div>
   </form>
 </div>

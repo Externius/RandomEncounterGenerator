@@ -6,9 +6,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './alertdialog.component.html'
 })
 export class AlertDialogComponent {
-  @Input() title: string;
-  @Input() message: string;
-  @Input() stackTrace: string;
+  @Input() title: string = "";
+  @Input() message: string = "";
+  @Input() stackTrace: string = "";
 
   constructor(public activeModal: NgbActiveModal) {
   }

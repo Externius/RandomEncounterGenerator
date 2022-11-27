@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace REG.Core.Abstractions.Services
+namespace REG.Core.Abstractions.Services;
+
+public interface IEncounterService
 {
-    public interface IEncounterService
-    {
-        Task<EncounterModel> GenerateAsync(EncounterOption option);
-        Task<List<KeyValuePair<string, int>>> GetEnumListAsync<T>() where T : struct;
-    }
+    Task<EncounterModel> GenerateAsync(EncounterOption option);
+    Task<List<KeyValuePair<string, int>>> GetEnumListAsync<T>() where T : struct;
 }

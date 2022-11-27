@@ -1,6 +1,6 @@
 # Random Encounter Generator
 
-This is a ASP.NET Core 5.0 Angular project for generating random encounters using D&amp;D5th Edition SRD monsters.
+This is a ASP.NET Core 7.0 Angular project for generating random encounters using D&amp;D5th Edition SRD monsters.
 
 ## Build
 

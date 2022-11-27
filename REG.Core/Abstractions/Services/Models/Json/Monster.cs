@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 
-namespace REG.Core.Abstractions.Services.Models.Json
+namespace REG.Core.Abstractions.Services.Models.Json;
+
+public class Monster
 {
-    public class Monster
-    {
     public string Name { get; set; }
     public string Size { get; set; }
     public string Type { get; set; }
@@ -52,5 +52,4 @@ namespace REG.Core.Abstractions.Services.Models.Json
     public int? Nature { get; set; }
     public int? Intimidation { get; set; }
     public int? Performance { get; set; }
-    }
 }

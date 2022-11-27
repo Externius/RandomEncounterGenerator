@@ -1,20 +1,35 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+using REG.Angular.Middleware;
 
-namespace REG.Angular
+namespace REG.Angular;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services
+            .AddWebServices()
+            .AddApplicationServices();
+
+        var app = builder.Build();
+
+        app.UseMiddleware<ExceptionMiddleware>();
+
+        if (!app.Environment.IsDevelopment())
         {
-            CreateHostBuilder(args).Build().Run();
+            app.UseHsts();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+        app.UseRouting();
+
+        app.UseCors("default");
+
+        app.MapControllers();
+        app.MapFallbackToFile("index.html");
+
+        app.Run();
     }
 }
