@@ -30,8 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\REG.Resources\REG.Resources.csproj" />
-    <ProjectReference Include="..\REG.Core\REG.Core.csproj" />
+    <ProjectReference Include="..\..\src\REG.Resources\REG.Resources.csproj" />
+    <ProjectReference Include="..\..\src\REG.Core\REG.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
