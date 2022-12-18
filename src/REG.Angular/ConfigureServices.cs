@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Localization;
 using REG.Core.Abstractions.Services;
+using REG.Core.Abstractions.Settings;
 using REG.Core.Services;
 using System.Globalization;
 
@@ -8,12 +9,15 @@ namespace REG.Angular;
 public static class ConfigureServices
 {
     public static IServiceCollection AddWebServices(
-    this IServiceCollection services
+        this IServiceCollection services,
+        IConfiguration configuration
     )
     {
-        services.AddCors(o => o.AddPolicy("default", builder =>
+        services.AddCors(o => o.AddPolicy(CorsSettings.Policy, builder =>
         {
-            builder.WithOrigins("https://localhost:4200")
+            var corsSettings = configuration.GetSection(nameof(CorsSettings)).Get<CorsSettings>();
+
+            builder.WithOrigins(corsSettings?.Urls ?? new[] { "https://localhost:4200" })
                 .AllowCredentials()
                 .AllowAnyMethod()
                 .AllowAnyHeader();

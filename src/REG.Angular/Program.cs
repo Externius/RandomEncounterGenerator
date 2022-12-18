@@ -1,4 +1,5 @@
 using REG.Angular.Middleware;
+using REG.Core.Abstractions.Settings;
 
 namespace REG.Angular;
 
@@ -9,7 +10,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services
-            .AddWebServices()
+            .AddWebServices(builder.Configuration)
             .AddApplicationServices();
 
         var app = builder.Build();
@@ -25,7 +26,7 @@ public class Program
         app.UseStaticFiles();
         app.UseRouting();
 
-        app.UseCors("default");
+        app.UseCors(CorsSettings.Policy);
 
         app.MapControllers();
         app.MapFallbackToFile("index.html");
