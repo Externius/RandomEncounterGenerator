@@ -116,7 +116,7 @@ public class EncounterService : IEncounterService
         ValidateOption(option);
         _partyLevel = option.PartyLevel;
         _partySize = option.PartySize;
-        _xpList = new List<KeyValuePair<Difficulty, int>>()
+        _xpList = new List<KeyValuePair<Difficulty, int>>
         {
             new(Difficulty.Easy , Thresholds[_partyLevel, 0] * _partySize),
             new(Difficulty.Medium , Thresholds[_partyLevel, 1] * _partySize),
@@ -126,7 +126,7 @@ public class EncounterService : IEncounterService
         try
         {
             _monsters = new List<Monster>(MonsterLoader.Instance.MonsterList);
-            var sumxp = CalcSumXp((int)Difficulty.Deadly);
+            var sumXp = CalcSumXp((int)Difficulty.Deadly);
             var monsterXps = new SortedSet<int>();
 
             if (option.MonsterTypes.Any())
@@ -136,14 +136,14 @@ public class EncounterService : IEncounterService
             }
 
             if (option.Difficulty.HasValue)
-                sumxp = Thresholds[option.PartyLevel, (int)option.Difficulty.Value] * option.PartySize;
+                sumXp = Thresholds[option.PartyLevel, (int)option.Difficulty.Value] * option.PartySize;
 
             foreach (var monster in _monsters)
             {
-                monsterXps.Add(ChallengeRatingXp[ChallengeRating.IndexOf(monster.Challenge_Rating)]);
+                monsterXps.Add(ChallengeRatingXp[ChallengeRating.IndexOf(monster.ChallengeRating)]);
             }
 
-            CheckPossible(sumxp, monsterXps);
+            CheckPossible(sumXp, monsterXps);
 
             var result = new EncounterModel();
             var maxTryNumber = 5000;
@@ -164,13 +164,13 @@ public class EncounterService : IEncounterService
             });
 
             result.Encounters.RemoveAll(ed => ed == null); // cleanup if needed
-            result.SumXp = result.Encounters.Sum(ed => ed.XP);
+            result.SumXp = result.Encounters.Sum(ed => ed.Xp);
 
             return result;
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Generate encounter failed.");
+            _logger.LogError(ex, "Generate encounter failed.");
             throw new ServiceException(ex.Message, ex);
         }
     }
@@ -195,7 +195,7 @@ public class EncounterService : IEncounterService
             throw new ServiceAggregateException(exceptions);
     }
 
-    private static void CheckPossible(int sumXp, SortedSet<int> monsterXps)
+    private static void CheckPossible(int sumXp, IEnumerable<int> monsterXps)
     {
         if (sumXp > monsterXps.First())
             return;
@@ -203,7 +203,7 @@ public class EncounterService : IEncounterService
     }
     private static int GetMonsterXp(Monster monster)
     {
-        return ChallengeRatingXp[ChallengeRating.IndexOf(monster.Challenge_Rating)];
+        return ChallengeRatingXp[ChallengeRating.IndexOf(monster.ChallengeRating)];
     }
 
     private static int GetRandomInt(int min, int max)
@@ -236,7 +236,7 @@ public class EncounterService : IEncounterService
                     if (allXp >= difficultyXp && _xpList.OrderByDescending(l => l.Value).First(l => allXp >= l.Value).Key == difficulty)
                     {
                         var encounterDetail = _mapper.Map<EncounterDetail>(currentMonster);
-                        encounterDetail.XP = (int)allXp;
+                        encounterDetail.Xp = (int)allXp;
                         encounterDetail.Count = count;
                         encounterDetail.Difficulty = difficulty.Value.GetName(Resources.Enum.ResourceManager);
                         if (Enum.TryParse(encounterDetail.Type, out MonsterType type))
@@ -256,7 +256,7 @@ public class EncounterService : IEncounterService
                         if (allXp <= xp.Value)
                         {
                             var encounterDetail = _mapper.Map<EncounterDetail>(currentMonster);
-                            encounterDetail.XP = (int)allXp;
+                            encounterDetail.Xp = (int)allXp;
                             encounterDetail.Count = count;
                             encounterDetail.Difficulty = xp.Key.GetName(Resources.Enum.ResourceManager);
                             if (Enum.TryParse(encounterDetail.Type, out MonsterType type))

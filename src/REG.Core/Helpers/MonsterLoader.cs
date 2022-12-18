@@ -14,15 +14,12 @@ public sealed class MonsterLoader
     }
     private MonsterLoader()
     {
-        MonsterList = DeseraliazerJSON<Monster>("5e-SRD-Monsters.json");
+        MonsterList = DeseraliazerJson<Monster>("5e-SRD-Monsters.json");
     }
     public List<Monster> MonsterList { get; }
-    public List<T> DeseraliazerJSON<T>(string fileName)
+    public List<T> DeseraliazerJson<T>(string fileName)
     {
         var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "/Jsons/" + fileName);
-        return JsonSerializer.Deserialize<List<T>>(json, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        return JsonSerializer.Deserialize<List<T>>(json);
     }
 }

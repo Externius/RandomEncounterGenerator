@@ -5,7 +5,7 @@ namespace REG.Core.Abstractions.Services.Models;
 
 public class EncounterDetail
 {
-    public int XP { get; set; }
+    public int Xp { get; set; }
     public int Count { get; set; }
     public string Name { get; set; }
     public string Type { get; set; }
@@ -13,8 +13,8 @@ public class EncounterDetail
     public string ChallengeRating { get; set; }
     public string Size { get; set; }
     public string Alignment { get; set; }
-    public int HP { get; set; }
-    public int AC { get; set; }
+    public int Hp { get; set; }
+    public int Ac { get; set; }
     public string HitDice { get; set; }
     public string Speed { get; set; }
     public string Senses { get; set; }
@@ -25,7 +25,7 @@ public class EncounterDetail
     public int Intelligence { get; set; }
     public int Wisdom { get; set; }
     public int Charisma { get; set; }
-    public int SterngthSave { get; set; }
+    public int StrengthSave { get; set; }
     public int DexteritySave { get; set; }
     public int ConstitutionSave { get; set; }
     public int IntelligenceSave { get; set; }
