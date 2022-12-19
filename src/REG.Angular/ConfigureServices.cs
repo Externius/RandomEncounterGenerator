@@ -43,9 +43,9 @@ public static class ConfigureServices
 
         services.AddControllers();
         // In production, the Angular files will be served from this directory
-        services.AddSpaStaticFiles(configuration =>
+        services.AddSpaStaticFiles(staticFilesOptions =>
         {
-            configuration.RootPath = "ClientApp/dist";
+            staticFilesOptions.RootPath = "ClientApp/dist";
         });
 
         return services;
