@@ -2,15 +2,28 @@
 
 This is a ASP.NET Core 7.0 Angular project for generating random encounters using D&amp;D5th Edition SRD monsters.
 
+## Prerequisites
+
+You have Node.js and npm installed, also .NET 7 SDK.
+
+## Get the code
+
+Use `git clone` to clone the repository.
+
 ## Build
 
-In the ClientApp folder you must run the following commands in a terminal:
+In your preferred IDe run the REG.Angular project.  
+Or manually in the project root folder you must run the following commands in a terminal:
 
-npm install
+``` bash
+dotnet build
+```
 
-npm start
+Than in the REG.Angular folder:
 
-Then on your IDE start the REG.Angular project (or with dotnet build/run in a terminal).
+``` bash
+dotnet run
+```
 
 ## Usage
 
