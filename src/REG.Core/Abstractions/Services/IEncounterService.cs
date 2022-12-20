@@ -8,4 +8,5 @@ public interface IEncounterService
 {
     Task<EncounterModel> GenerateAsync(EncounterOption option);
     Task<List<KeyValuePair<string, int>>> GetEnumListAsync<T>() where T : struct;
+    List<T> DeserializeJson<T>(string jsonFilePath = null);
 }

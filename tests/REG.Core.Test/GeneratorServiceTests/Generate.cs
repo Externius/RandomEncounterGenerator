@@ -1,10 +1,13 @@
 ﻿using REG.Core.Abstractions.Services;
 using REG.Core.Abstractions.Services.Exceptions;
 using REG.Core.Abstractions.Services.Models;
+using REG.Core.Abstractions.Services.Models.Json;
 using REG.Core.Domain;
+using REG.Core.Services;
 using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace REG.Core.Test.GeneratorServiceTests;
@@ -12,7 +15,7 @@ namespace REG.Core.Test.GeneratorServiceTests;
 public class Generate
 {
     [Fact]
-    public void CanGenerate()
+    public async Task CanGenerate()
     {
         using var env = new TestEnvironment();
         var service = env.GetService<IEncounterService>();
@@ -23,13 +26,15 @@ public class Generate
             PartySize = 5
         };
 
-        var result = service.GenerateAsync(option).Result;
+        var result = await service.GenerateAsync(option);
 
         result.ShouldNotBeNull();
+        result.Encounters.Count.ShouldBe(option.Count);
     }
 
-    [Fact]
-    public void CanFilterWithMonsterTypes()
+    [Theory]
+    [MemberData(nameof(MonsterData.Data), MemberType = typeof(MonsterData))]
+    public async Task CanFilterWithMonsterTypes(List<MonsterType> monsters)
     {
         using var env = new TestEnvironment();
         var service = env.GetService<IEncounterService>();
@@ -37,19 +42,21 @@ public class Generate
         var option = new EncounterOption
         {
             PartyLevel = 4,
-            MonsterTypes = new List<MonsterType> { MonsterType.Beast, MonsterType.Humanoid },
+            MonsterTypes = monsters,
             PartySize = 5
         };
 
-        var result = service.GenerateAsync(option).Result;
+        var encounterModel = await service.GenerateAsync(option);
 
-        result.ShouldNotBeNull();
-        result.Encounters.ShouldNotBeNull();
-        result.Encounters.Any(e => !option.MonsterTypes.Select(m => m.ToString().ToLower()).Any(e.Type.ToLower().Equals)).ShouldBeFalse();
+        encounterModel.ShouldNotBeNull();
+        encounterModel.Encounters.ShouldNotBeNull();
+        var resultMonsterTypes = encounterModel.Encounters.Select(ed => ed.Type.ToLower()).Distinct();
+        var optionMonsterTypes = option.MonsterTypes.Select(m => m.GetName(Resources.Enum.ResourceManager).ToLower());
+        resultMonsterTypes.Except(optionMonsterTypes).Count().ShouldBe(0);
     }
 
     [Fact]
-    public void CanThrowException()
+    public async Task CanThrowException()
     {
         using var env = new TestEnvironment();
         var service = env.GetService<IEncounterService>();
@@ -62,9 +69,21 @@ public class Generate
             Difficulty = Difficulty.Easy
         };
 
-        Should.Throw<ServiceException>(async () =>
+        await Should.ThrowAsync<ServiceException>(async () =>
         {
             await service.GenerateAsync(option);
         });
+    }
+
+    [Fact]
+    public void CanDeserializeJson()
+    {
+        using var env = new TestEnvironment();
+        var service = env.GetService<IEncounterService>();
+
+        var result = service.DeserializeJson<Monster>();
+
+        result.ShouldNotBeNull();
+        result.Count.ShouldBeGreaterThan(0);
     }
 }

@@ -5,10 +5,11 @@ using REG.Core.Abstractions.Services.Exceptions;
 using REG.Core.Abstractions.Services.Models;
 using REG.Core.Abstractions.Services.Models.Json;
 using REG.Core.Domain;
-using REG.Core.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace REG.Core.Services;
@@ -17,6 +18,7 @@ public class EncounterService : IEncounterService
 {
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
+    private const string MonstersFileName = "5e-SRD-Monsters.json";
     private static readonly int[] ChallengeRatingXp = {
         10,
         25,
@@ -111,6 +113,14 @@ public class EncounterService : IEncounterService
                 .ToList());
     }
 
+    public List<T> DeserializeJson<T>(string jsonFilePath = null)
+    {
+        var json = jsonFilePath != null 
+                ? File.ReadAllText(jsonFilePath) 
+                : File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "/Jsons/" + MonstersFileName);
+        return JsonSerializer.Deserialize<List<T>>(json);
+    }
+
     public async Task<EncounterModel> GenerateAsync(EncounterOption option)
     {
         ValidateOption(option);
@@ -125,7 +135,7 @@ public class EncounterService : IEncounterService
         };
         try
         {
-            _monsters = new List<Monster>(MonsterLoader.Instance.MonsterList);
+            _monsters = DeserializeJson<Monster>();
             var sumXp = CalcSumXp((int)Difficulty.Deadly);
             var monsterXps = new SortedSet<int>();
 
