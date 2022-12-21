@@ -36,7 +36,7 @@ jobs:
       - name: Replace token
         uses: cschleiden/replace-tokens@v1
         with:
-          files: '["**/*.js"]'
+          files: '["**/*.ts"]'
         env:
           API_URL: ${{ secrets.AZURE_WEBAPP_API_URL }}
 
