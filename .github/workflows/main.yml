@@ -3,7 +3,7 @@ name: Build and deploy main branch to Azure
 env:
   AZURE_WEBAPP_NAME: app-reg
   AZURE_WEBAPP_PACKAGE_PATH: '.'
-  DOTNET_VERSION: '7'
+  DOTNET_VERSION: '7.x'
 
 on:
   push:
