@@ -33,6 +33,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
 
+      - name: Replace token
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["**/*.js"]'
+        env:
+          API_URL: ${{ secrets.AZURE_WEBAPP_API_URL }}
+
       - name: Build with dotnet
         run: dotnet build --configuration Release
         
