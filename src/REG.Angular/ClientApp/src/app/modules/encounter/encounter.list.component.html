@@ -1,14 +1,14 @@
 <div class="col-md-12">
   <form [formGroup]="encounterOptionsForm" (ngSubmit)="onSubmit()">
     <div class="row">
-      <label for="partyLevel" class="col-md-2 col-form-label">{{ 'encounter.partylevel' | translate }}</label>
+      <label for="partyLevel" class="col-md-2 col-form-label">{{ 'encounter.partyLevel' | translate }}</label>
       <div class="col-md-3 text-left">
         <ng-select [items]="partyLevels" [clearable]="false" id="partyLevel" formControlName="partyLevel">
         </ng-select>
       </div>
     </div>
     <div class="row">
-      <label for="partySize" class="col-md-2 col-form-label">{{ 'encounter.partysize' | translate }}</label>
+      <label for="partySize" class="col-md-2 col-form-label">{{ 'encounter.partySize' | translate }}</label>
       <div class="col-md-3 text-left">
         <ng-select [items]="partySizes" [clearable]="false" id="partySize" formControlName="partySize">
         </ng-select>
@@ -40,7 +40,7 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col" sortable="name" (sort)="onSort($event)">{{ 'encounter.monstername' | translate }}</th>
+        <th scope="col" sortable="name" (sort)="onSort($event)">{{ 'encounter.monsterName' | translate }}</th>
         <th scope="col" sortable="count" (sort)="onSort($event)">{{ 'encounter.count' | translate }}</th>
         <th scope="col" sortable="difficulty" (sort)="onSort($event)">{{ 'encounter.difficulty' | translate }}</th>
         <th scope="col" sortable="type" (sort)="onSort($event)">{{ 'encounter.type' | translate }}</th>

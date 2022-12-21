@@ -1,14 +1,14 @@
 {
   "encounter": {
     "type": "Szörny típus",
-    "partylevel": "Csapat szint",
-    "partysize": "Csapat méret",
-    "monstername": "Szörny neve",
+    "partyLevel": "Csapat szint",
+    "partySize": "Csapat méret",
+    "monsterName": "Szörny neve",
     "xp": "TP",
     "count": "Mennyiség",
     "difficulty": "Nehézség",
-    "detailtitle": "Szörny adatai",
-    "challengerating": "Kihívási szint",
+    "detailTitle": "Szörny adatai",
+    "challengeRating": "Kihívási szint",
     "size": "Méret",
     "alignment": "Jellem",
     "hp": "HP",
@@ -29,8 +29,8 @@
     "name": "Név",
     "desc": "Leírás",
     "attackBonus": "Támadás bónusz",
-    "dmgBonus": "Sebzés bónusz",
-    "dmgDice": "Sebzés kocka"
+    "damageBonus": "Sebzés bónusz",
+    "damageDice": "Sebzés kocka"
   },
   "home": {
     "encountermenu": "Találkozás",

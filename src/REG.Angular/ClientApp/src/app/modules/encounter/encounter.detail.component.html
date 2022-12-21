@@ -1,12 +1,12 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-title">{{'encounter.detailtitle' | translate}}</h4>
+  <h4 class="modal-title" id="modal-title">{{'encounter.detailTitle' | translate}}</h4>
   <button type="button" class="close" aria-describedby="modal-title" (click)="onDismiss()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
   <div class="form-group row">
-    <label class="col-sm-2 col-form-label">{{ 'encounter.monstername' | translate }}</label>
+    <label class="col-sm-2 col-form-label">{{ 'encounter.monsterName' | translate }}</label>
     <div class="col-sm-4">
       <input class="form-control" type="text" readonly value="{{detail.name}}">
     </div>
@@ -20,7 +20,7 @@
     <div class="col-sm-4">
       <input class="form-control" type="text" readonly value="{{detail.size}}">
     </div>
-    <label class="col-sm-2 col-form-label">{{ 'encounter.challengerating' | translate }}</label>
+    <label class="col-sm-2 col-form-label">{{ 'encounter.challengeRating' | translate }}</label>
     <div class="col-sm-4">
       <input class="form-control" type="text" readonly value="{{detail.challengeRating}}">
     </div>
@@ -121,8 +121,8 @@
           <th scope="col">{{ 'action.name' | translate }}</th>
           <th scope="col">{{ 'action.desc' | translate }}</th>
           <th scope="col">{{ 'action.attackBonus' | translate }}</th>
-          <th scope="col">{{ 'action.dmgDice' | translate }}</th>
-          <th scope="col">{{ 'action.dmgBonus' | translate }}</th>
+          <th scope="col">{{ 'action.damageDice' | translate }}</th>
+          <th scope="col">{{ 'action.damageBonus' | translate }}</th>
         </tr>
       </thead>
       <tbody>
@@ -163,7 +163,7 @@
           <th scope="col">{{ 'action.name' | translate }}</th>
           <th scope="col">{{ 'action.desc' | translate }}</th>
           <th scope="col">{{ 'action.attackBonus' | translate }}</th>
-          <th scope="col">{{ 'action.dmgDice' | translate }}</th>
+          <th scope="col">{{ 'action.damageDice' | translate }}</th>
         </tr>
       </thead>
       <tbody>
@@ -184,7 +184,7 @@
           <th scope="col">{{ 'action.name' | translate }}</th>
           <th scope="col">{{ 'action.desc' | translate }}</th>
           <th scope="col">{{ 'action.attackBonus' | translate }}</th>
-          <th scope="col">{{ 'action.dmgDice' | translate }}</th>
+          <th scope="col">{{ 'action.damageDice' | translate }}</th>
         </tr>
       </thead>
       <tbody>

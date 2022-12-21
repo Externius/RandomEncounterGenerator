@@ -1,26 +1,26 @@
 export class SpecialAbility {
   name: string = "";
   desc: string = "";
-  attack_bonus: number = 0;
+  attack_bonus?: number;
   damage_dice: string = "";
 }
 export class Action {
   name: string = "";
   desc: string = "";
-  attack_bonus: number = 0;
+  attack_bonus?: number;
   damage_dice: string = "";
-  damage_bonus: number = 0;
+  damage_bonus?: number;
 }
 export class LegendaryAction {
   name: string = "";
   desc: string = "";
-  attack_bonus: number = 0;
+  attack_bonus?: number;
   damage_dice: string = "";
 }
 export class Reaction {
   name: string = "";
   desc: string = "";
-  attack_bonus: number = 0;
+  attack_bonus?: number;
 }
 export class EncounterDetailModel {
   xp: number = 0;

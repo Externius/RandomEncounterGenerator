@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace REG.Core.Test.GeneratorServiceTests;
+namespace REG.Core.Tests.GeneratorServiceTests;
 
 public class Generate
 {
@@ -33,19 +33,11 @@ public class Generate
     }
 
     [Theory]
-    [MemberData(nameof(MonsterData.Data), MemberType = typeof(MonsterData))]
-    public async Task CanFilterWithMonsterTypes(List<MonsterType> monsters)
+    [MemberData(nameof(EncounterOptionData.FilterWithMonsterTypesData), MemberType = typeof(EncounterOptionData))]
+    public async Task CanFilterWithMonsterTypes(EncounterOption option)
     {
         using var env = new TestEnvironment();
         var service = env.GetService<IEncounterService>();
-
-        var option = new EncounterOption
-        {
-            PartyLevel = 4,
-            MonsterTypes = monsters,
-            PartySize = 5
-        };
-
         var encounterModel = await service.GenerateAsync(option);
 
         encounterModel.ShouldNotBeNull();
@@ -53,6 +45,28 @@ public class Generate
         var resultMonsterTypes = encounterModel.Encounters.Select(ed => ed.Type.ToLower()).Distinct();
         var optionMonsterTypes = option.MonsterTypes.Select(m => m.GetName(Resources.Enum.ResourceManager).ToLower());
         resultMonsterTypes.Except(optionMonsterTypes).Count().ShouldBe(0);
+    }
+
+    [Theory]
+    [MemberData(nameof(EncounterOptionData.FilterWithDifficultyData), MemberType = typeof(EncounterOptionData))]
+    public async Task CanFilterWithDifficulty(Difficulty difficulty, int partyLevel, int partySize)
+    {
+        using var env = new TestEnvironment();
+        var service = env.GetService<IEncounterService>();
+
+        var option = new EncounterOption
+        {
+            PartyLevel = partyLevel,
+            MonsterTypes = new List<MonsterType> { MonsterType.Beast, MonsterType.Humanoid, MonsterType.SwarmOfTinyBeasts },
+            PartySize = partySize,
+            Difficulty = difficulty
+        };
+
+        var encounterModel = await service.GenerateAsync(option);
+
+        encounterModel.ShouldNotBeNull();
+        encounterModel.Encounters.ShouldNotBeNull();
+        encounterModel.Encounters.All(e => e.Difficulty.Equals(difficulty.ToString())).ShouldBeTrue();
     }
 
     [Fact]

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "REG.Angular", "src\REG.Angu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "REG.Core", "src\REG.Core\REG.Core.csproj", "{6824A7B8-0041-4BDA-8643-6351AD4AAEF7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "REG.Core.Test", "tests\REG.Core.Test\REG.Core.Test.csproj", "{CDE2746F-1BB1-4C0E-9C66-9CFA3ECDCB86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "REG.Core.Tests", "tests\REG.Core.Tests\REG.Core.Tests.csproj", "{CDE2746F-1BB1-4C0E-9C66-9CFA3ECDCB86}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "REG.Resources", "src\REG.Resources\REG.Resources.csproj", "{C462CCF3-0D4F-4F73-834D-2820D78FEE0E}"
 EndProject

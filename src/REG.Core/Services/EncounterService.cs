@@ -115,10 +115,13 @@ public class EncounterService : IEncounterService
 
     public List<T> DeserializeJson<T>(string jsonFilePath = null)
     {
-        var json = jsonFilePath != null 
-                ? File.ReadAllText(jsonFilePath) 
+        var json = jsonFilePath != null
+                ? File.ReadAllText(jsonFilePath)
                 : File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "/Jsons/" + MonstersFileName);
-        return JsonSerializer.Deserialize<List<T>>(json);
+        return JsonSerializer.Deserialize<List<T>>(json, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        });
     }
 
     public async Task<EncounterModel> GenerateAsync(EncounterOption option)
@@ -211,6 +214,7 @@ public class EncounterService : IEncounterService
             return;
         throw new ServiceException(ServiceException.EncounterNotPossible);
     }
+
     private static int GetMonsterXp(Monster monster)
     {
         return ChallengeRatingXp[ChallengeRating.IndexOf(monster.ChallengeRating)];
@@ -238,21 +242,16 @@ public class EncounterService : IEncounterService
 
             if (difficulty.HasValue)
             {
-                var difficultyXp = _xpList.First(l => l.Key == difficulty).Value;
+                var difficultyXp = _xpList.First(l => l.Key == difficulty.Value).Value;
                 foreach (var i in indexes)
                 {
                     var count = (int)Multipliers[i, 0];
                     var allXp = monsterXp * count * Multipliers[i, 1];
-                    if (allXp >= difficultyXp && _xpList.OrderByDescending(l => l.Value).First(l => allXp >= l.Value).Key == difficulty)
-                    {
-                        var encounterDetail = _mapper.Map<EncounterDetail>(currentMonster);
-                        encounterDetail.Xp = (int)allXp;
-                        encounterDetail.Count = count;
-                        encounterDetail.Difficulty = difficulty.Value.GetName(Resources.Enum.ResourceManager);
-                        if (Enum.TryParse(encounterDetail.Type, out MonsterType type))
-                            encounterDetail.Type = type.GetName(Resources.Enum.ResourceManager);
-                        return encounterDetail;
-                    }
+                    if (!(allXp >= difficultyXp) ||
+                        _xpList.OrderByDescending(l => l.Value).First(l => allXp >= l.Value).Key != difficulty)
+                        continue;
+
+                    return GetEncounterDetail(difficulty.Value, currentMonster, (int)allXp, count);
                 }
             }
             else
@@ -261,18 +260,9 @@ public class EncounterService : IEncounterService
                 {
                     var count = (int)Multipliers[i, 0];
                     var allXp = monsterXp * count * Multipliers[i, 1];
-                    foreach (var xp in _xpList)
+                    foreach (var xp in _xpList.Where(xp => !(allXp > xp.Value)))
                     {
-                        if (allXp <= xp.Value)
-                        {
-                            var encounterDetail = _mapper.Map<EncounterDetail>(currentMonster);
-                            encounterDetail.Xp = (int)allXp;
-                            encounterDetail.Count = count;
-                            encounterDetail.Difficulty = xp.Key.GetName(Resources.Enum.ResourceManager);
-                            if (Enum.TryParse(encounterDetail.Type, out MonsterType type))
-                                encounterDetail.Type = type.GetName(Resources.Enum.ResourceManager);
-                            return encounterDetail;
-                        }
+                        return GetEncounterDetail(xp.Key, currentMonster, (int)allXp, count);
                     }
                 }
             }
@@ -280,5 +270,18 @@ public class EncounterService : IEncounterService
         }
 
         return null;
+    }
+
+    private EncounterDetail GetEncounterDetail(Difficulty difficulty, Monster currentMonster, int allXp, int count)
+    {
+        var encounterDetail = _mapper.Map<EncounterDetail>(currentMonster);
+        encounterDetail.Xp = allXp;
+        encounterDetail.Count = count;
+        encounterDetail.Difficulty = difficulty.GetName(Resources.Enum.ResourceManager);
+
+        if (Enum.TryParse(encounterDetail.Type, out MonsterType type))
+            encounterDetail.Type = type.GetName(Resources.Enum.ResourceManager);
+
+        return encounterDetail;
     }
 }

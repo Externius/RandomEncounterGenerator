@@ -7,7 +7,7 @@ using REG.Core.Services;
 using System;
 using System.IO;
 
-namespace REG.Core.Test;
+namespace REG.Core.Tests;
 
 public class TestEnvironment : IDisposable
 {
@@ -43,7 +43,7 @@ public class TestEnvironment : IDisposable
             builder.AddDebug();
         });
         services.AddApplicationServices()
-            .AddAutoMapper(typeof(Services.Automapper.EncounterProfile));
+            .AddAutoMapper(typeof(Services.AutoMapper.EncounterProfile));
     }
 
     ~TestEnvironment() => Dispose(false);

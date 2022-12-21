@@ -1,14 +1,14 @@
 {
   "encounter": {
     "type": "Monster type",
-    "partylevel": "Party level",
-    "partysize": "Party size",
-    "monstername": "Monster name",
+    "partyLevel": "Party level",
+    "partySize": "Party size",
+    "monsterName": "Monster name",
     "xp": "XP",
     "count": "Amount",
     "difficulty": "Difficulty",
-    "detailtitle": "Monster details",
-    "challengerating": "Challange rating",
+    "detailTitle": "Monster details",
+    "challengeRating": "Challange rating",
     "size": "Size",
     "alignment": "Alignment",
     "hp": "HP",
@@ -29,8 +29,8 @@
     "name": "Name",
     "desc": "Description",
     "attackBonus": "Attack bonus",
-    "dmgBonus": "Damage bonus",
-    "dmgDice": "Damage dice"
+    "damageBonus": "Damage bonus",
+    "damageDice": "Damage dice"
   },
   "home": {
     "encountermenu": "Encounter",

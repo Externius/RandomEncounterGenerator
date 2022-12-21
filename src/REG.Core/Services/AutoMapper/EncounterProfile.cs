@@ -2,7 +2,7 @@
 using REG.Core.Abstractions.Services.Models;
 using REG.Core.Abstractions.Services.Models.Json;
 
-namespace REG.Core.Services.Automapper;
+namespace REG.Core.Services.AutoMapper;
 
 public class EncounterProfile : Profile
 {

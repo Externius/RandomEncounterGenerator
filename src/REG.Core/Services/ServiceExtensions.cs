@@ -35,6 +35,6 @@ public static class ServiceExtensions
             return value.ToString();
 
         var resourceKey = $"{value.GetType().Name}_{value}";
-        return resourceManager.GetString(resourceKey) ?? (defaultValue ?? value.ToString());
+        return resourceManager.GetString(resourceKey) ?? defaultValue ?? value.ToString();
     }
 }
