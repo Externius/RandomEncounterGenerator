@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { Constant } from '../constants/constant';
 const { version: version } = require('../../../../package.json')
 
 @Component({
@@ -8,6 +8,7 @@ const { version: version } = require('../../../../package.json')
 })
 
 export class AppFooterComponent {
-    public debugMode: boolean = environment.debugMode;
     public version: string = version;
+    public siteName: string = Constant.SiteName;
+    public year: number = new Date().getFullYear();
 }
