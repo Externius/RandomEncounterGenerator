@@ -1,5 +1,8 @@
 # Random Encounter Generator
 
+![Build status](https://github.com/Externius/RandomEncounterGenerator/actions/workflows/main.yml/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
 This is a ASP.NET Core 7.0 Angular project for generating random encounters using D&amp;D5th Edition SRD monsters.
 
 ## Prerequisites
