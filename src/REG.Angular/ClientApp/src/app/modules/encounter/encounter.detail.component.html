@@ -41,7 +41,7 @@
         <label class="input-group-text font-weight-bold ability">{{ 'encounter.strength' | translate }}</label>
       </div>
       <input type="text" class="form-control text-center" readonly
-             value="{{detail.strength}} ({{calcMod(detail.strength)}})">
+        value="{{detail.strength}} ({{calcMod(detail.strength)}})">
       <div class="input-group-append">
         <label class="input-group-text saving-throw">{{detail.strengthSave | savingThrow: detail.strength}}</label>
       </div>
@@ -51,7 +51,7 @@
         <label class="input-group-text font-weight-bold ability">{{ 'encounter.dexterity' | translate }}</label>
       </div>
       <input type="text" class="form-control text-center" readonly
-             value="{{detail.dexterity}} ({{calcMod(detail.dexterity)}})">
+        value="{{detail.dexterity}} ({{calcMod(detail.dexterity)}})">
       <div class="input-group-append">
         <label class="input-group-text saving-throw">{{detail.dexteritySave | savingThrow: detail.dexterity}}</label>
       </div>
@@ -61,9 +61,10 @@
         <label class="input-group-text font-weight-bold ability">{{ 'encounter.constitution' | translate }}</label>
       </div>
       <input type="text" class="form-control text-center" readonly
-             value="{{detail.constitution}} ({{calcMod(detail.constitution)}})">
+        value="{{detail.constitution}} ({{calcMod(detail.constitution)}})">
       <div class="input-group-append">
-        <label class="input-group-text saving-throw">{{detail.constitutionSave | savingThrow: detail.constitution}}</label>
+        <label class="input-group-text saving-throw">{{detail.constitutionSave | savingThrow:
+          detail.constitution}}</label>
       </div>
     </div>
   </div>
@@ -73,9 +74,10 @@
         <label class="input-group-text font-weight-bold ability">{{ 'encounter.intelligence' | translate }}</label>
       </div>
       <input type="text" class="form-control text-center" readonly
-             value="{{detail.intelligence}} ({{calcMod(detail.intelligence)}})">
+        value="{{detail.intelligence}} ({{calcMod(detail.intelligence)}})">
       <div class="input-group-append">
-        <label class="input-group-text saving-throw">{{detail.intelligenceSave | savingThrow: detail.intelligence}}</label>
+        <label class="input-group-text saving-throw">{{detail.intelligenceSave | savingThrow:
+          detail.intelligence}}</label>
       </div>
     </div>
     <div class="input-group mb-3 col-sm-4">
@@ -83,7 +85,7 @@
         <label class="input-group-text font-weight-bold ability">{{ 'encounter.wisdom' | translate }}</label>
       </div>
       <input type="text" class="form-control text-center" readonly
-             value="{{detail.wisdom}} ({{calcMod(detail.wisdom)}})">
+        value="{{detail.wisdom}} ({{calcMod(detail.wisdom)}})">
       <div class="input-group-append">
         <label class="input-group-text saving-throw">{{detail.wisdomSave | savingThrow: detail.wisdom}}</label>
       </div>
@@ -93,7 +95,7 @@
         <label class="input-group-text font-weight-bold ability">{{ 'encounter.charisma' | translate }}</label>
       </div>
       <input type="text" class="form-control text-center" readonly
-             value="{{detail.charisma}} ({{calcMod(detail.charisma)}})">
+        value="{{detail.charisma}} ({{calcMod(detail.charisma)}})">
       <div class="input-group-append">
         <label class="input-group-text saving-throw">{{detail.charismaSave | savingThrow: detail.charisma}}</label>
       </div>
@@ -129,7 +131,11 @@
         <tr *ngFor="let action of detail.actions">
           <td class="">{{ action.name }}</td>
           <td class="">{{ action.desc }}</td>
-          <td class="">{{ action.attack_bonus | number }}</td>
+          <td>
+            <div *ngIf="action.attack_bonus! && action.attack_bonus > 0">
+              {{ action.attack_bonus | number }}
+            </div>
+          </td>
           <td class="">{{ action.damage_dice }}</td>
           <td class="">{{ action.damage_bonus | number }}</td>
         </tr>
@@ -150,7 +156,11 @@
         <tr *ngFor="let reaction of detail.reactions">
           <td class="">{{ reaction.name }}</td>
           <td class="">{{ reaction.desc }}</td>
-          <td class="">{{ reaction.attack_bonus | number }}</td>
+          <td>
+            <div *ngIf="reaction.attack_bonus! && reaction.attack_bonus > 0">
+              {{ reaction.attack_bonus | number }}
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -170,7 +180,11 @@
         <tr *ngFor="let ability of detail.specialAbilities">
           <td class="">{{ ability.name }}</td>
           <td class="">{{ ability.desc }}</td>
-          <td class="">{{ ability.attack_bonus | number }}</td>
+          <td>
+            <div *ngIf="ability.attack_bonus! && ability.attack_bonus > 0">
+              {{ ability.attack_bonus | number }}
+            </div>
+          </td>
           <td class="">{{ ability.damage_dice }}</td>
         </tr>
       </tbody>
@@ -191,7 +205,11 @@
         <tr *ngFor="let action of detail.legendaryActions">
           <td class="">{{ action.name }}</td>
           <td class="">{{ action.desc }}</td>
-          <td class="">{{ action.attack_bonus | number }}</td>
+          <td>
+            <div *ngIf="action.attack_bonus! && action.attack_bonus > 0">
+              {{ action.attack_bonus | number }}
+            </div>
+          </td>
           <td class="">{{ action.damage_dice }}</td>
         </tr>
       </tbody>
