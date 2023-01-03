@@ -148,6 +148,12 @@ public class EncounterService : IEncounterService
                 _monsters = _monsters.Where(m => selectedMonsters.Any(m.Type.ToLower().Equals)).ToList();
             }
 
+            if (option.Sizes.Any())
+            {
+                var selectedSizes = option.Sizes.Select(s => s.ToString().ToLower()).ToList();
+                _monsters = _monsters.Where(m => selectedSizes.Any(m.Size.ToLower().Equals)).ToList();
+            }
+
             if (option.Difficulty.HasValue)
                 sumXp = Thresholds[option.PartyLevel, (int)option.Difficulty.Value] * option.PartySize;
 
@@ -278,6 +284,7 @@ public class EncounterService : IEncounterService
         encounterDetail.Xp = allXp;
         encounterDetail.Count = count;
         encounterDetail.Difficulty = difficulty.GetName(Resources.Enum.ResourceManager);
+        encounterDetail.Size = Enum.Parse<Size>(currentMonster.Size).GetName(Resources.Enum.ResourceManager);
 
         if (Enum.TryParse(encounterDetail.Type, out MonsterType type))
             encounterDetail.Type = type.GetName(Resources.Enum.ResourceManager);

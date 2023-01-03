@@ -25,6 +25,10 @@ export class EncounterService {
     return this.httpClient.get<string[]>(this.apiUrl + '/Encounter/difficulties', this.rho.httpOptions);
   }
 
+  public getSizes() {
+    return this.httpClient.get<string[]>(this.apiUrl + '/Encounter/sizes', this.rho.httpOptions);
+  }  
+
   public generate(data: string) {
     return this.httpClient.post(`${this.apiUrl}/Encounter`, data, this.rho.httpOptions);
   }

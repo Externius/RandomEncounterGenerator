@@ -174,4 +174,22 @@
   <data name="MonsterType_Undead" xml:space="preserve">
     <value>Élőhalott</value>
   </data>
+  <data name="Size_Gargantuan" xml:space="preserve">
+    <value>Gigantikus</value>
+  </data>
+  <data name="Size_Huge" xml:space="preserve">
+    <value>Hatalmas</value>
+  </data>
+  <data name="Size_Large" xml:space="preserve">
+    <value>Nagy</value>
+  </data>
+  <data name="Size_Medium" xml:space="preserve">
+    <value>Közepes</value>
+  </data>
+  <data name="Size_Small" xml:space="preserve">
+    <value>Kicsi</value>
+  </data>
+  <data name="Size_Tiny" xml:space="preserve">
+    <value>Apró</value>
+  </data>
 </root>

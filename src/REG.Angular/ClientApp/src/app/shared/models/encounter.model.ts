@@ -65,16 +65,10 @@ export class EncounterModel {
   encounters: EncounterDetailModel[] = [];
 }
 export class EncounterOptionModel {
-  partyLevel: number = 0;
-  partySize: number = 0;
-  difficulty: number | null;
-  monsterTypes: number[];
+  partyLevel: number = 1;
+  partySize: number = 4;
+  difficulty: number | null = null;
+  monsterTypes: number[] = [];
+  sizes: number[] = [];
   count = 10;
-
-  constructor() {
-    this.partyLevel = 1;
-    this.partySize = 4;
-    this.difficulty = null;
-    this.monsterTypes = [];
-  }
 }

@@ -23,6 +23,14 @@
       </div>
     </div>
     <div class="row">
+      <label for="sizes" class="col-md-2 col-form-label">{{ 'encounter.size' | translate }}</label>
+      <div class="col-md-3 text-left">
+        <ng-select [multiple]="true" [items]="_sizes" bindLabel="key" bindValue="value" id="size"
+          formControlName="sizes">
+        </ng-select>
+      </div>
+    </div>
+    <div class="row">
       <label for="difficulty" class="col-md-2 col-form-label">{{ 'encounter.difficulty' | translate }}</label>
       <div class="col-md-3 text-left">
         <ng-select [items]="difficulties" bindLabel="key" bindValue="value" id="difficulty"
@@ -42,9 +50,10 @@
         <th scope="col">#</th>
         <th scope="col" sortable="name" (sort)="onSort($event)">{{ 'encounter.monsterName' | translate }}</th>
         <th scope="col" sortable="count" (sort)="onSort($event)">{{ 'encounter.count' | translate }}</th>
-        <th scope="col" sortable="difficulty" (sort)="onSort($event)">{{ 'encounter.difficulty' | translate }}</th>
         <th scope="col" sortable="type" (sort)="onSort($event)">{{ 'encounter.type' | translate }}</th>
+        <th scope="col" sortable="size" (sort)="onSort($event)">{{ 'encounter.size' | translate }}</th>
         <th scope="col" sortable="xp" (sort)="onSort($event)">{{ 'encounter.xp' | translate }}</th>
+        <th scope="col" sortable="difficulty" (sort)="onSort($event)">{{ 'encounter.difficulty' | translate }}</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -53,9 +62,10 @@
         <td class="w-5">{{ i + 1 }}</td>
         <td class="w-10">{{ encounter.name }}</td>
         <td class="w-10">{{ encounter.count | number }}</td>
-        <td class="w-10">{{ encounter.difficulty }}</td>
         <td class="w-10">{{ encounter.type }}</td>
+        <td class="w-10">{{ encounter.size }}</td>
         <td class="w-10">{{ encounter.xp | number }}</td>
+        <td class="w-10">{{ encounter.difficulty }}</td>
         <td class="w-10 text-right">
           <button type="button" class="btn btn-link" (click)="monsterDetailDialog(encounter)" title="">
             <fa-icon [icon]="faInfoCircle"></fa-icon>

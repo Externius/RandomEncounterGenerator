@@ -36,6 +36,10 @@ export class EncounterListService {
     return this.service.getDifficulties();
   }
 
+  public getSizes() {
+    return this.service.getSizes();
+  }
+
   public generate(data: string) {
     return this.service.generate(data);
   }

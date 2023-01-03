@@ -7,7 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 export const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    title: 'home.homemenu'
   },
   {
     path: '',
@@ -16,7 +17,8 @@ export const routes: Routes = [
   },
   {
     path: 'encounter',
-    component: EncounterListComponent
+    component: EncounterListComponent,
+    title: 'home.encountermenu'
   }
 ];
 

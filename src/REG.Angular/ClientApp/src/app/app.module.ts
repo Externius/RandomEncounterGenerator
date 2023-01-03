@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, TitleStrategy } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './modules/home/home.component';
 import { AppNavMenuComponent } from './shared/components/app.nav-menu.component';
@@ -25,7 +25,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { ServerErrorInterceptor } from './core/interceptors/server.error.interceptor';
 import { AlertDialogComponent } from './core/alertdialog/alertdialog.component';
 import { SortableHeaderDirective } from './shared/directive/sortable.directive';
-import { SavingThrowPipe } from './shared/pipes/savingthrow.pipe';
+import { SavingThrowPipe } from './shared/pipes/saving.throw.pipe';
+import { CustomTitleStrategy } from './shared/strategies/custom.title.strategy';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -76,6 +77,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       provide: HTTP_INTERCEPTORS,
       useClass: ServerErrorInterceptor,
       multi: true
+    },
+    {
+      provide: TitleStrategy,
+      useClass: CustomTitleStrategy
     },
     CookieService
   ],

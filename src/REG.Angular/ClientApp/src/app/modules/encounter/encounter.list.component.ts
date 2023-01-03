@@ -17,13 +17,13 @@ const compare = (v1: string | number | SpecialAbility[] | Action[] | Reaction[] 
 })
 export class EncounterListComponent implements OnInit {
   _monsterTypes!: [];
+  _sizes!: [];
   difficulties!: [];
   partyLevels: number[] = [];
   partySizes: number[] = [];
   _orignialDetails: EncounterDetailModel[] = [];
   serverError = '';
   encounterOptionsForm!: FormGroup;
-  encounterOptions: EncounterOptionModel = new EncounterOptionModel();
   encounterModel: EncounterModel = new EncounterModel();
   @ViewChildren(SortableHeaderDirective) headers!: QueryList<SortableHeaderDirective>;
   faInfoCircle = faInfoCircle;
@@ -49,14 +49,21 @@ export class EncounterListComponent implements OnInit {
       .subscribe(data => {
         this.difficulties = data as [];
       });
-    this.encounterOptionsForm = this.formBuilder.group(this.encounterOptions);
+    this.encounterListService.getSizes()
+      .subscribe(data => {
+        this._sizes = data as [];
+      });
+    this.encounterOptionsForm = this.formBuilder.group(new EncounterOptionModel());
   }
 
   onSubmit() {
     if (this.encounterOptionsForm.value.monsterTypes === null) { // workaround for first empty select
       this.encounterOptionsForm.value.monsterTypes = [];
     }
-
+    if (this.encounterOptionsForm.value.sizes === null) {
+      this.encounterOptionsForm.value.sizes = [];
+    }
+    
     this.encounterListService.generate(JSON.stringify(this.encounterOptionsForm.value))
       .subscribe(
         (data: Object) => {

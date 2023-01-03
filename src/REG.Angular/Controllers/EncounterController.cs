@@ -36,4 +36,10 @@ public class EncounterController : ControllerBase
     {
         return await _encounterService.GetEnumListAsync<Difficulty>();
     }
+
+    [HttpGet("sizes")]
+    public async Task<List<KeyValuePair<string, int>>> GetSizes()
+    {
+        return await _encounterService.GetEnumListAsync<Size>();
+    }
 }

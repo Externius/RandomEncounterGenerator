@@ -19,7 +19,7 @@ namespace REG.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Enum {
@@ -228,6 +228,60 @@ namespace REG.Resources {
         public static string MonsterType_Undead {
             get {
                 return ResourceManager.GetString("MonsterType_Undead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gargantuan.
+        /// </summary>
+        public static string Size_Gargantuan {
+            get {
+                return ResourceManager.GetString("Size_Gargantuan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Huge.
+        /// </summary>
+        public static string Size_Huge {
+            get {
+                return ResourceManager.GetString("Size_Huge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Large.
+        /// </summary>
+        public static string Size_Large {
+            get {
+                return ResourceManager.GetString("Size_Large", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medium.
+        /// </summary>
+        public static string Size_Medium {
+            get {
+                return ResourceManager.GetString("Size_Medium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Small.
+        /// </summary>
+        public static string Size_Small {
+            get {
+                return ResourceManager.GetString("Size_Small", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tiny.
+        /// </summary>
+        public static string Size_Tiny {
+            get {
+                return ResourceManager.GetString("Size_Tiny", resourceCulture);
             }
         }
     }

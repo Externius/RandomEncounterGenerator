@@ -7,6 +7,7 @@ public enum Difficulty
     Hard,
     Deadly
 }
+
 public enum MonsterType
 {
     Aberration = 1,
@@ -24,4 +25,14 @@ public enum MonsterType
     Plant,
     SwarmOfTinyBeasts,
     Undead
+}
+
+public enum Size
+{
+    Tiny = 0,
+    Small,
+    Medium,
+    Large,
+    Huge,
+    Gargantuan
 }

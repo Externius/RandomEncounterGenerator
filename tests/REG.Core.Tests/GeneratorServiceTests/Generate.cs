@@ -33,8 +33,8 @@ public class Generate
     }
 
     [Theory]
-    [MemberData(nameof(EncounterOptionData.FilterWithMonsterTypesData), MemberType = typeof(EncounterOptionData))]
-    public async Task CanFilterWithMonsterTypes(EncounterOption option)
+    [MemberData(nameof(EncounterOptionData.Data), MemberType = typeof(EncounterOptionData))]
+    public async Task CanFilter(EncounterOption option)
     {
         using var env = new TestEnvironment();
         var service = env.GetService<IEncounterService>();
@@ -43,8 +43,11 @@ public class Generate
         encounterModel.ShouldNotBeNull();
         encounterModel.Encounters.ShouldNotBeNull();
         var resultMonsterTypes = encounterModel.Encounters.Select(ed => ed.Type.ToLower()).Distinct();
+        var resultMonsterSizes = encounterModel.Encounters.Select(ed => ed.Size.ToLower()).Distinct();
         var optionMonsterTypes = option.MonsterTypes.Select(m => m.GetName(Resources.Enum.ResourceManager).ToLower());
+        var optionMonsterSizes = option.Sizes.Select(m => m.GetName(Resources.Enum.ResourceManager).ToLower());
         resultMonsterTypes.Except(optionMonsterTypes).Count().ShouldBe(0);
+        resultMonsterSizes.Except(optionMonsterSizes).Count().ShouldBe(0);
     }
 
     [Theory]
