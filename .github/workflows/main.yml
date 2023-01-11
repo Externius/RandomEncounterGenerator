@@ -6,7 +6,8 @@ env:
   DOTNET_VERSION: '7.x'
 
 on:
-  push:
+  pull_request:
+    types: [ closed ]  
     branches: [ main ]
   workflow_dispatch:
 
@@ -15,6 +16,7 @@ permissions:
 
 jobs:
   build:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
