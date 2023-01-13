@@ -11,10 +11,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="7.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="7.0.1" />
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.1" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" />
+		<PackageReference Include="Microsoft.AspNetCore.SpaProxy" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
 	</ItemGroup>
 
 	<ItemGroup>
