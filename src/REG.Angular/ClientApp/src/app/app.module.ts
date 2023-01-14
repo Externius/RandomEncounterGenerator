@@ -57,9 +57,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ReactiveFormsModule,
     FontAwesomeModule,
     AppRoutingModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' }
-    ]),
+    RouterModule.forRoot([{ path: '', component: HomeComponent, pathMatch: 'full' }]),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -68,10 +66,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       }
     })
   ],
-  exports: [
-    TranslateModule,
-    SavingThrowPipe
-  ],
+  exports: [TranslateModule, SavingThrowPipe],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -84,10 +79,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     },
     CookieService
   ],
-  entryComponents: [
-    AlertDialogComponent
-  ],
-  bootstrap: [AppComponent,
+  entryComponents: [AlertDialogComponent],
+  bootstrap: [
+    AppComponent,
     AppNavMenuComponent,
     AppHeaderComponent,
     AppBodyComponent,

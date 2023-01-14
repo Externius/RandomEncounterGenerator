@@ -16,12 +16,14 @@ export class EncounterListService {
     sortDirection: 'asc'
   };
 
-  constructor(private service: EncounterService) {
+  constructor(private service: EncounterService) {}
 
+  set sortColumn(sortColumn: string) {
+    this._set({ sortColumn });
   }
-
-  set sortColumn(sortColumn: string) { this._set({ sortColumn }); }
-  set sortDirection(sortDirection: SortDirection) { this._set({ sortDirection }); }
+  set sortDirection(sortDirection: SortDirection) {
+    this._set({ sortDirection });
+  }
 
   private _set(patch: Partial<State>) {
     Object.assign(this._state, patch);

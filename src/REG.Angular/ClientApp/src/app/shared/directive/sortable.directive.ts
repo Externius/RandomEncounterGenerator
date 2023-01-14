@@ -3,7 +3,7 @@ import { EncounterDetailModel } from '../models/encounter.model';
 
 export type SortDirection = 'asc' | 'desc' | '';
 export type SortColumn = keyof EncounterDetailModel | '';
-const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
+const rotate: { [key: string]: SortDirection } = { asc: 'desc', desc: '', '': 'asc' };
 
 export interface SortEvent {
   column: SortColumn;
@@ -11,17 +11,19 @@ export interface SortEvent {
 }
 
 @Directive({
-  selector: 'th[sortable]',
+  selector: 'th[sortable]'
 })
-
 export class SortableHeaderDirective {
-
   @Input() sortable: SortColumn = '';
   @Input() direction: SortDirection = '';
   @Output() sort = new EventEmitter<SortEvent>();
 
-  @HostBinding('class.asc') get asc() { return this.direction === 'asc'; }
-  @HostBinding('class.desc') get desc() { return this.direction === 'desc'; }
+  @HostBinding('class.asc') get asc() {
+    return this.direction === 'asc';
+  }
+  @HostBinding('class.desc') get desc() {
+    return this.direction === 'desc';
+  }
 
   @HostListener('click') rotate() {
     this.direction = rotate[this.direction];
