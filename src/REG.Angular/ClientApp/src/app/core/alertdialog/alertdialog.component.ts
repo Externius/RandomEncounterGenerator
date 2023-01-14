@@ -6,18 +6,17 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './alertdialog.component.html'
 })
 export class AlertDialogComponent {
-  @Input() title: string = "";
-  @Input() message: string = "";
-  @Input() stackTrace: string = "";
+  @Input() title = '';
+  @Input() message = '';
+  @Input() stackTrace = '';
 
-  constructor(public activeModal: NgbActiveModal) {
-  }
+  constructor(public activeModal: NgbActiveModal) {}
 
   onConfirm(): void {
     this.activeModal.close(true);
   }
 
   onDismiss(): void {
-
+    this.activeModal.dismiss(true);
   }
 }

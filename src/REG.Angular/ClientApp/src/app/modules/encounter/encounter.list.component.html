@@ -1,77 +1,83 @@
-<div class="col-md-12">
-  <form [formGroup]="encounterOptionsForm" (ngSubmit)="onSubmit()">
-    <div class="row">
-      <label for="partyLevel" class="col-md-2 col-form-label">{{ 'encounter.partyLevel' | translate }}</label>
-      <div class="col-md-3 text-left">
-        <ng-select [items]="partyLevels" [clearable]="false" id="partyLevel" formControlName="partyLevel">
-        </ng-select>
-      </div>
+<form [formGroup]="encounterOptionsForm" (ngSubmit)="onSubmit()" class="row gy-2 gx-4 align-items-center">
+  <div class="row">
+    <div class="col-auto">
+      <label for="partyLevel" class="col-form-label">{{ 'encounter.partyLevel' | translate }}</label>
+      <ng-select [items]="partyLevels" [clearable]="false" id="partyLevel" formControlName="partyLevel">
+      </ng-select>
     </div>
-    <div class="row">
-      <label for="partySize" class="col-md-2 col-form-label">{{ 'encounter.partySize' | translate }}</label>
-      <div class="col-md-3 text-left">
+    <div class="col-auto">
+      <label for="partySize" class="col-form-label">{{ 'encounter.partySize' | translate }}</label>
+      <div class="text-left">
         <ng-select [items]="partySizes" [clearable]="false" id="partySize" formControlName="partySize">
         </ng-select>
       </div>
     </div>
-    <div class="row">
-      <label for="monsterTypes" class="col-md-2 col-form-label">{{ 'encounter.type' | translate }}</label>
-      <div class="col-md-3 text-left">
-        <ng-select [multiple]="true" [items]="_monsterTypes" bindLabel="key" bindValue="value" id="monsterType"
-          formControlName="monsterTypes">
-        </ng-select>
-      </div>
-    </div>
-    <div class="row">
-      <label for="sizes" class="col-md-2 col-form-label">{{ 'encounter.size' | translate }}</label>
-      <div class="col-md-3 text-left">
-        <ng-select [multiple]="true" [items]="_sizes" bindLabel="key" bindValue="value" id="size"
-          formControlName="sizes">
-        </ng-select>
-      </div>
-    </div>
-    <div class="row">
-      <label for="difficulty" class="col-md-2 col-form-label">{{ 'encounter.difficulty' | translate }}</label>
-      <div class="col-md-3 text-left">
+    <div class="col-sm-2">
+      <label for="difficulty" class="col-form-label">{{ 'encounter.difficulty' | translate }}</label>
+      <div class="text-left">
         <ng-select [items]="difficulties" bindLabel="key" bindValue="value" id="difficulty"
           formControlName="difficulty">
         </ng-select>
       </div>
     </div>
-    <div class="row">
-      <button class="btn btn-primary" type="submit">{{ 'common.generate' | translate }}</button>
+    <div class="col-sm-4">
+      <label for="monsterTypes" class="col-form-label">{{ 'encounter.type' | translate }}</label>
+      <div class="text-left">
+        <ng-select [multiple]="true" [items]="_monsterTypes" bindLabel="key" bindValue="value" id="monsterType"
+          formControlName="monsterTypes">
+        </ng-select>
+      </div>
     </div>
-  </form>
-</div>
+    <div class="col-sm-4">
+      <label for="sizes" class="col-form-label">{{ 'encounter.size' | translate }}</label>
+      <div class="text-left">
+        <ng-select [multiple]="true" [items]="_sizes" bindLabel="key" bindValue="value" id="size"
+          formControlName="sizes">
+        </ng-select>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <button class="btn btn-lg btn-primary" type="submit">{{ 'common.generate' | translate }}</button>
+  </div>
+</form>
 <div class="col-md-12">
   <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col" sortable="name" (sort)="onSort($event)">{{ 'encounter.monsterName' | translate }}</th>
         <th scope="col" sortable="count" (sort)="onSort($event)">{{ 'encounter.count' | translate }}</th>
         <th scope="col" sortable="type" (sort)="onSort($event)">{{ 'encounter.type' | translate }}</th>
         <th scope="col" sortable="size" (sort)="onSort($event)">{{ 'encounter.size' | translate }}</th>
         <th scope="col" sortable="xp" (sort)="onSort($event)">{{ 'encounter.xp' | translate }}</th>
         <th scope="col" sortable="difficulty" (sort)="onSort($event)">{{ 'encounter.difficulty' | translate }}</th>
-        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let encounter of encounterModel.encounters; index as i">
-        <td class="w-5">{{ i + 1 }}</td>
-        <td class="w-10">{{ encounter.name }}</td>
-        <td class="w-10">{{ encounter.count | number }}</td>
-        <td class="w-10">{{ encounter.type }}</td>
-        <td class="w-10">{{ encounter.size }}</td>
-        <td class="w-10">{{ encounter.xp | number }}</td>
-        <td class="w-10">{{ encounter.difficulty }}</td>
-        <td class="w-10 text-right">
-          <button type="button" class="btn btn-link" (click)="monsterDetailDialog(encounter)" title="">
-            <fa-icon [icon]="faInfoCircle"></fa-icon>
-          </button>
-        </td>
-      </tr>
     </tbody>
   </table>
+</div>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+  <div *ngFor="let monster of encounterModel.encounters; index as i">
+    <div class="card text-bg-light">
+      <div class="row g-0">
+        <div class="col-md-2 text-center mt-2">
+          <button type="button" class="btn btn-link" (click)="monsterDetailDialog(monster)" title="Monster details">
+            <fa-icon [icon]="faDiceD20" size="4x"></fa-icon>
+          </button>
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ monster.count | number }}x {{ monster.name }}
+            </h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ monster.type }} ({{ monster.size }})</h6>
+            <p class="card-text">{{ 'encounter.difficulty' | translate }}: {{ monster.difficulty }}
+              ({{ monster.xp | number}} {{'encounter.xp' | translate }})
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

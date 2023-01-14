@@ -1,74 +1,74 @@
 export class SpecialAbility {
-  name: string = "";
-  desc: string = "";
+  name = '';
+  desc = '';
   attack_bonus?: number;
-  damage_dice: string = "";
+  damage_dice = '';
 }
 export class Action {
-  name: string = "";
-  desc: string = "";
+  name = '';
+  desc = '';
   attack_bonus?: number;
-  damage_dice: string = "";
+  damage_dice = '';
   damage_bonus?: number;
 }
 export class LegendaryAction {
-  name: string = "";
-  desc: string = "";
+  name = '';
+  desc = '';
   attack_bonus?: number;
-  damage_dice: string = "";
+  damage_dice = '';
 }
 export class Reaction {
-  name: string = "";
-  desc: string = "";
+  name = '';
+  desc = '';
   attack_bonus?: number;
 }
 export class EncounterDetailModel {
-  xp: number = 0;
-  count: number = 0;
-  name: string = "";
-  type: string = "";
-  difficulty: string = "";
-  challengeRating: string = "";
-  size: string = "";
-  alignment: string = "";
-  hp: number = 0;
-  ac: number = 0;
-  hitDice: string = "";
-  speed: string = "";
-  senses: string = "";
-  languages: string = "";
-  strength: number = 0;
-  dexterity: number = 0;
-  constitution: number = 0;
-  intelligence: number = 0;
-  wisdom: number = 0;
-  charisma: number = 0;
-  strengthSave: number = 0;
-  constitutionSave: number = 0;
-  dexteritySave: number = 0;
-  intelligenceSave: number = 0;
-  wisdomSave: number = 0;
-  charismaSave: number = 0;
-  history: number = 0;
-  perception: number = 0;
-  damageVulnerabilities: string = "";
-  damageResistances: string = "";
-  damageImmunities: string = "";
-  conditionImmunities: string = "";
+  xp = 0;
+  count = 0;
+  name = '';
+  type = '';
+  difficulty = '';
+  challengeRating = '';
+  size = '';
+  alignment = '';
+  hp = 0;
+  ac = 0;
+  hitDice = '';
+  speed = '';
+  senses = '';
+  languages = '';
+  strength = 0;
+  dexterity = 0;
+  constitution = 0;
+  intelligence = 0;
+  wisdom = 0;
+  charisma = 0;
+  strengthSave = 0;
+  constitutionSave = 0;
+  dexteritySave = 0;
+  intelligenceSave = 0;
+  wisdomSave = 0;
+  charismaSave = 0;
+  history = 0;
+  perception = 0;
+  damageVulnerabilities = '';
+  damageResistances = '';
+  damageImmunities = '';
+  conditionImmunities = '';
   specialAbilities: SpecialAbility[] = [];
   actions: Action[] = [];
   reactions: Reaction[] = [];
   legendaryActions: LegendaryAction[] = [];
 }
 export class EncounterModel {
-  sumXp: number = 0;
+  sumXp = 0;
   encounters: EncounterDetailModel[] = [];
 }
 export class EncounterOptionModel {
-  partyLevel: number = 1;
-  partySize: number = 4;
+  partyLevel = 1;
+  partySize = 4;
   difficulty: number | null = null;
   monsterTypes: number[] = [];
   sizes: number[] = [];
-  count = 10;
+  count = 12;
 }

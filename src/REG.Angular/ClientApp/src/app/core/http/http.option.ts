@@ -4,7 +4,6 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-
 export class RequestHttpOption {
   httpOptions = {
     headers: new HttpHeaders({
@@ -12,5 +11,4 @@ export class RequestHttpOption {
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
     })
   };
-
 }

@@ -8,13 +8,12 @@ export function getApiUrl() {
   return environment.apiUrl;
 }
 
-const providers = [
-  { provide: 'API_URL', useFactory: getApiUrl, deps: [] }
-];
+const providers = [{ provide: 'API_URL', useFactory: getApiUrl, deps: [] }];
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic(providers).bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+platformBrowserDynamic(providers)
+  .bootstrapModule(AppModule)
+  .catch((err) => console.log(err));

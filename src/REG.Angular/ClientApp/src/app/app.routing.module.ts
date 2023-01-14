@@ -26,4 +26,4 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes), NgbModule],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

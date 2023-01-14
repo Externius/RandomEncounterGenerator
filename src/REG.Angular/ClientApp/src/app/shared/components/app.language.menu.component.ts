@@ -8,8 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './app.language.menu.component.html'
 })
 export class AppLanguageMenuComponent {
-  constructor(private cookieService: CookieService, public translate: TranslateService,
-    private router: Router) {
+  constructor(private cookieService: CookieService, public translate: TranslateService, private router: Router) {
     const cookie = this.cookieService.get('.AspNetCore.Culture');
     if (cookie) {
       const lang = cookie.slice(-2);
