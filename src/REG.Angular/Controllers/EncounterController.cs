@@ -26,19 +26,19 @@ public class EncounterController : ControllerBase
     }
 
     [HttpGet("monstertypes")]
-    public async Task<List<KeyValuePair<string, int>>> GetMonsterTypes()
+    public async Task<ICollection<KeyValuePair<string, int>>> GetMonsterTypes()
     {
         return await _encounterService.GetEnumListAsync<MonsterType>();
     }
 
     [HttpGet("difficulties")]
-    public async Task<List<KeyValuePair<string, int>>> GetDifficulties()
+    public async Task<ICollection<KeyValuePair<string, int>>> GetDifficulties()
     {
         return await _encounterService.GetEnumListAsync<Difficulty>();
     }
 
     [HttpGet("sizes")]
-    public async Task<List<KeyValuePair<string, int>>> GetSizes()
+    public async Task<ICollection<KeyValuePair<string, int>>> GetSizes()
     {
         return await _encounterService.GetEnumListAsync<Size>();
     }

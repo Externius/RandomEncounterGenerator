@@ -18,6 +18,7 @@ public class EncounterService : IEncounterService
 {
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
     private const string MonstersFileName = "5e-SRD-Monsters.json";
     private static readonly int[] ChallengeRatingXp = {
         10,
@@ -91,17 +92,21 @@ public class EncounterService : IEncounterService
         {2800, 5700, 8500, 12700}
     };
 
-    private List<Monster> _monsters;
+    private ICollection<Monster> _monsters;
     private int _partyLevel;
     private int _partySize;
-    private List<KeyValuePair<Difficulty, int>> _xpList;
+    private ICollection<KeyValuePair<Difficulty, int>> _xpList;
     public EncounterService(IMapper mapper, ILogger<EncounterService> logger)
     {
         _mapper = mapper;
         _logger = logger;
+        _jsonSerializerOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
     }
 
-    public async Task<List<KeyValuePair<string, int>>> GetEnumListAsync<T>() where T : struct
+    public async Task<ICollection<KeyValuePair<string, int>>> GetEnumListAsync<T>() where T : struct
     {
         if (!typeof(T).IsEnum)
             throw new InvalidOperationException("Type parameter must be Enum.");
@@ -113,15 +118,12 @@ public class EncounterService : IEncounterService
                 .ToList());
     }
 
-    public List<T> DeserializeJson<T>(string jsonFilePath = null)
+    public ICollection<T> DeserializeJson<T>(string jsonFilePath = null)
     {
         var json = jsonFilePath != null
                 ? File.ReadAllText(jsonFilePath)
                 : File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "/Jsons/" + MonstersFileName);
-        return JsonSerializer.Deserialize<List<T>>(json, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        return JsonSerializer.Deserialize<List<T>>(json, _jsonSerializerOptions);
     }
 
     public async Task<EncounterModel> GenerateAsync(EncounterOption option)
@@ -241,7 +243,7 @@ public class EncounterService : IEncounterService
 
         while (monster < monsterCount)
         {
-            var currentMonster = _monsters[GetRandomInt(0, _monsters.Count)];
+            var currentMonster = _monsters.ElementAt(GetRandomInt(0, _monsters.Count));
             _monsters.Remove(currentMonster);
             var monsterXp = GetMonsterXp(currentMonster);
             indexes.Shuffle();
@@ -253,7 +255,7 @@ public class EncounterService : IEncounterService
                 {
                     var count = (int)Multipliers[i, 0];
                     var allXp = monsterXp * count * Multipliers[i, 1];
-                    if (!(allXp >= difficultyXp) ||
+                    if (allXp < difficultyXp ||
                         _xpList.OrderByDescending(l => l.Value).First(l => allXp >= l.Value).Key != difficulty)
                         continue;
 
@@ -266,7 +268,7 @@ public class EncounterService : IEncounterService
                 {
                     var count = (int)Multipliers[i, 0];
                     var allXp = monsterXp * count * Multipliers[i, 1];
-                    foreach (var xp in _xpList.Where(xp => !(allXp > xp.Value)))
+                    foreach (var xp in _xpList.Where(xp => allXp <= xp.Value))
                     {
                         return GetEncounterDetail(xp.Key, currentMonster, (int)allXp, count);
                     }

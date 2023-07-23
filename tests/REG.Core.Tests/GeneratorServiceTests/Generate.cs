@@ -69,7 +69,7 @@ public class Generate
 
         encounterModel.ShouldNotBeNull();
         encounterModel.Encounters.ShouldNotBeNull();
-        encounterModel.Encounters.All(e => e.Difficulty.Equals(difficulty.ToString())).ShouldBeTrue();
+        encounterModel.Encounters.TrueForAll(e => e.Difficulty.Equals(difficulty.ToString())).ShouldBeTrue();
     }
 
     [Fact]
