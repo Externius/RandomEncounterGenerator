@@ -1,4 +1,6 @@
-﻿using REG.Core.Abstractions.Services.Exceptions;
+﻿using Microsoft.AspNetCore.Localization;
+using REG.Core.Abstractions.Services.Exceptions;
+using System.Globalization;
 using System.Net;
 using System.Text.Json;
 
@@ -29,6 +31,7 @@ public class ExceptionMiddleware
 
     private Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
+        SetCurrentCulture(context);
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
         var message = "Internal Generic Error";
@@ -41,7 +44,7 @@ public class ExceptionMiddleware
         {
             case ServiceAggregateException aex:
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                message = string.Join(" ", aex.InnerExceptions.Select(serviceException => serviceException.LocalizedMessage(Resources.Error.ResourceManager)));
+                message = string.Join(" ", aex.GetInnerExceptions().Select(serviceException => serviceException.LocalizedMessage(Resources.Error.ResourceManager)));
                 break;
             case ServiceException ex:
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -50,5 +53,14 @@ public class ExceptionMiddleware
         }
 
         return context.Response.WriteAsync(JsonSerializer.Serialize(new { context.Response.StatusCode, Message = message, StackTrace = stackTrace }));
+    }
+
+    private static void SetCurrentCulture(HttpContext context)
+    {
+        var culture = context.Features.Get<IRequestCultureFeature>()?.RequestCulture.Culture;
+        if (culture is null) 
+            return;
+        CultureInfo.CurrentCulture = culture;
+        CultureInfo.CurrentUICulture = culture;
     }
 }

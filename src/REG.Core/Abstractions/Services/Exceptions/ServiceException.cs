@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Resources;
+using System.Runtime.Serialization;
 
 namespace REG.Core.Abstractions.Services.Exceptions;
 
+[Serializable]
 public class ServiceException : Exception
 {
-    public static readonly string EntityNotFoundException = "EntityNotFoundException";
-    public static readonly string RequiredValidation = "RequiredValidation";
-    public static readonly string EncounterNotPossible = "EncounterNotPossible";
+    public const string GeneralError = "GeneralError";
+    public const string GeneralAggregateError = "GeneralAggregateError";
+    public const string EntityNotFoundException = "EntityNotFoundException";
+    public const string RequiredValidation = "RequiredValidation";
+    public const string EncounterNotPossible = "EncounterNotPossible";
 
     public object[] Args { get; }
 
-    public ServiceException()
+    public ServiceException() : base(GeneralError)
     {
     }
 
@@ -24,27 +27,7 @@ public class ServiceException : Exception
     {
         Args = args;
     }
-
-}
-public static class ServiceExceptionExtensions
-{
-    public static string LocalizedMessage(this ServiceException serviceException, ResourceManager resourceManager)
+    protected ServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        if (string.IsNullOrEmpty(serviceException?.Message))
-            return null;
-
-        if (resourceManager == null)
-            return serviceException.Message;
-        try
-        {
-            return serviceException.Args != null ? string.Format(resourceManager.GetString(serviceException.Message) ?? string.Empty,
-                serviceException.Args) : resourceManager.GetString(serviceException.Message);
-        }
-        catch (Exception)
-        {
-            // ignored
-        }
-
-        return serviceException.Message;
     }
 }

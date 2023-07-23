@@ -6,7 +6,10 @@ import { Constant } from '../constants/constant';
 
 @Injectable()
 export class CustomTitleStrategy extends TitleStrategy {
-  constructor(private translateService: TranslateService, private readonly title: Title) {
+  constructor(
+    private translateService: TranslateService,
+    private readonly title: Title
+  ) {
     super();
   }
 

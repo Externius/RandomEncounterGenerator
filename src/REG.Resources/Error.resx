@@ -123,6 +123,12 @@
   <data name="EntityNotFoundException" xml:space="preserve">
     <value>Entity not found.</value>
   </data>
+  <data name="GeneralAggregateError" xml:space="preserve">
+    <value>Oops! Multiple things went wrong!</value>
+  </data>
+  <data name="GeneralError" xml:space="preserve">
+    <value>Oops! Something went wrong!</value>
+  </data>
   <data name="RequiredValidation" xml:space="preserve">
     <value>The field {0} required.</value>
   </data>

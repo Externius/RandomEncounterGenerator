@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, TitleStrategy } from '@angular/router';
@@ -19,7 +19,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import localeHu from '@angular/common/locales/hu';
 import localeEnGB from '@angular/common/locales/en-GB';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { AppLanguageMenuComponent } from './shared/components/app.language.menu.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ServerErrorInterceptor } from './core/interceptors/server.error.interceptor';
@@ -48,8 +48,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     SavingThrowPipe
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule,
     HttpClientModule,
+    CommonModule,
     FormsModule,
     NgbModule,
     NgSelectModule,
@@ -77,9 +78,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       provide: TitleStrategy,
       useClass: CustomTitleStrategy
     },
+    { provide: APP_ID, useValue: 'app-reg' },
     CookieService
   ],
-  entryComponents: [AlertDialogComponent],
   bootstrap: [
     AppComponent,
     AppNavMenuComponent,

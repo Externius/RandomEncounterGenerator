@@ -123,6 +123,12 @@
   <data name="EntityNotFoundException" xml:space="preserve">
     <value>A kért elem nem található.</value>
   </data>
+  <data name="GeneralAggregateError" xml:space="preserve">
+    <value>Hoppá! Több dolog is elromlott!</value>
+  </data>
+  <data name="GeneralError" xml:space="preserve">
+    <value>Hoppá! Valami elromlott!</value>
+  </data>
   <data name="RequiredValidation" xml:space="preserve">
     <value>A(z) {0} mező kitöltése kötelező.</value>
   </data>
