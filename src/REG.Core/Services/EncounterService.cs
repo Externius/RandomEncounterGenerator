@@ -152,7 +152,7 @@ public class EncounterService : IEncounterService
 
             if (option.Sizes.Any())
             {
-                var selectedSizes = option.Sizes.Select(s => s.ToString().ToLower()).ToList();
+                var selectedSizes = option.Sizes.Select(s => s.ToString().ToLower());
                 _monsters = _monsters.Where(m => selectedSizes.Any(m.Size.ToLower().Equals)).ToList();
             }
 
@@ -216,9 +216,9 @@ public class EncounterService : IEncounterService
             throw new ServiceAggregateException(exceptions);
     }
 
-    private static void CheckPossible(int sumXp, IEnumerable<int> monsterXps)
+    private static void CheckPossible(int sumXp, IReadOnlyCollection<int> monsterXps)
     {
-        if (sumXp > monsterXps.First())
+        if (monsterXps.Any() && sumXp > monsterXps.First())
             return;
         throw new ServiceException(ServiceException.EncounterNotPossible);
     }
@@ -268,10 +268,9 @@ public class EncounterService : IEncounterService
                 {
                     var count = (int)Multipliers[i, 0];
                     var allXp = monsterXp * count * Multipliers[i, 1];
-                    foreach (var xp in _xpList.Where(xp => allXp <= xp.Value))
-                    {
-                        return GetEncounterDetail(xp.Key, currentMonster, (int)allXp, count);
-                    }
+                    var difficulties = _xpList.Where(xp => allXp <= xp.Value).Select(xp => xp.Key).AsQueryable();
+                    if (difficulties.Any())
+                        return GetEncounterDetail(difficulties.First(), currentMonster, (int)allXp, count);
                 }
             }
             monster++;
