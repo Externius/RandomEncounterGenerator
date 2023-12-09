@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace REG.Core.Abstractions.Services.Exceptions;
 
-[Serializable]
 public class ServiceException : Exception
 {
     public const string GeneralError = "GeneralError";
@@ -26,8 +24,5 @@ public class ServiceException : Exception
     public ServiceException(string message, Exception innerException, params object[] args) : base(message, innerException)
     {
         Args = args;
-    }
-    protected ServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
     }
 }
