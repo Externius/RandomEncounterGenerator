@@ -1,7 +1,7 @@
 name: Build and run unit tests
 
 env:
-  DOTNET_VERSION: '7.x'
+  DOTNET_VERSION: '8.x'
 
 on:
   push:
