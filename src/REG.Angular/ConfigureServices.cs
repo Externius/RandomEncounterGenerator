@@ -17,7 +17,7 @@ public static class ConfigureServices
         {
             var corsSettings = configuration.GetSection(nameof(CorsSettings)).Get<CorsSettings>();
 
-            builder.WithOrigins(corsSettings?.Urls ?? new[] { "https://localhost:4200" })
+            builder.WithOrigins(corsSettings?.Urls ?? ["https://localhost:4200"])
                 .AllowCredentials()
                 .AllowAnyMethod()
                 .AllowAnyHeader();

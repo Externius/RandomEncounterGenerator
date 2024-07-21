@@ -26,6 +26,6 @@ app.UseCors(CorsSettings.Policy);
 app.UseRequestLocalization();
 
 app.MapControllers();
-app.MapFallbackToFile("index.html");
+app.MapFallbackToFile("/index.html");
 
 app.Run();
