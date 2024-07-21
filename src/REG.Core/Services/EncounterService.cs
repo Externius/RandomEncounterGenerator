@@ -20,7 +20,7 @@ public class EncounterService : IEncounterService
     private readonly ILogger _logger;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private const string MonstersFileName = "5e-SRD-Monsters.json";
-    private static readonly int[] ChallengeRatingXp = {
+    private static readonly int[] ChallengeRatingXp = [
         10,
         25,
         50,
@@ -55,7 +55,7 @@ public class EncounterService : IEncounterService
         120000,
         135000,
         155000
-    };
+    ];
     private static readonly double[,] Multipliers = {
         {1, 1},
         {2, 1.5},
