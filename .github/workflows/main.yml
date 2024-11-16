@@ -3,7 +3,7 @@ name: Release CI/CD
 env:
   AZURE_WEBAPP_NAME: app-reg
   AZURE_WEBAPP_PACKAGE_PATH: '.'
-  DOTNET_VERSION: '8.x'
+  DOTNET_VERSION: '9.x'
 
 on:
   pull_request:
