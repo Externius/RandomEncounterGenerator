@@ -14,13 +14,20 @@ using System.Threading.Tasks;
 
 namespace REG.Core.Services;
 
-public class EncounterService : IEncounterService
+public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) : IEncounterService
 {
-    private readonly IMapper _mapper;
-    private readonly ILogger _logger;
-    private readonly JsonSerializerOptions _jsonSerializerOptions;
+    private readonly IMapper _mapper = mapper;
+    private readonly ILogger _logger = logger;
+
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
     private const string MonstersFileName = "5e-SRD-Monsters.json";
-    private static readonly int[] ChallengeRatingXp = [
+
+    private static readonly int[] ChallengeRatingXp =
+    [
         10,
         25,
         50,
@@ -56,55 +63,54 @@ public class EncounterService : IEncounterService
         135000,
         155000
     ];
-    private static readonly double[,] Multipliers = {
-        {1, 1},
-        {2, 1.5},
-        {3, 2},
-        {7, 2.5},
-        {11, 3},
-        {15, 4}
+
+    private static readonly double[,] Multipliers =
+    {
+        { 1, 1 },
+        { 2, 1.5 },
+        { 3, 2 },
+        { 7, 2.5 },
+        { 11, 3 },
+        { 15, 4 }
     };
-    private static readonly List<string> ChallengeRating = new(new[] {"0", "1/8", "1/4", "1/2", "1", "2", "3", "4", "5",
+
+    private static readonly List<string> ChallengeRating =
+    [
+        "0", "1/8", "1/4", "1/2", "1", "2", "3", "4", "5",
         "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
         "16", "17", "18", "19", "20", "21", "22", "23", "24", "25",
-        "26", "27", "28", "29", "30"});
-    private static readonly int[,] Thresholds = {
-        {0, 0, 0, 0},
-        {25, 50, 75, 100},
-        {50, 100, 150, 200},
-        {75, 150, 225, 400},
-        {125, 250, 375, 500},
-        {250, 500, 750, 1100},
-        {300, 600, 900, 1400},
-        {350, 750, 1100, 1700},
-        {450, 900, 1400, 2100},
-        {550, 1100, 1600, 2400},
-        {600, 1200, 1900, 2800},
-        {800, 1600, 2400, 3600},
-        {1000, 2000, 3000, 4500},
-        {1100, 2200, 3400, 5100},
-        {1250, 2500, 3800, 5700},
-        {1400, 2800, 4300, 6400},
-        {1600, 3200, 4800, 7200},
-        {2000, 3900, 5900, 8800},
-        {2100, 4200, 6300, 9500},
-        {2400, 4900, 7300, 10900},
-        {2800, 5700, 8500, 12700}
+        "26", "27", "28", "29", "30"
+    ];
+
+    private static readonly int[,] Thresholds =
+    {
+        { 0, 0, 0, 0 },
+        { 25, 50, 75, 100 },
+        { 50, 100, 150, 200 },
+        { 75, 150, 225, 400 },
+        { 125, 250, 375, 500 },
+        { 250, 500, 750, 1100 },
+        { 300, 600, 900, 1400 },
+        { 350, 750, 1100, 1700 },
+        { 450, 900, 1400, 2100 },
+        { 550, 1100, 1600, 2400 },
+        { 600, 1200, 1900, 2800 },
+        { 800, 1600, 2400, 3600 },
+        { 1000, 2000, 3000, 4500 },
+        { 1100, 2200, 3400, 5100 },
+        { 1250, 2500, 3800, 5700 },
+        { 1400, 2800, 4300, 6400 },
+        { 1600, 3200, 4800, 7200 },
+        { 2000, 3900, 5900, 8800 },
+        { 2100, 4200, 6300, 9500 },
+        { 2400, 4900, 7300, 10900 },
+        { 2800, 5700, 8500, 12700 }
     };
 
     private ICollection<Monster> _monsters;
     private int _partyLevel;
     private int _partySize;
     private ICollection<KeyValuePair<Difficulty, int>> _xpList;
-    public EncounterService(IMapper mapper, ILogger<EncounterService> logger)
-    {
-        _mapper = mapper;
-        _logger = logger;
-        _jsonSerializerOptions = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
-    }
 
     public async Task<ICollection<KeyValuePair<string, int>>> GetEnumListAsync<T>() where T : struct
     {
@@ -113,16 +119,16 @@ public class EncounterService : IEncounterService
 
         return await Task.Run(() =>
             (from object e in Enum.GetValues(typeof(T))
-             select new KeyValuePair<string, int>((e as Enum)
-                .GetName(Resources.Enum.ResourceManager), (int)e))
-                .ToList());
+                select new KeyValuePair<string, int>((e as Enum)
+                    .GetName(Resources.Enum.ResourceManager), (int)e))
+            .ToList());
     }
 
     public ICollection<T> DeserializeJson<T>(string jsonFilePath = null)
     {
         var json = jsonFilePath != null
-                ? File.ReadAllText(jsonFilePath)
-                : File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "/Jsons/" + MonstersFileName);
+            ? File.ReadAllText(jsonFilePath)
+            : File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "/Jsons/" + MonstersFileName);
         return JsonSerializer.Deserialize<List<T>>(json, _jsonSerializerOptions);
     }
 
@@ -133,10 +139,10 @@ public class EncounterService : IEncounterService
         _partySize = option.PartySize;
         _xpList = new List<KeyValuePair<Difficulty, int>>
         {
-            new(Difficulty.Easy , Thresholds[_partyLevel, 0] * _partySize),
-            new(Difficulty.Medium , Thresholds[_partyLevel, 1] * _partySize),
-            new(Difficulty.Hard , Thresholds[_partyLevel, 2] * _partySize),
-            new(Difficulty.Deadly , Thresholds[_partyLevel, 3] * _partySize)
+            new(Difficulty.Easy, Thresholds[_partyLevel, 0] * _partySize),
+            new(Difficulty.Medium, Thresholds[_partyLevel, 1] * _partySize),
+            new(Difficulty.Hard, Thresholds[_partyLevel, 2] * _partySize),
+            new(Difficulty.Deadly, Thresholds[_partyLevel, 3] * _partySize)
         };
         try
         {
@@ -273,6 +279,7 @@ public class EncounterService : IEncounterService
                         return GetEncounterDetail(difficulties.First(), currentMonster, (int)allXp, count);
                 }
             }
+
             monster++;
         }
 

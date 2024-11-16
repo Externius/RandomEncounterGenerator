@@ -9,15 +9,11 @@ namespace REG.Angular.Controllers;
 [ApiController]
 [EnableCors("default")]
 [Route("api/[controller]")]
-public class EncounterController : ControllerBase
+public class EncounterController(IEncounterService encounterService, ILogger<EncounterController> logger)
+    : ControllerBase
 {
-    private readonly ILogger<EncounterController> _logger;
-    private readonly IEncounterService _encounterService;
-    public EncounterController(IEncounterService encounterService, ILogger<EncounterController> logger)
-    {
-        _logger = logger;
-        _encounterService = encounterService;
-    }
+    private readonly ILogger<EncounterController> _logger = logger;
+    private readonly IEncounterService _encounterService = encounterService;
 
     [HttpPost]
     public async Task<EncounterModel> Generate([FromBody] EncounterOption option)
