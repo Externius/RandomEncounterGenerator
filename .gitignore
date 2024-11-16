@@ -4,3 +4,5 @@
 **/Logs
 /.vscode
 /.vs
+/.idea
+/REG.sln.*

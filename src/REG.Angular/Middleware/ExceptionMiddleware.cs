@@ -6,16 +6,10 @@ using System.Text.Json;
 
 namespace REG.Angular.Middleware;
 
-public class ExceptionMiddleware
+public class ExceptionMiddleware(RequestDelegate next, IWebHostEnvironment webHostEnvironment)
 {
-    private readonly RequestDelegate _next;
-    private readonly IWebHostEnvironment _webHostEnvironment;
-
-    public ExceptionMiddleware(RequestDelegate next, IWebHostEnvironment webHostEnvironment)
-    {
-        _next = next;
-        _webHostEnvironment = webHostEnvironment;
-    }
+    private readonly RequestDelegate _next = next;
+    private readonly IWebHostEnvironment _webHostEnvironment = webHostEnvironment;
 
     public async Task InvokeAsync(HttpContext httpContext)
     {
@@ -44,7 +38,9 @@ public class ExceptionMiddleware
         {
             case ServiceAggregateException aex:
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                message = string.Join(" ", aex.GetInnerExceptions().Select(serviceException => serviceException.LocalizedMessage(Resources.Error.ResourceManager)));
+                message = string.Join(" ",
+                    aex.GetInnerExceptions().Select(serviceException =>
+                        serviceException.LocalizedMessage(Resources.Error.ResourceManager)));
                 break;
             case ServiceException ex:
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -52,13 +48,14 @@ public class ExceptionMiddleware
                 break;
         }
 
-        return context.Response.WriteAsync(JsonSerializer.Serialize(new { context.Response.StatusCode, Message = message, StackTrace = stackTrace }));
+        return context.Response.WriteAsync(JsonSerializer.Serialize(new
+            { context.Response.StatusCode, Message = message, StackTrace = stackTrace }));
     }
 
     private static void SetCurrentCulture(HttpContext context)
     {
         var culture = context.Features.Get<IRequestCultureFeature>()?.RequestCulture.Culture;
-        if (culture is null) 
+        if (culture is null)
             return;
         CultureInfo.CurrentCulture = culture;
         CultureInfo.CurrentUICulture = culture;

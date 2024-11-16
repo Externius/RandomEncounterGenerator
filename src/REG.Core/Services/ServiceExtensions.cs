@@ -10,7 +10,10 @@ public static class ThreadSafeRandom
 
     public static Random ThisThreadsRandom
     {
-        get { return _local ??= new Random(unchecked(Environment.TickCount * 31 + Environment.CurrentManagedThreadId)); }
+        get
+        {
+            return _local ??= new Random(unchecked(Environment.TickCount * 31 + Environment.CurrentManagedThreadId));
+        }
     }
 }
 
@@ -26,12 +29,13 @@ public static class ServiceExtensions
             (list[k], list[n]) = (list[n], list[k]);
         }
     }
+
     public static string GetName(this Enum value, ResourceManager resourceManager, string defaultValue = null)
     {
         if (value is null)
-            return "";
+            return string.Empty;
 
-        if (resourceManager == null)
+        if (resourceManager is null)
             return value.ToString();
 
         var resourceKey = $"{value.GetType().Name}_{value}";
