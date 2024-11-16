@@ -126,7 +126,7 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
 
     public ICollection<T> DeserializeJson<T>(string jsonFilePath = null)
     {
-        var json = jsonFilePath != null
+        var json = jsonFilePath is not null
             ? File.ReadAllText(jsonFilePath)
             : File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "/Jsons/" + MonstersFileName);
         return JsonSerializer.Deserialize<List<T>>(json, _jsonSerializerOptions);
@@ -190,7 +190,7 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
                 }
             });
 
-            result.Encounters.RemoveAll(ed => ed == null); // cleanup if needed
+            result.Encounters.RemoveAll(ed => ed is null); // cleanup if needed
             result.SumXp = result.Encounters.Sum(ed => ed.Xp);
 
             return result;
@@ -218,13 +218,13 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
         if (option?.PartySize == 0)
             exceptions.Add(new ServiceException(ServiceException.RequiredValidation, "partySize"));
 
-        if (exceptions.Any())
+        if (exceptions.Count != 0)
             throw new ServiceAggregateException(exceptions);
     }
 
     private static void CheckPossible(int sumXp, IReadOnlyCollection<int> monsterXps)
     {
-        if (monsterXps.Any() && sumXp > monsterXps.First())
+        if (monsterXps.Count != 0 && sumXp > monsterXps.First())
             return;
         throw new ServiceException(ServiceException.EncounterNotPossible);
     }
