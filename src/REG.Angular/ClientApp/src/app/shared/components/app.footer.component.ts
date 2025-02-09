@@ -3,6 +3,7 @@ import packageInfo from '../../../../package.json';
 
 @Component({
   selector: 'app-footer',
+  standalone: false,
   templateUrl: './app.footer.component.html'
 })
 export class AppFooterComponent {

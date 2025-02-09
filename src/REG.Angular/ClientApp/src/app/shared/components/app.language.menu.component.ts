@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-language-menu',
+  standalone: false,
   templateUrl: './app.language.menu.component.html'
 })
 export class AppLanguageMenuComponent {

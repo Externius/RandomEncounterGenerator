@@ -9,21 +9,21 @@ public class EncounterOptionData
 {
     public static TheoryData<EncounterOption> Data =>
     [
-        new()
+        new EncounterOption
         {
             PartyLevel = 4,
             MonsterTypes = new List<MonsterType> { MonsterType.Aberration },
             Sizes = new List<Size> { Size.Small, Size.Medium },
             PartySize = 3
         },
-        new()
+        new EncounterOption
         {
             PartyLevel = 3,
             MonsterTypes = new List<MonsterType> { MonsterType.Ooze, MonsterType.Fey },
             Sizes = new List<Size> { Size.Tiny, Size.Small, Size.Medium },
             PartySize = 4
         },
-        new()
+        new EncounterOption
         {
             PartyLevel = 4,
             MonsterTypes =
@@ -31,7 +31,7 @@ public class EncounterOptionData
             Sizes = new List<Size> { Size.Small, Size.Medium, Size.Large },
             PartySize = 5
         },
-        new()
+        new EncounterOption
         {
             PartyLevel = 8,
             MonsterTypes = new List<MonsterType>
@@ -39,7 +39,7 @@ public class EncounterOptionData
             Sizes = new List<Size> { Size.Medium, Size.Large, Size.Huge },
             PartySize = 4
         },
-        new()
+        new EncounterOption
         {
             PartyLevel = 12,
             MonsterTypes = new List<MonsterType>

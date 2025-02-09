@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-alert-dialog',
+  standalone: false,
   templateUrl: './alertdialog.component.html'
 })
 export class AlertDialogComponent {

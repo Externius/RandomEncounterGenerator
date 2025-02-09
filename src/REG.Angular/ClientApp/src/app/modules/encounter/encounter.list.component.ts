@@ -21,9 +21,10 @@ const compare = (
 ) => (v1 < v2 ? -1 : v1 > v2 ? 1 : 0);
 
 @Component({
-  selector: 'app-encounter',
-  templateUrl: './encounter.list.component.html',
-  providers: [EncounterListService]
+    selector: 'app-encounter',
+    templateUrl: './encounter.list.component.html',
+    standalone: false,
+    providers: [EncounterListService]
 })
 export class EncounterListComponent implements OnInit {
   _monsterTypes!: [];
