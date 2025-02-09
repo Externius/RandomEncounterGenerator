@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
+  standalone: false,
   templateUrl: './app.component.html'
 })
 export class AppComponent {

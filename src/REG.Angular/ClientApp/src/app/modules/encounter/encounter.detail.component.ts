@@ -4,9 +4,10 @@ import { EncounterDetailModel } from '../../shared/models/encounter.model';
 import { EncounterService } from '../../core/http/encounter.service';
 
 @Component({
-  selector: 'app-encounter-detail',
-  templateUrl: './encounter.detail.component.html',
-  providers: [EncounterService]
+    selector: 'app-encounter-detail',
+    templateUrl: './encounter.detail.component.html',
+    standalone: false,
+    providers: [EncounterService]
 })
 export class EncounterDetailComponent {
   @Input() detail!: EncounterDetailModel;

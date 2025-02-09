@@ -16,23 +16,23 @@
       <label for="difficulty" class="col-form-label">{{ 'encounter.difficulty' | translate }}</label>
       <div class="text-left">
         <ng-select [items]="difficulties" bindLabel="key" bindValue="value" id="difficulty"
-          formControlName="difficulty">
+                   formControlName="difficulty">
         </ng-select>
       </div>
     </div>
     <div class="col-sm-4">
-      <label for="monsterTypes" class="col-form-label">{{ 'encounter.type' | translate }}</label>
+      <label for="monsterType" class="col-form-label">{{ 'encounter.type' | translate }}</label>
       <div class="text-left">
         <ng-select [multiple]="true" [items]="_monsterTypes" bindLabel="key" bindValue="value" id="monsterType"
-          formControlName="monsterTypes">
+                   formControlName="monsterTypes">
         </ng-select>
       </div>
     </div>
     <div class="col-sm-4">
-      <label for="sizes" class="col-form-label">{{ 'encounter.size' | translate }}</label>
+      <label for="size" class="col-form-label">{{ 'encounter.size' | translate }}</label>
       <div class="text-left">
         <ng-select [multiple]="true" [items]="_sizes" bindLabel="key" bindValue="value" id="size"
-          formControlName="sizes">
+                   formControlName="sizes">
         </ng-select>
       </div>
     </div>
@@ -44,14 +44,14 @@
 <div class="col-md-12">
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th scope="col" sortable="name" (sort)="onSort($event)">{{ 'encounter.monsterName' | translate }}</th>
-        <th scope="col" sortable="count" (sort)="onSort($event)">{{ 'encounter.count' | translate }}</th>
-        <th scope="col" sortable="type" (sort)="onSort($event)">{{ 'encounter.type' | translate }}</th>
-        <th scope="col" sortable="size" (sort)="onSort($event)">{{ 'encounter.size' | translate }}</th>
-        <th scope="col" sortable="xp" (sort)="onSort($event)">{{ 'encounter.xp' | translate }}</th>
-        <th scope="col" sortable="difficulty" (sort)="onSort($event)">{{ 'encounter.difficulty' | translate }}</th>
-      </tr>
+    <tr>
+      <th scope="col" sortable="name" (sort)="onSort($event)">{{ 'encounter.monsterName' | translate }}</th>
+      <th scope="col" sortable="count" (sort)="onSort($event)">{{ 'encounter.count' | translate }}</th>
+      <th scope="col" sortable="type" (sort)="onSort($event)">{{ 'encounter.type' | translate }}</th>
+      <th scope="col" sortable="size" (sort)="onSort($event)">{{ 'encounter.size' | translate }}</th>
+      <th scope="col" sortable="xp" (sort)="onSort($event)">{{ 'encounter.xp' | translate }}</th>
+      <th scope="col" sortable="difficulty" (sort)="onSort($event)">{{ 'encounter.difficulty' | translate }}</th>
+    </tr>
     </thead>
     <tbody>
     </tbody>
@@ -73,7 +73,7 @@
             </h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ monster.type }} ({{ monster.size }})</h6>
             <p class="card-text">{{ 'encounter.difficulty' | translate }}: {{ monster.difficulty }}
-              ({{ monster.xp | number}} {{'encounter.xp' | translate }})
+              ({{ monster.xp | number }} {{ 'encounter.xp' | translate }})
             </p>
           </div>
         </div>

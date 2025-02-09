@@ -9,7 +9,7 @@ using System.IO;
 
 namespace REG.Core.Tests;
 
-public class TestEnvironment : IDisposable
+public sealed class TestEnvironment : IDisposable
 {
     private readonly IServiceScope _scope;
     private bool _disposedValue;
@@ -38,10 +38,7 @@ public class TestEnvironment : IDisposable
 
     private static void ConfigureServices(IServiceCollection services)
     {
-        services.AddLogging(builder =>
-        {
-            builder.AddDebug();
-        });
+        services.AddLogging(builder => { builder.AddDebug(); });
         services.AddApplicationServices()
             .AddAutoMapper(typeof(Services.AutoMapper.EncounterProfile));
     }
@@ -53,7 +50,8 @@ public class TestEnvironment : IDisposable
         Dispose(true);
         GC.SuppressFinalize(this);
     }
-    protected virtual void Dispose(bool disposing)
+
+    private void Dispose(bool disposing)
     {
         if (_disposedValue)
             return;
