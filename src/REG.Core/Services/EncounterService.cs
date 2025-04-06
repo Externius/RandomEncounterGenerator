@@ -5,12 +5,7 @@ using REG.Core.Abstractions.Services.Exceptions;
 using REG.Core.Abstractions.Services.Models;
 using REG.Core.Abstractions.Services.Models.Json;
 using REG.Core.Domain;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace REG.Core.Services;
 
@@ -107,10 +102,10 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
         { 2800, 5700, 8500, 12700 }
     };
 
-    private ICollection<Monster> _monsters;
+    private ICollection<Monster> _monsters = [];
     private int _partyLevel;
     private int _partySize;
-    private ICollection<KeyValuePair<Difficulty, int>> _xpList;
+    private ICollection<KeyValuePair<Difficulty, int>> _xpList = [];
 
     public async Task<ICollection<KeyValuePair<string, int>>> GetEnumListAsync<T>() where T : struct
     {
@@ -124,12 +119,12 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
             .ToList());
     }
 
-    public ICollection<T> DeserializeJson<T>(string jsonFilePath = null)
+    public ICollection<T> DeserializeJson<T>(string? jsonFilePath = null)
     {
         var json = jsonFilePath is not null
             ? File.ReadAllText(jsonFilePath)
             : File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "/Jsons/" + MonstersFileName);
-        return JsonSerializer.Deserialize<List<T>>(json, _jsonSerializerOptions);
+        return JsonSerializer.Deserialize<List<T>>(json, _jsonSerializerOptions) ?? [];
     }
 
     public async Task<EncounterModel> GenerateAsync(EncounterOption option)
@@ -137,13 +132,13 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
         ValidateOption(option);
         _partyLevel = option.PartyLevel;
         _partySize = option.PartySize;
-        _xpList = new List<KeyValuePair<Difficulty, int>>
-        {
-            new(Difficulty.Easy, Thresholds[_partyLevel, 0] * _partySize),
-            new(Difficulty.Medium, Thresholds[_partyLevel, 1] * _partySize),
-            new(Difficulty.Hard, Thresholds[_partyLevel, 2] * _partySize),
-            new(Difficulty.Deadly, Thresholds[_partyLevel, 3] * _partySize)
-        };
+        _xpList =
+        [
+            new KeyValuePair<Difficulty, int>(Difficulty.Easy, Thresholds[_partyLevel, 0] * _partySize),
+            new KeyValuePair<Difficulty, int>(Difficulty.Medium, Thresholds[_partyLevel, 1] * _partySize),
+            new KeyValuePair<Difficulty, int>(Difficulty.Hard, Thresholds[_partyLevel, 2] * _partySize),
+            new KeyValuePair<Difficulty, int>(Difficulty.Deadly, Thresholds[_partyLevel, 3] * _partySize)
+        ];
         try
         {
             _monsters = DeserializeJson<Monster>();
@@ -153,13 +148,13 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
             if (option.MonsterTypes.Any())
             {
                 var selectedMonsters = option.MonsterTypes.Select(m => m.ToString().ToLower());
-                _monsters = _monsters.Where(m => selectedMonsters.Any(m.Type.ToLower().Equals)).ToList();
+                _monsters = [.. _monsters.Where(m => selectedMonsters.Any(m.Type.ToLower().Equals))];
             }
 
             if (option.Sizes.Any())
             {
                 var selectedSizes = option.Sizes.Select(s => s.ToString().ToLower());
-                _monsters = _monsters.Where(m => selectedSizes.Any(m.Size.ToLower().Equals)).ToList();
+                _monsters = [.. _monsters.Where(m => selectedSizes.Any(m.Size.ToLower().Equals))];
             }
 
             if (option.Difficulty.HasValue)
@@ -180,7 +175,9 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
                 {
                     try
                     {
-                        result.Encounters.Add(GetMonster(option.Difficulty));
+                        var monster = GetMonster(option.Difficulty);
+                        if (monster is not null)
+                            result.Encounters.Add(monster);
                         maxTryNumber--;
                     }
                     catch (ServiceException)
@@ -190,7 +187,6 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
                 }
             });
 
-            result.Encounters.RemoveAll(ed => ed is null); // cleanup if needed
             result.SumXp = result.Encounters.Sum(ed => ed.Xp);
 
             return result;
@@ -207,7 +203,7 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
         return Thresholds[_partyLevel, difficulty] * _partySize;
     }
 
-    private static void ValidateOption(EncounterOption option)
+    private static void ValidateOption(EncounterOption? option)
     {
         var exceptions = new List<ServiceException>();
 
@@ -241,11 +237,11 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
         return max;
     }
 
-    private EncounterDetail GetMonster(Difficulty? difficulty = null)
+    private EncounterDetail? GetMonster(Difficulty? difficulty = null)
     {
         var monsterCount = _monsters.Count;
         var monster = 0;
-        var indexes = new List<int>(Enumerable.Range(0, Multipliers.GetLength(0)));
+        List<int> indexes = [..Enumerable.Range(0, Multipliers.GetLength(0))];
 
         while (monster < monsterCount)
         {

@@ -4,8 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using REG.Core.Abstractions.Services;
 using REG.Core.Services;
-using System;
-using System.IO;
 
 namespace REG.Core.Tests;
 
@@ -13,7 +11,7 @@ public sealed class TestEnvironment : IDisposable
 {
     private readonly IServiceScope _scope;
     private bool _disposedValue;
-    private SqliteConnection Connection { get; }
+    private SqliteConnection? Connection { get; }
 
     public TestEnvironment()
     {
@@ -33,7 +31,7 @@ public sealed class TestEnvironment : IDisposable
 
     public T GetService<T>()
     {
-        return _scope.ServiceProvider.GetService<T>();
+        return _scope.ServiceProvider.GetService<T>() ?? throw new NotImplementedException();
     }
 
     private static void ConfigureServices(IServiceCollection services)
@@ -59,7 +57,7 @@ public sealed class TestEnvironment : IDisposable
         if (disposing)
         {
             Connection?.Dispose();
-            _scope?.Dispose();
+            _scope.Dispose();
         }
 
         _disposedValue = true;

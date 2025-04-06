@@ -36,7 +36,7 @@
     "encountermenu": "Találkozás",
     "homemenu": "Főoldal",
     "title": "Véletlen találkozás generátor",
-    "welcome": "Ez egy ASP.NET Core 8.0 Angular projekt véletlen találkozások generálására, D&D 5. kiadású SRD szörnyek felhasználásával."
+    "welcome": "Ez egy ASP.NET Core 9.0 Angular projekt véletlen találkozások generálására, D&D 5. kiadású SRD szörnyek felhasználásával."
   },
   "common": {
     "generate": "Létrehoz",

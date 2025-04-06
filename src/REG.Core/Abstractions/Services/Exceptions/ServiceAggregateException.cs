@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 
 namespace REG.Core.Abstractions.Services.Exceptions;
 
@@ -11,7 +8,7 @@ public class ServiceAggregateException : Exception
 
     public ReadOnlyCollection<ServiceException> GetInnerExceptions()
     {
-        return new ReadOnlyCollection<ServiceException>(_innerExceptions.ToList());
+        return new ReadOnlyCollection<ServiceException>([.. _innerExceptions]);
     }
 
     public ServiceAggregateException(IEnumerable<ServiceException> innerExceptions)

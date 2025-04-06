@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Resources;
+﻿using System.Resources;
 
 namespace REG.Core.Services;
 
 public static class ThreadSafeRandom
 {
-    [ThreadStatic] private static Random _local;
+    [ThreadStatic] private static Random? _local;
 
     public static Random ThisThreadsRandom
     {
@@ -30,7 +28,7 @@ public static class ServiceExtensions
         }
     }
 
-    public static string GetName(this Enum value, ResourceManager resourceManager, string defaultValue = null)
+    public static string GetName(this Enum? value, ResourceManager? resourceManager, string? defaultValue = null)
     {
         if (value is null)
             return string.Empty;
