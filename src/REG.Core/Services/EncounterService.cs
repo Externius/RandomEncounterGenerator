@@ -241,7 +241,7 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
     {
         var monsterCount = _monsters.Count;
         var monster = 0;
-        List<int> indexes = [..Enumerable.Range(0, Multipliers.GetLength(0))];
+        var indexes = new List<int>(Enumerable.Range(0, Multipliers.GetLength(0)));
 
         while (monster < monsterCount)
         {

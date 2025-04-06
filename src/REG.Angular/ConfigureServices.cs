@@ -26,10 +26,10 @@ public static class ConfigureServices
         services.Configure<RequestLocalizationOptions>(
             opts =>
             {
-                List<CultureInfo> supportedCultures =
+                var supportedCultures = (List<CultureInfo>)
                 [
-                    new("hu"),
-                    new("en")
+                    new CultureInfo("hu"),
+                    new CultureInfo("en")
                 ];
                 opts.DefaultRequestCulture = new RequestCulture("en");
                 opts.SupportedCultures = supportedCultures;
