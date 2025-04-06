@@ -1,11 +1,10 @@
-﻿using System;
-using System.Resources;
+﻿using System.Resources;
 
 namespace REG.Core.Abstractions.Services.Exceptions;
 
 public static class ServiceExceptionExtensions
 {
-    public static string LocalizedMessage(this ServiceException serviceException, ResourceManager resourceManager)
+    public static string? LocalizedMessage(this ServiceException? serviceException, ResourceManager? resourceManager)
     {
         if (string.IsNullOrEmpty(serviceException?.Message))
             return null;
@@ -14,10 +13,8 @@ public static class ServiceExceptionExtensions
             return serviceException.Message;
         try
         {
-            return serviceException.Args is not null
-                ? string.Format(resourceManager.GetString(serviceException.Message) ?? string.Empty,
-                    serviceException.Args)
-                : resourceManager.GetString(serviceException.Message);
+            return string.Format(resourceManager.GetString(serviceException.Message) ?? string.Empty,
+                serviceException.Args);
         }
         catch (Exception)
         {

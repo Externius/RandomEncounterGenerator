@@ -1,6 +1,5 @@
 using REG.Core.Abstractions.Services.Models;
 using REG.Core.Domain;
-using System.Collections.Generic;
 using Xunit;
 
 namespace REG.Core.Tests.GeneratorServiceTests;
@@ -12,42 +11,41 @@ public class EncounterOptionData
         new EncounterOption
         {
             PartyLevel = 4,
-            MonsterTypes = new List<MonsterType> { MonsterType.Aberration },
-            Sizes = new List<Size> { Size.Small, Size.Medium },
+            MonsterTypes = [MonsterType.Aberration],
+            Sizes = [Size.Small, Size.Medium],
             PartySize = 3
         },
         new EncounterOption
         {
             PartyLevel = 3,
-            MonsterTypes = new List<MonsterType> { MonsterType.Ooze, MonsterType.Fey },
-            Sizes = new List<Size> { Size.Tiny, Size.Small, Size.Medium },
+            MonsterTypes = [MonsterType.Ooze, MonsterType.Fey],
+            Sizes = [Size.Tiny, Size.Small, Size.Medium],
             PartySize = 4
         },
         new EncounterOption
         {
             PartyLevel = 4,
             MonsterTypes =
-                new List<MonsterType> { MonsterType.Elemental, MonsterType.Giant, MonsterType.Fiend },
-            Sizes = new List<Size> { Size.Small, Size.Medium, Size.Large },
+                [MonsterType.Elemental, MonsterType.Giant, MonsterType.Fiend],
+            Sizes = [Size.Small, Size.Medium, Size.Large],
             PartySize = 5
         },
         new EncounterOption
         {
             PartyLevel = 8,
-            MonsterTypes = new List<MonsterType>
-                { MonsterType.Beast, MonsterType.Humanoid, MonsterType.Celestial, MonsterType.Dragon },
-            Sizes = new List<Size> { Size.Medium, Size.Large, Size.Huge },
+            MonsterTypes = [MonsterType.Beast, MonsterType.Humanoid, MonsterType.Celestial, MonsterType.Dragon],
+            Sizes = [Size.Medium, Size.Large, Size.Huge],
             PartySize = 4
         },
         new EncounterOption
         {
             PartyLevel = 12,
-            MonsterTypes = new List<MonsterType>
-            {
+            MonsterTypes =
+            [
                 MonsterType.SwarmOfTinyBeasts, MonsterType.Undead, MonsterType.Construct,
                 MonsterType.Plant, MonsterType.Monstrosity
-            },
-            Sizes = new List<Size> { Size.Medium, Size.Large, Size.Huge, Size.Gargantuan },
+            ],
+            Sizes = [Size.Medium, Size.Large, Size.Huge, Size.Gargantuan],
             PartySize = 3
         }
     ];

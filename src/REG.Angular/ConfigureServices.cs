@@ -26,27 +26,24 @@ public static class ConfigureServices
         services.Configure<RequestLocalizationOptions>(
             opts =>
             {
-                var supportedCultures = new List<CultureInfo>
-                {
-                    new("hu"),
-                    new("en"),
-                };
+                var supportedCultures = (List<CultureInfo>)
+                [
+                    new CultureInfo("hu"),
+                    new CultureInfo("en")
+                ];
                 opts.DefaultRequestCulture = new RequestCulture("en");
                 opts.SupportedCultures = supportedCultures;
                 opts.SupportedUICultures = supportedCultures;
-                opts.RequestCultureProviders = new List<IRequestCultureProvider>
-                {
+                opts.RequestCultureProviders =
+                [
                     new QueryStringRequestCultureProvider(),
                     new CookieRequestCultureProvider()
-                };
+                ];
             });
 
         services.AddControllers();
         // In production, the Angular files will be served from this directory
-        services.AddSpaStaticFiles(staticFilesOptions =>
-        {
-            staticFilesOptions.RootPath = "ClientApp/dist";
-        });
+        services.AddSpaStaticFiles(staticFilesOptions => { staticFilesOptions.RootPath = "ClientApp/dist"; });
 
         return services;
     }
@@ -54,7 +51,7 @@ public static class ConfigureServices
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IEncounterService, EncounterService>()
-                .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         return services;
     }

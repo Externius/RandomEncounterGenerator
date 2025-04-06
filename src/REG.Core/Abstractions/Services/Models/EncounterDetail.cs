@@ -1,5 +1,5 @@
 ﻿using REG.Core.Abstractions.Services.Models.Json;
-using System.Collections.Generic;
+using Action = REG.Core.Abstractions.Services.Models.Json.Action;
 
 namespace REG.Core.Abstractions.Services.Models;
 
@@ -7,18 +7,18 @@ public class EncounterDetail
 {
     public int Xp { get; set; }
     public int Count { get; set; }
-    public string Name { get; set; }
-    public string Type { get; set; }
-    public string Difficulty { get; set; }
-    public string ChallengeRating { get; set; }
-    public string Size { get; set; }
-    public string Alignment { get; set; }
+    public required string Name { get; set; }
+    public required string Type { get; set; }
+    public required string Difficulty { get; set; }
+    public required string ChallengeRating { get; set; }
+    public required string Size { get; set; }
+    public required string Alignment { get; set; }
     public int Hp { get; set; }
     public int Ac { get; set; }
-    public string HitDice { get; set; }
-    public string Speed { get; set; }
-    public string Senses { get; set; }
-    public string Languages { get; set; }
+    public required string HitDice { get; set; }
+    public required string Speed { get; set; }
+    public required string Senses { get; set; }
+    public required string Languages { get; set; }
     public int Strength { get; set; }
     public int Dexterity { get; set; }
     public int Constitution { get; set; }
@@ -33,19 +33,12 @@ public class EncounterDetail
     public int CharismaSave { get; set; }
     public int History { get; set; }
     public int Perception { get; set; }
-    public string DamageVulnerabilities { get; set; }
-    public string DamageResistances { get; set; }
-    public string DamageImmunities { get; set; }
-    public string ConditionImmunities { get; set; }
-    public List<SpecialAbility> SpecialAbilities { get; set; }
-    public List<Action> Actions { get; set; }
-    public List<LegendaryAction> LegendaryActions { get; set; }
-    public List<Reaction> Reactions { get; set; }
-    public EncounterDetail()
-    {
-        SpecialAbilities = new List<SpecialAbility>();
-        Actions = new List<Action>();
-        LegendaryActions = new List<LegendaryAction>();
-        Reactions = new List<Reaction>();
-    }
+    public string? DamageVulnerabilities { get; set; }
+    public string? DamageResistances { get; set; }
+    public string? DamageImmunities { get; set; }
+    public string? ConditionImmunities { get; set; }
+    public List<SpecialAbility> SpecialAbilities { get; set; } = [];
+    public List<Action> Actions { get; set; } = [];
+    public List<LegendaryAction> LegendaryActions { get; set; } = [];
+    public List<Reaction> Reactions { get; set; } = [];
 }

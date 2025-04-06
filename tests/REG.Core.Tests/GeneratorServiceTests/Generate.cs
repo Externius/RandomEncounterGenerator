@@ -5,9 +5,6 @@ using REG.Core.Abstractions.Services.Models.Json;
 using REG.Core.Domain;
 using REG.Core.Services;
 using Shouldly;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace REG.Core.Tests.GeneratorServiceTests;
@@ -60,7 +57,7 @@ public class Generate
         var option = new EncounterOption
         {
             PartyLevel = partyLevel,
-            MonsterTypes = new List<MonsterType> { MonsterType.Beast, MonsterType.Humanoid, MonsterType.SwarmOfTinyBeasts },
+            MonsterTypes = [MonsterType.Beast, MonsterType.Humanoid, MonsterType.SwarmOfTinyBeasts],
             PartySize = partySize,
             Difficulty = difficulty
         };
@@ -82,14 +79,11 @@ public class Generate
         {
             PartyLevel = 1,
             PartySize = 1,
-            MonsterTypes = new List<MonsterType> { MonsterType.Dragon },
+            MonsterTypes = [MonsterType.Dragon],
             Difficulty = Difficulty.Easy
         };
 
-        await Should.ThrowAsync<ServiceException>(async () =>
-        {
-            await service.GenerateAsync(option);
-        });
+        await Should.ThrowAsync<ServiceException>(async () => { await service.GenerateAsync(option); });
     }
 
     [Fact]
