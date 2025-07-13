@@ -37,8 +37,7 @@ public sealed class TestEnvironment : IDisposable
     private static void ConfigureServices(IServiceCollection services)
     {
         services.AddLogging(builder => { builder.AddDebug(); });
-        services.AddApplicationServices()
-            .AddAutoMapper(typeof(Services.AutoMapper.EncounterProfile));
+        services.AddApplicationServices();
     }
 
     ~TestEnvironment() => Dispose(false);
