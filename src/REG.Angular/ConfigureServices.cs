@@ -23,23 +23,22 @@ public static class ConfigureServices
                 .AllowAnyHeader();
         }));
 
-        services.Configure<RequestLocalizationOptions>(
-            opts =>
-            {
-                var supportedCultures = (List<CultureInfo>)
-                [
-                    new CultureInfo("hu"),
-                    new CultureInfo("en")
-                ];
-                opts.DefaultRequestCulture = new RequestCulture("en");
-                opts.SupportedCultures = supportedCultures;
-                opts.SupportedUICultures = supportedCultures;
-                opts.RequestCultureProviders =
-                [
-                    new QueryStringRequestCultureProvider(),
-                    new CookieRequestCultureProvider()
-                ];
-            });
+        services.Configure<RequestLocalizationOptions>(opts =>
+        {
+            var supportedCultures = (List<CultureInfo>)
+            [
+                new CultureInfo("hu"),
+                new CultureInfo("en")
+            ];
+            opts.DefaultRequestCulture = new RequestCulture("en");
+            opts.SupportedCultures = supportedCultures;
+            opts.SupportedUICultures = supportedCultures;
+            opts.RequestCultureProviders =
+            [
+                new QueryStringRequestCultureProvider(),
+                new CookieRequestCultureProvider()
+            ];
+        });
 
         services.AddControllers();
         // In production, the Angular files will be served from this directory
@@ -50,8 +49,7 @@ public static class ConfigureServices
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<IEncounterService, EncounterService>()
-            .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddScoped<IEncounterService, EncounterService>();
 
         return services;
     }

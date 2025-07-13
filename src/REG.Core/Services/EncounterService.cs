@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using REG.Core.Abstractions.Services;
 using REG.Core.Abstractions.Services.Exceptions;
 using REG.Core.Abstractions.Services.Models;
@@ -9,9 +8,8 @@ using System.Text.Json;
 
 namespace REG.Core.Services;
 
-public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) : IEncounterService
+public class EncounterService(ILogger<EncounterService> logger) : IEncounterService
 {
-    private readonly IMapper _mapper = mapper;
     private readonly ILogger _logger = logger;
 
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
@@ -282,13 +280,48 @@ public class EncounterService(IMapper mapper, ILogger<EncounterService> logger) 
         return null;
     }
 
-    private EncounterDetail GetEncounterDetail(Difficulty difficulty, Monster currentMonster, int allXp, int count)
+    private static EncounterDetail GetEncounterDetail(Difficulty difficulty, Monster currentMonster, int allXp,
+        int count)
     {
-        var encounterDetail = _mapper.Map<EncounterDetail>(currentMonster);
-        encounterDetail.Xp = allXp;
-        encounterDetail.Count = count;
-        encounterDetail.Difficulty = difficulty.GetName(Resources.Enum.ResourceManager);
-        encounterDetail.Size = Enum.Parse<Size>(currentMonster.Size).GetName(Resources.Enum.ResourceManager);
+        var encounterDetail = new EncounterDetail
+        {
+            Xp = allXp,
+            Count = count,
+            Difficulty = difficulty.GetName(Resources.Enum.ResourceManager),
+            Size = Enum.Parse<Size>(currentMonster.Size).GetName(Resources.Enum.ResourceManager),
+            Name = currentMonster.Name,
+            Type = currentMonster.Type,
+            ChallengeRating = currentMonster.ChallengeRating,
+            Alignment = currentMonster.Alignment ?? string.Empty,
+            HitDice = currentMonster.HitDice ?? string.Empty,
+            Speed = currentMonster.Speed ?? string.Empty,
+            Senses = currentMonster.Senses ?? string.Empty,
+            Languages = currentMonster.Languages ?? string.Empty,
+            Ac = currentMonster.ArmorClass ?? 0,
+            Actions = currentMonster.Actions,
+            Charisma = currentMonster.Charisma ?? 0,
+            CharismaSave = currentMonster.CharismaSave ?? 0,
+            ConditionImmunities = currentMonster.ConditionImmunities,
+            Constitution = currentMonster.Constitution ?? 0,
+            ConstitutionSave = currentMonster.ConstitutionSave ?? 0,
+            DamageImmunities = currentMonster.DamageImmunities,
+            DamageResistances = currentMonster.DamageResistances,
+            DamageVulnerabilities = currentMonster.DamageVulnerabilities,
+            Dexterity = currentMonster.Dexterity ?? 0,
+            DexteritySave = currentMonster.DexteritySave ?? 0,
+            History = currentMonster.History ?? 0,
+            Hp = currentMonster.HitPoints ?? 0,
+            Intelligence = currentMonster.Intelligence ?? 0,
+            IntelligenceSave = currentMonster.IntelligenceSave ?? 0,
+            LegendaryActions = currentMonster.LegendaryActions,
+            Perception = currentMonster.Perception ?? 0,
+            Reactions = currentMonster.Reactions,
+            SpecialAbilities = currentMonster.SpecialAbilities,
+            Strength = currentMonster.Strength ?? 0,
+            StrengthSave = currentMonster.StrengthSave ?? 0,
+            Wisdom = currentMonster.Wisdom ?? 0,
+            WisdomSave = currentMonster.WisdomSave ?? 0
+        };
 
         if (Enum.TryParse(encounterDetail.Type, out MonsterType type))
             encounterDetail.Type = type.GetName(Resources.Enum.ResourceManager);
