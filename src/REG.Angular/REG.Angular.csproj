@@ -53,7 +53,6 @@
 		<TypeScriptCompile Include="ClientApp\src\app\shared\constants\constant.ts" />
 		<TypeScriptCompile Include="ClientApp\src\app\shared\directive\sortable.directive.ts" />
 		<TypeScriptCompile Include="ClientApp\src\app\shared\models\encounter.model.ts" />
-		<TypeScriptCompile Include="ClientApp\src\app\shared\pipes\savingthrow.pipe.ts" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,7 +1,12 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_ID, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withFetch} from '@angular/common/http';
+import {
+  HttpClient,
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi
+} from '@angular/common/http';
 import {RouterModule, TitleStrategy} from '@angular/router';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './modules/home/home.component';
@@ -68,6 +73,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   ],
   exports: [TranslateModule, SavingThrowPipe],
   providers: [
+    provideHttpClient(
+      withInterceptorsFromDi()
+    ),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ServerErrorInterceptor,
@@ -78,8 +86,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       useClass: CustomTitleStrategy
     },
     {provide: APP_ID, useValue: 'app-reg'},
-    CookieService,
-    provideHttpClient(withFetch())
+    CookieService
   ],
   bootstrap: [
     AppComponent,
