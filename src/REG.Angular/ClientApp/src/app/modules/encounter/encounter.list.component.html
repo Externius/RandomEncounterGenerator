@@ -58,10 +58,10 @@
   </table>
 </div>
 <div class="row row-cols-1 row-cols-md-4 g-4">
-  <div *ngFor="let monster of encounterModel.encounters; index as i">
+  @for (monster of encounterModel.encounters; track monster) {
     <div class="card text-bg-light">
       <div class="row g-0">
-        <div class="col-md-2 text-center mt-2">
+        <div class="col-md-2 text-center mt-3">
           <button type="button" class="btn btn-link" (click)="monsterDetailDialog(monster)" title="Monster details">
             <fa-icon [icon]="faDiceD20" size="4x"></fa-icon>
           </button>
@@ -79,5 +79,5 @@
         </div>
       </div>
     </div>
-  </div>
+  }
 </div>

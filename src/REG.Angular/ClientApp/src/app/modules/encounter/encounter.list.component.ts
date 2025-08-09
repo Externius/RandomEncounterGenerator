@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { EncounterListService } from './encounter.list.service';
+import {Component, OnInit, ViewChildren, QueryList} from '@angular/core';
+import {EncounterListService} from './encounter.list.service';
 import {
   EncounterOptionModel,
   EncounterModel,
@@ -9,11 +9,11 @@ import {
   Reaction,
   LegendaryAction
 } from '../../shared/models/encounter.model';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { SortEvent, SortableHeaderDirective } from '../../shared/directive/sortable.directive';
-import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EncounterDetailComponent } from './encounter.detail.component';
+import {FormGroup, FormBuilder} from '@angular/forms';
+import {SortEvent, SortableHeaderDirective} from '../../shared/directive/sortable.directive';
+import {faDiceD20} from '@fortawesome/free-solid-svg-icons';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EncounterDetailComponent} from './encounter.detail.component';
 
 const compare = (
   v1: string | number | SpecialAbility[] | Action[] | Reaction[] | LegendaryAction[],
@@ -21,10 +21,10 @@ const compare = (
 ) => (v1 < v2 ? -1 : v1 > v2 ? 1 : 0);
 
 @Component({
-    selector: 'app-encounter',
-    templateUrl: './encounter.list.component.html',
-    standalone: false,
-    providers: [EncounterListService]
+  selector: 'app-encounter',
+  templateUrl: './encounter.list.component.html',
+  standalone: false,
+  providers: [EncounterListService]
 })
 export class EncounterListComponent implements OnInit {
   _monsterTypes!: [];
@@ -32,7 +32,7 @@ export class EncounterListComponent implements OnInit {
   difficulties!: [];
   partyLevels: number[] = [];
   partySizes: number[] = [];
-  _orignialDetails: EncounterDetailModel[] = [];
+  _originalDetails: EncounterDetailModel[] = [];
   serverError = '';
   encounterOptionsForm!: FormGroup;
   encounterModel: EncounterModel = new EncounterModel();
@@ -77,8 +77,8 @@ export class EncounterListComponent implements OnInit {
     this.encounterListService.generate(JSON.stringify(this.encounterOptionsForm.value)).subscribe({
       next: (data) => {
         Object.assign(this.encounterModel, data);
-        this._orignialDetails = [];
-        Object.assign(this._orignialDetails, this.encounterModel.encounters);
+        this._originalDetails = [];
+        Object.assign(this._originalDetails, this.encounterModel.encounters);
       },
       error: (error) => {
         this.serverError = error.error.Message;
@@ -89,7 +89,7 @@ export class EncounterListComponent implements OnInit {
     });
   }
 
-  onSort({ column, direction }: SortEvent) {
+  onSort({column, direction}: SortEvent) {
     this.headers.forEach((header) => {
       if (header.sortable !== column) {
         header.direction = '';
@@ -97,9 +97,9 @@ export class EncounterListComponent implements OnInit {
     });
 
     if (direction === '' || column === '') {
-      this.encounterModel.encounters = this._orignialDetails;
+      this.encounterModel.encounters = this._originalDetails;
     } else {
-      this.encounterModel.encounters = [...this._orignialDetails].sort((a, b) => {
+      this.encounterModel.encounters = [...this._originalDetails].sort((a, b) => {
         const res = compare(a[column], b[column]);
         return direction === 'asc' ? res : -res;
       });

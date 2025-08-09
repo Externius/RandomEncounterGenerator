@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-title">{{'encounter.detailTitle' | translate}}</h4>
+  <h4 class="modal-title" id="modal-title">{{ 'encounter.detailTitle' | translate }}</h4>
   <button type="button" class="btn-close" aria-describedby="modal-title" (click)="onDismiss()">
   </button>
 </div>
@@ -40,9 +40,9 @@
         <label class="input-group-text font-weight-bold ability">{{ 'encounter.strength' | translate }}</label>
       </div>
       <input type="text" class="form-control text-center" readonly
-        value="{{detail.strength}} ({{calcMod(detail.strength)}})">
+             value="{{detail.strength}} ({{calcMod(detail.strength)}})">
       <div class="input-group-append">
-        <label class="input-group-text saving-throw">{{detail.strengthSave | savingThrow: detail.strength}}</label>
+        <label class="input-group-text saving-throw">{{ detail.strengthSave | savingThrow: detail.strength }}</label>
       </div>
     </div>
     <div class="input-group mb-3 col-sm-4">
@@ -50,9 +50,9 @@
         <label class="input-group-text font-weight-bold ability">{{ 'encounter.dexterity' | translate }}</label>
       </div>
       <input type="text" class="form-control text-center" readonly
-        value="{{detail.dexterity}} ({{calcMod(detail.dexterity)}})">
+             value="{{detail.dexterity}} ({{calcMod(detail.dexterity)}})">
       <div class="input-group-append">
-        <label class="input-group-text saving-throw">{{detail.dexteritySave | savingThrow: detail.dexterity}}</label>
+        <label class="input-group-text saving-throw">{{ detail.dexteritySave | savingThrow: detail.dexterity }}</label>
       </div>
     </div>
     <div class="input-group mb-3 col-sm-4">
@@ -60,10 +60,12 @@
         <label class="input-group-text font-weight-bold ability">{{ 'encounter.constitution' | translate }}</label>
       </div>
       <input type="text" class="form-control text-center" readonly
-        value="{{detail.constitution}} ({{calcMod(detail.constitution)}})">
+             value="{{detail.constitution}} ({{calcMod(detail.constitution)}})">
       <div class="input-group-append">
-        <label class="input-group-text saving-throw">{{detail.constitutionSave | savingThrow:
-          detail.constitution}}</label>
+        <label class="input-group-text saving-throw">{{
+            detail.constitutionSave | savingThrow:
+              detail.constitution
+          }}</label>
       </div>
     </div>
   </div>
@@ -73,10 +75,12 @@
         <label class="input-group-text font-weight-bold ability">{{ 'encounter.intelligence' | translate }}</label>
       </div>
       <input type="text" class="form-control text-center" readonly
-        value="{{detail.intelligence}} ({{calcMod(detail.intelligence)}})">
+             value="{{detail.intelligence}} ({{calcMod(detail.intelligence)}})">
       <div class="input-group-append">
-        <label class="input-group-text saving-throw">{{detail.intelligenceSave | savingThrow:
-          detail.intelligence}}</label>
+        <label class="input-group-text saving-throw">{{
+            detail.intelligenceSave | savingThrow:
+              detail.intelligence
+          }}</label>
       </div>
     </div>
     <div class="input-group mb-3 col-sm-4">
@@ -84,9 +88,9 @@
         <label class="input-group-text font-weight-bold ability">{{ 'encounter.wisdom' | translate }}</label>
       </div>
       <input type="text" class="form-control text-center" readonly
-        value="{{detail.wisdom}} ({{calcMod(detail.wisdom)}})">
+             value="{{detail.wisdom}} ({{calcMod(detail.wisdom)}})">
       <div class="input-group-append">
-        <label class="input-group-text saving-throw">{{detail.wisdomSave | savingThrow: detail.wisdom}}</label>
+        <label class="input-group-text saving-throw">{{ detail.wisdomSave | savingThrow: detail.wisdom }}</label>
       </div>
     </div>
     <div class="input-group mb-3 col-sm-4">
@@ -94,9 +98,9 @@
         <label class="input-group-text font-weight-bold ability">{{ 'encounter.charisma' | translate }}</label>
       </div>
       <input type="text" class="form-control text-center" readonly
-        value="{{detail.charisma}} ({{calcMod(detail.charisma)}})">
+             value="{{detail.charisma}} ({{calcMod(detail.charisma)}})">
       <div class="input-group-append">
-        <label class="input-group-text saving-throw">{{detail.charismaSave | savingThrow: detail.charisma}}</label>
+        <label class="input-group-text saving-throw">{{ detail.charismaSave | savingThrow: detail.charisma }}</label>
       </div>
     </div>
   </div>
@@ -118,103 +122,117 @@
     <h2>{{ 'encounter.actions' | translate }}</h2>
     <table class="table table-striped">
       <thead>
+      <tr>
+        <th scope="col">{{ 'action.name' | translate }}</th>
+        <th scope="col">{{ 'action.desc' | translate }}</th>
+        <th scope="col">{{ 'action.attackBonus' | translate }}</th>
+        <th scope="col">{{ 'action.damageDice' | translate }}</th>
+        <th scope="col">{{ 'action.damageBonus' | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (action of detail.actions; track action) {
+          <tr>
+            <td class="">{{ action.name }}</td>
+            <td class="">{{ action.desc }}</td>
+            <td>
+              @if (action.attack_bonus! && action.attack_bonus > 0) {
+                {{ action.attack_bonus | number }}
+              }
+            </td>
+            <td class="">{{ action.damage_dice }}</td>
+            <td class="">{{ action.damage_bonus | number }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  @if (detail.reactions.length > 0) {
+    <div class="col-md-12">
+      <h2>{{ 'encounter.reactions' | translate }}</h2>
+      <table class="table table-striped">
+        <thead>
         <tr>
           <th scope="col">{{ 'action.name' | translate }}</th>
           <th scope="col">{{ 'action.desc' | translate }}</th>
           <th scope="col">{{ 'action.attackBonus' | translate }}</th>
-          <th scope="col">{{ 'action.damageDice' | translate }}</th>
-          <th scope="col">{{ 'action.damageBonus' | translate }}</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let action of detail.actions">
-          <td class="">{{ action.name }}</td>
-          <td class="">{{ action.desc }}</td>
-          <td>
-            <div *ngIf="action.attack_bonus! && action.attack_bonus > 0">
-              {{ action.attack_bonus | number }}
-            </div>
-          </td>
-          <td class="">{{ action.damage_dice }}</td>
-          <td class="">{{ action.damage_bonus | number }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="col-md-12" *ngIf="detail.reactions.length > 0">
-    <h2>{{ 'encounter.reactions' | translate }}</h2>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">{{ 'action.name' | translate }}</th>
-          <th scope="col">{{ 'action.desc' | translate }}</th>
-          <th scope="col">{{ 'action.attackBonus' | translate }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let reaction of detail.reactions">
-          <td class="">{{ reaction.name }}</td>
-          <td class="">{{ reaction.desc }}</td>
-          <td>
-            <div *ngIf="reaction.attack_bonus! && reaction.attack_bonus > 0">
-              {{ reaction.attack_bonus | number }}
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="col-md-12" *ngIf="detail.specialAbilities.length > 0">
-    <h2>{{ 'encounter.specialAbilities' | translate }}</h2>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">{{ 'action.name' | translate }}</th>
-          <th scope="col">{{ 'action.desc' | translate }}</th>
-          <th scope="col">{{ 'action.attackBonus' | translate }}</th>
-          <th scope="col">{{ 'action.damageDice' | translate }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let ability of detail.specialAbilities">
-          <td class="">{{ ability.name }}</td>
-          <td class="">{{ ability.desc }}</td>
-          <td>
-            <div *ngIf="ability.attack_bonus! && ability.attack_bonus > 0">
-              {{ ability.attack_bonus | number }}
-            </div>
-          </td>
-          <td class="">{{ ability.damage_dice }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="col-md-12" *ngIf="detail.legendaryActions.length > 0">
-    <h2>{{ 'encounter.legendaryActions' | translate }}</h2>
-    <table class="table table-striped">
-      <thead>
+        </thead>
+        <tbody>
+          @for (reaction of detail.reactions; track reaction) {
+            <tr>
+              <td class="">{{ reaction.name }}</td>
+              <td class="">{{ reaction.desc }}</td>
+              <td>
+                @if (reaction.attack_bonus! && reaction.attack_bonus > 0) {
+                  {{ reaction.attack_bonus | number }}
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (detail.specialAbilities.length > 0) {
+    <div class="col-md-12">
+      <h2>{{ 'encounter.specialAbilities' | translate }}</h2>
+      <table class="table table-striped">
+        <thead>
         <tr>
           <th scope="col">{{ 'action.name' | translate }}</th>
           <th scope="col">{{ 'action.desc' | translate }}</th>
           <th scope="col">{{ 'action.attackBonus' | translate }}</th>
           <th scope="col">{{ 'action.damageDice' | translate }}</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let action of detail.legendaryActions">
-          <td class="">{{ action.name }}</td>
-          <td class="">{{ action.desc }}</td>
-          <td>
-            <div *ngIf="action.attack_bonus! && action.attack_bonus > 0">
-              {{ action.attack_bonus | number }}
-            </div>
-          </td>
-          <td class="">{{ action.damage_dice }}</td>
+        </thead>
+        <tbody>
+          @for (ability of detail.specialAbilities; track ability) {
+            <tr>
+              <td class="">{{ ability.name }}</td>
+              <td class="">{{ ability.desc }}</td>
+              <td>
+                @if (ability.attack_bonus! && ability.attack_bonus > 0) {
+                  {{ ability.attack_bonus | number }}
+                }
+              </td>
+              <td class="">{{ ability.damage_dice }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (detail.legendaryActions.length > 0) {
+    <div class="col-md-12">
+      <h2>{{ 'encounter.legendaryActions' | translate }}</h2>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">{{ 'action.name' | translate }}</th>
+          <th scope="col">{{ 'action.desc' | translate }}</th>
+          <th scope="col">{{ 'action.attackBonus' | translate }}</th>
+          <th scope="col">{{ 'action.damageDice' | translate }}</th>
         </tr>
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          @for (action of detail.legendaryActions; track action) {
+            <tr>
+              <td class="">{{ action.name }}</td>
+              <td class="">{{ action.desc }}</td>
+              <td>
+                @if (action.attack_bonus! && action.attack_bonus > 0) {
+                  {{ action.attack_bonus | number }}
+                }
+              </td>
+              <td class="">{{ action.damage_dice }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="onConfirm()">{{'common.ok' | translate }}</button>
+  <button type="button" class="btn btn-primary" (click)="onConfirm()">{{ 'common.ok' | translate }}</button>
 </div>

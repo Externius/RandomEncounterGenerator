@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({standalone: false, name: 'savingThrow'})
 export class SavingThrowPipe implements PipeTransform {

@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import { Observable, EMPTY } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-import { AlertDialogComponent } from '../alertdialog/alertdialog.component';
+import {Observable, EMPTY} from 'rxjs';
+import {catchError} from 'rxjs/operators';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateService} from '@ngx-translate/core';
+import {AlertDialogComponent} from '../alertdialog/alertdialog.component';
 
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
-  constructor(private modalService: NgbModal, private translate: TranslateService) {}
+  constructor(private modalService: NgbModal, private translate: TranslateService) {
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     request = request.clone({

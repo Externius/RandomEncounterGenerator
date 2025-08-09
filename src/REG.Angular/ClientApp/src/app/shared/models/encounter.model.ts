@@ -4,6 +4,7 @@ export class SpecialAbility {
   attack_bonus?: number;
   damage_dice = '';
 }
+
 export class Action {
   name = '';
   desc = '';
@@ -11,17 +12,20 @@ export class Action {
   damage_dice = '';
   damage_bonus?: number;
 }
+
 export class LegendaryAction {
   name = '';
   desc = '';
   attack_bonus?: number;
   damage_dice = '';
 }
+
 export class Reaction {
   name = '';
   desc = '';
   attack_bonus?: number;
 }
+
 export class EncounterDetailModel {
   xp = 0;
   count = 0;
@@ -60,10 +64,12 @@ export class EncounterDetailModel {
   reactions: Reaction[] = [];
   legendaryActions: LegendaryAction[] = [];
 }
+
 export class EncounterModel {
   sumXp = 0;
   encounters: EncounterDetailModel[] = [];
 }
+
 export class EncounterOptionModel {
   partyLevel = 1;
   partySize = 4;
