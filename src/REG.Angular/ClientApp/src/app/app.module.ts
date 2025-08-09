@@ -2,7 +2,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {APP_ID, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
-  HttpClient,
   HTTP_INTERCEPTORS,
   provideHttpClient,
   withInterceptorsFromDi
@@ -19,8 +18,8 @@ import {EncounterDetailComponent} from './modules/encounter/encounter.detail.com
 import {AppRoutingModule} from './app.routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {TranslateModule} from '@ngx-translate/core';
+import {provideTranslateHttpLoader} from '@ngx-translate/http-loader';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import localeHu from '@angular/common/locales/hu';
 import localeEnGB from '@angular/common/locales/en-GB';
@@ -32,10 +31,6 @@ import {AlertDialogComponent} from './core/alertdialog/alertdialog.component';
 import {SortableHeaderDirective} from './shared/directive/sortable.directive';
 import {SavingThrowPipe} from './shared/pipes/saving.throw.pipe';
 import {CustomTitleStrategy} from './shared/strategies/custom.title.strategy';
-
-export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient);
-}
 
 @NgModule({
   declarations: [
@@ -64,11 +59,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppRoutingModule,
     RouterModule.forRoot([{path: '', component: HomeComponent, pathMatch: 'full'}]),
     TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+      loader: provideTranslateHttpLoader({prefix: "./assets/i18n/", suffix: ".json"}),
     })
   ],
   exports: [TranslateModule, SavingThrowPipe],

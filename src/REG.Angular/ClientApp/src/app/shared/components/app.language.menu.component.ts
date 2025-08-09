@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import {Component} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-language-menu',
@@ -15,9 +15,10 @@ export class AppLanguageMenuComponent {
       const lang = cookie.slice(-2);
       translate.use(lang);
     } else {
-      translate.setDefaultLang('en');
+      translate.setFallbackLang('en');
     }
   }
+
   langClick(lang: string) {
     this.translate.use(lang);
     this.router.navigate(['/']);

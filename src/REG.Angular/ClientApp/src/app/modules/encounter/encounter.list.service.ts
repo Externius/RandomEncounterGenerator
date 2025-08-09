@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { EncounterService } from '../../core/http/encounter.service';
-import { Subject } from 'rxjs';
-import { SortDirection } from '../../shared/directive/sortable.directive';
+import {Injectable} from '@angular/core';
+import {EncounterService} from '../../core/http/encounter.service';
+import {Subject} from 'rxjs';
+import {SortDirection} from '../../shared/directive/sortable.directive';
 
 interface State {
   sortColumn: string;
   sortDirection: SortDirection;
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class EncounterListService {
   private _search$ = new Subject<void>();
   private _state: State = {
@@ -16,13 +16,15 @@ export class EncounterListService {
     sortDirection: 'asc'
   };
 
-  constructor(private service: EncounterService) {}
+  constructor(private service: EncounterService) {
+  }
 
   set sortColumn(sortColumn: string) {
-    this._set({ sortColumn });
+    this._set({sortColumn});
   }
+
   set sortDirection(sortDirection: SortDirection) {
-    this._set({ sortDirection });
+    this._set({sortDirection});
   }
 
   private _set(patch: Partial<State>) {

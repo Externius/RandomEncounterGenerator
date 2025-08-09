@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {Component, Input} from '@angular/core';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-alert-dialog',
@@ -11,7 +11,8 @@ export class AlertDialogComponent {
   @Input() message = '';
   @Input() stackTrace = '';
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal) {
+  }
 
   onConfirm(): void {
     this.activeModal.close(true);
