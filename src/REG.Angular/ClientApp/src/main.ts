@@ -1,19 +1,18 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import {enableProdMode} from '@angular/core';
+import {AppModule} from './app/app.module';
+import {environment} from './environments/environment';
+import {platformBrowser} from "@angular/platform-browser";
 
 export function getApiUrl() {
   return environment.apiUrl;
 }
 
-const providers = [{ provide: 'API_URL', useFactory: getApiUrl, deps: [] }];
+const providers = [{provide: 'API_URL', useFactory: getApiUrl, deps: []}];
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic(providers)
+platformBrowser(providers)
   .bootstrapModule(AppModule)
   .catch((err) => console.log(err));
