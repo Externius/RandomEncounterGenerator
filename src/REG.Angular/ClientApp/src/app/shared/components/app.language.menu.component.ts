@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
@@ -6,7 +6,8 @@ import {CookieService} from 'ngx-cookie-service';
 @Component({
   selector: 'app-language-menu',
   standalone: false,
-  templateUrl: './app.language.menu.component.html'
+  templateUrl: './app.language.menu.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppLanguageMenuComponent {
   constructor(private cookieService: CookieService, public translate: TranslateService, private router: Router) {
@@ -21,7 +22,7 @@ export class AppLanguageMenuComponent {
 
   langClick(lang: string) {
     this.translate.use(lang);
-    this.router.navigate(['/']);
     this.cookieService.set('.AspNetCore.Culture', `c=${lang}|uic=${lang}`);
+    this.router.navigate(['/']);
   }
 }
