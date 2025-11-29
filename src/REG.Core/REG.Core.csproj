@@ -1,16 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
-    <PackageReference Include="System.Text.Json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Abstractions\Services\Models\Json\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\REG.Resources\REG.Resources.csproj" />
-  </ItemGroup>
-
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Abstractions\Services\Models\Json\"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\REG.Resources\REG.Resources.csproj"/>
+    </ItemGroup>
 </Project>

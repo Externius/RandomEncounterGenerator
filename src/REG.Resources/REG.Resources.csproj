@@ -1,43 +1,38 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  
-  <ItemGroup>
-    <None Remove="Jsons\5e-SRD-Monsters.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Jsons\5e-SRD-Monsters.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Enum.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Enum.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Error.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Error.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Enum.hu.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Enum.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Enum.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Error.hu.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Error.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Error.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
+    <ItemGroup>
+        <None Remove="Jsons\5e-SRD-Monsters.json"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="Jsons\5e-SRD-Monsters.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Enum.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Enum.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Error.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Error.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Enum.hu.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Enum.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Enum.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Error.hu.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Error.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Error.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
 </Project>
