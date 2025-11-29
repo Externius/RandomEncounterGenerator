@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChildren, QueryList} from '@angular/core';
+import {Component, OnInit, ViewChildren, QueryList, ChangeDetectorRef} from '@angular/core';
 import {EncounterListService} from './encounter.list.service';
 import {
   EncounterOptionModel,
@@ -42,6 +42,7 @@ export class EncounterListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
+    private ref: ChangeDetectorRef,
     public encounterListService: EncounterListService
   ) {
     for (let level = 1; level < 21; level++) {
@@ -84,7 +85,7 @@ export class EncounterListComponent implements OnInit {
         this.serverError = error.error.Message;
       },
       complete: () => {
-        return;
+        this.ref.detectChanges();
       }
     });
   }

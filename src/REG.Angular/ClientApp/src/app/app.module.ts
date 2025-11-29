@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {APP_ID, NgModule} from '@angular/core';
+import {APP_ID, NgModule, provideZonelessChangeDetection} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   HTTP_INTERCEPTORS,
@@ -77,7 +77,8 @@ import {CustomTitleStrategy} from './shared/strategies/custom.title.strategy';
       useClass: CustomTitleStrategy
     },
     {provide: APP_ID, useValue: 'app-reg'},
-    CookieService
+    CookieService,
+    provideZonelessChangeDetection()
   ],
   bootstrap: [
     AppComponent,
