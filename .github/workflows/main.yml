@@ -65,7 +65,7 @@ jobs:
           generate_release_notes: true
           tag_name: ${{ github.ref_name }}
         env:
-          GITHUB_TOKEN: ${{ env.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
   
   deploy:
     permissions:
