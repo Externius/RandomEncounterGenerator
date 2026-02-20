@@ -67,7 +67,7 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
         { 15, 4 }
     };
 
-    private static readonly List<string> ChallengeRating =
+    private static readonly string[] ChallengeRating =
     [
         "0", "1/8", "1/4", "1/2", "1", "2", "3", "4", "5",
         "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
@@ -100,12 +100,12 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
         { 2800, 5700, 8500, 12700 }
     };
 
-    private ICollection<Monster> _monsters = [];
+    private List<Monster> _monsters = [];
     private int _partyLevel;
     private int _partySize;
-    private ICollection<KeyValuePair<Difficulty, int>> _xpList = [];
+    private List<KeyValuePair<Difficulty, int>> _xpList = [];
 
-    public async Task<ICollection<KeyValuePair<string, int>>> GetEnumListAsync<T>() where T : struct
+    public async Task<KeyValuePair<string, int>[]> GetEnumListAsync<T>() where T : struct
     {
         if (!typeof(T).IsEnum)
             throw new InvalidOperationException("Type parameter must be Enum.");
@@ -114,10 +114,10 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
             (from object e in Enum.GetValues(typeof(T))
                 select new KeyValuePair<string, int>((e as Enum)
                     .GetName(Resources.Enum.ResourceManager), (int)e))
-            .ToList());
+            .ToArray());
     }
 
-    public ICollection<T> DeserializeJson<T>(string? jsonFilePath = null)
+    public List<T> DeserializeJson<T>(string? jsonFilePath = null)
     {
         var json = jsonFilePath is not null
             ? File.ReadAllText(jsonFilePath)
