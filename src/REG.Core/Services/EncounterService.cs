@@ -143,13 +143,13 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
             var sumXp = CalcSumXp((int)Difficulty.Deadly);
             var monsterXps = new SortedSet<int>();
 
-            if (option.MonsterTypes.Any())
+            if (option.MonsterTypes.Length != 0)
             {
                 var selectedMonsters = option.MonsterTypes.Select(m => m.ToString().ToLower());
                 _monsters = [.. _monsters.Where(m => selectedMonsters.Any(m.Type.ToLower().Equals))];
             }
 
-            if (option.Sizes.Any())
+            if (option.Sizes.Length != 0)
             {
                 var selectedSizes = option.Sizes.Select(s => s.ToString().ToLower());
                 _monsters = [.. _monsters.Where(m => selectedSizes.Any(m.Size.ToLower().Equals))];
