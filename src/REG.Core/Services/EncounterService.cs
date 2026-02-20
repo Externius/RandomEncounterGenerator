@@ -165,17 +165,17 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
 
             CheckPossible(sumXp, monsterXps);
 
-            var result = new EncounterModel();
+            var encounterDetails = new List<EncounterDetail>();
             var maxTryNumber = 5000;
             await Task.Run(() =>
             {
-                while (result.Encounters.Count < option.Count && maxTryNumber > 0)
+                while (encounterDetails.Count < option.Count && maxTryNumber > 0)
                 {
                     try
                     {
                         var monster = GetMonster(option.Difficulty);
                         if (monster is not null)
-                            result.Encounters.Add(monster);
+                            encounterDetails.Add(monster);
                         maxTryNumber--;
                     }
                     catch (ServiceException)
@@ -185,9 +185,7 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
                 }
             });
 
-            result.SumXp = result.Encounters.Sum(ed => ed.Xp);
-
-            return result;
+            return new EncounterModel([..encounterDetails], encounterDetails.Sum(ed => ed.Xp));
         }
         catch (Exception ex)
         {
@@ -216,7 +214,7 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
             throw new ServiceAggregateException(exceptions);
     }
 
-    private static void CheckPossible(int sumXp, IReadOnlyCollection<int> monsterXps)
+    private static void CheckPossible(int sumXp, SortedSet<int> monsterXps)
     {
         if (monsterXps.Count != 0 && sumXp > monsterXps.First())
             return;
@@ -280,52 +278,55 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
         return null;
     }
 
-    private static EncounterDetail GetEncounterDetail(Difficulty difficulty, Monster currentMonster, int allXp,
-        int count)
+    private static EncounterDetail GetEncounterDetail(
+        Difficulty difficulty,
+        Monster currentMonster,
+        int allXp,
+        int count
+    )
     {
-        var encounterDetail = new EncounterDetail
-        {
-            Xp = allXp,
-            Count = count,
-            Difficulty = difficulty.GetName(Resources.Enum.ResourceManager),
-            Size = Enum.Parse<Size>(currentMonster.Size).GetName(Resources.Enum.ResourceManager),
-            Name = currentMonster.Name,
-            Type = currentMonster.Type,
-            ChallengeRating = currentMonster.ChallengeRating,
-            Alignment = currentMonster.Alignment ?? string.Empty,
-            HitDice = currentMonster.HitDice ?? string.Empty,
-            Speed = currentMonster.Speed ?? string.Empty,
-            Senses = currentMonster.Senses ?? string.Empty,
-            Languages = currentMonster.Languages ?? string.Empty,
-            Ac = currentMonster.ArmorClass ?? 0,
-            Actions = currentMonster.Actions,
-            Charisma = currentMonster.Charisma ?? 0,
-            CharismaSave = currentMonster.CharismaSave ?? 0,
-            ConditionImmunities = currentMonster.ConditionImmunities,
-            Constitution = currentMonster.Constitution ?? 0,
-            ConstitutionSave = currentMonster.ConstitutionSave ?? 0,
-            DamageImmunities = currentMonster.DamageImmunities,
-            DamageResistances = currentMonster.DamageResistances,
-            DamageVulnerabilities = currentMonster.DamageVulnerabilities,
-            Dexterity = currentMonster.Dexterity ?? 0,
-            DexteritySave = currentMonster.DexteritySave ?? 0,
-            History = currentMonster.History ?? 0,
-            Hp = currentMonster.HitPoints ?? 0,
-            Intelligence = currentMonster.Intelligence ?? 0,
-            IntelligenceSave = currentMonster.IntelligenceSave ?? 0,
-            LegendaryActions = currentMonster.LegendaryActions,
-            Perception = currentMonster.Perception ?? 0,
-            Reactions = currentMonster.Reactions,
-            SpecialAbilities = currentMonster.SpecialAbilities,
-            Strength = currentMonster.Strength ?? 0,
-            StrengthSave = currentMonster.StrengthSave ?? 0,
-            Wisdom = currentMonster.Wisdom ?? 0,
-            WisdomSave = currentMonster.WisdomSave ?? 0
-        };
+        string? translatedType = null;
+        if (Enum.TryParse(currentMonster.Type, out MonsterType type))
+            translatedType = type.GetName(Resources.Enum.ResourceManager);
 
-        if (Enum.TryParse(encounterDetail.Type, out MonsterType type))
-            encounterDetail.Type = type.GetName(Resources.Enum.ResourceManager);
-
-        return encounterDetail;
+        return new EncounterDetail
+        (
+            allXp,
+            count,
+            currentMonster.Name,
+            translatedType ?? currentMonster.Type,
+            difficulty.GetName(Resources.Enum.ResourceManager),
+            currentMonster.ChallengeRating,
+            Enum.Parse<Size>(currentMonster.Size).GetName(Resources.Enum.ResourceManager),
+            currentMonster.Alignment ?? string.Empty,
+            currentMonster.HitPoints ?? 0,
+            currentMonster.ArmorClass ?? 0,
+            currentMonster.HitDice ?? string.Empty,
+            currentMonster.Speed ?? string.Empty,
+            currentMonster.Senses ?? string.Empty,
+            currentMonster.Languages ?? string.Empty,
+            currentMonster.Strength ?? 0,
+            currentMonster.Dexterity ?? 0,
+            currentMonster.Constitution ?? 0,
+            currentMonster.Intelligence ?? 0,
+            currentMonster.Wisdom ?? 0,
+            currentMonster.Charisma ?? 0,
+            currentMonster.StrengthSave ?? 0,
+            currentMonster.DexteritySave ?? 0,
+            currentMonster.ConstitutionSave ?? 0,
+            currentMonster.IntelligenceSave ?? 0,
+            currentMonster.WisdomSave ?? 0,
+            currentMonster.CharismaSave ?? 0,
+            currentMonster.History ?? 0,
+            currentMonster.Perception ?? 0,
+            currentMonster.DamageVulnerabilities,
+            currentMonster.DamageResistances,
+            currentMonster.DamageImmunities,
+            currentMonster.ConditionImmunities,
+            currentMonster.SpecialAbilities ?? [],
+            currentMonster.Actions ?? [],
+            currentMonster.LegendaryActions ?? [],
+            currentMonster.Reactions ?? []
+        );
     }
 }

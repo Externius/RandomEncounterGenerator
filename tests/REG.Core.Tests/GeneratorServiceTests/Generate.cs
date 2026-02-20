@@ -17,15 +17,19 @@ public class Generate(TestFixture fixture) : IClassFixture<TestFixture>
     public async Task CanGenerate()
     {
         var option = new EncounterOption
-        {
-            PartyLevel = 1,
-            PartySize = 5
-        };
+        (
+            1,
+            5,
+            null,
+            [],
+            [],
+            15
+        );
 
         var result = await _encounterService.GenerateAsync(option);
 
         result.ShouldNotBeNull();
-        result.Encounters.Count.ShouldBe(option.Count);
+        result.Encounters.Length.ShouldBe(option.Count);
     }
 
     [Theory]
@@ -35,7 +39,7 @@ public class Generate(TestFixture fixture) : IClassFixture<TestFixture>
         var encounterModel = await _encounterService.GenerateAsync(option);
 
         encounterModel.ShouldNotBeNull();
-        encounterModel.Encounters.ShouldNotBeNull();
+        encounterModel.Encounters.ShouldNotBeEmpty();
         var resultMonsterTypes = encounterModel.Encounters.Select(ed => ed.Type.ToLower()).Distinct();
         var resultMonsterSizes = encounterModel.Encounters.Select(ed => ed.Size.ToLower()).Distinct();
         var optionMonsterTypes = option.MonsterTypes.Select(m => m.GetName(Resources.Enum.ResourceManager).ToLower());
@@ -49,30 +53,32 @@ public class Generate(TestFixture fixture) : IClassFixture<TestFixture>
     public async Task CanFilterWithDifficulty(Difficulty difficulty, int partyLevel, int partySize)
     {
         var option = new EncounterOption
-        {
-            PartyLevel = partyLevel,
-            MonsterTypes = [MonsterType.Beast, MonsterType.Humanoid, MonsterType.SwarmOfTinyBeasts],
-            PartySize = partySize,
-            Difficulty = difficulty
-        };
+        (
+            partyLevel,
+            partySize,
+            difficulty,
+            [MonsterType.Beast, MonsterType.Humanoid, MonsterType.SwarmOfTinyBeasts],
+            []
+        );
 
         var encounterModel = await _encounterService.GenerateAsync(option);
 
         encounterModel.ShouldNotBeNull();
-        encounterModel.Encounters.ShouldNotBeNull();
-        encounterModel.Encounters.TrueForAll(e => e.Difficulty.Equals(difficulty.ToString())).ShouldBeTrue();
+        encounterModel.Encounters.ShouldNotBeEmpty();
+        encounterModel.Encounters.ShouldAllBe(e => e.Difficulty.Equals(difficulty.ToString()));
     }
 
     [Fact]
     public async Task CanThrowException()
     {
         var option = new EncounterOption
-        {
-            PartyLevel = 1,
-            PartySize = 1,
-            MonsterTypes = [MonsterType.Dragon],
-            Difficulty = Difficulty.Easy
-        };
+        (
+            1,
+            1,
+            Difficulty.Easy,
+            [MonsterType.Dragon],
+            []
+        );
 
         await Should.ThrowAsync<ServiceException>(async () => { await _encounterService.GenerateAsync(option); });
     }
