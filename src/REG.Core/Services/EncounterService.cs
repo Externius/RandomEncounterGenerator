@@ -67,6 +67,8 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
         { 15, 4 }
     };
 
+    private static readonly int[] MultipliersIndexes = [.. Enumerable.Range(0, Multipliers.GetLength(0))];
+
     private static readonly string[] ChallengeRating =
     [
         "0", "1/8", "1/4", "1/2", "1", "2", "3", "4", "5",
@@ -237,19 +239,18 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
     {
         var monsterCount = _monsters.Count;
         var monster = 0;
-        var indexes = new List<int>(Enumerable.Range(0, Multipliers.GetLength(0)));
 
         while (monster < monsterCount)
         {
             var currentMonster = _monsters.ElementAt(GetRandomInt(0, _monsters.Count));
             _monsters.Remove(currentMonster);
             var monsterXp = GetMonsterXp(currentMonster);
-            indexes.Shuffle();
+            MultipliersIndexes.Shuffle();
 
             if (difficulty.HasValue)
             {
                 var difficultyXp = _xpList.First(l => l.Key == difficulty.Value).Value;
-                foreach (var i in indexes)
+                foreach (var i in MultipliersIndexes)
                 {
                     var count = (int)Multipliers[i, 0];
                     var allXp = monsterXp * count * Multipliers[i, 1];
@@ -262,7 +263,7 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
             }
             else
             {
-                foreach (var i in indexes)
+                foreach (var i in MultipliersIndexes)
                 {
                     var count = (int)Multipliers[i, 0];
                     var allXp = monsterXp * count * Multipliers[i, 1];
@@ -285,19 +286,15 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
         int count
     )
     {
-        string? translatedType = null;
-        if (Enum.TryParse(currentMonster.Type, out MonsterType type))
-            translatedType = type.GetName(Resources.Enum.ResourceManager);
-
         return new EncounterDetail
         (
             allXp,
             count,
             currentMonster.Name,
-            translatedType ?? currentMonster.Type,
+            GetTranslation<MonsterType>(currentMonster.Type),
             difficulty.GetName(Resources.Enum.ResourceManager),
             currentMonster.ChallengeRating,
-            Enum.Parse<Size>(currentMonster.Size).GetName(Resources.Enum.ResourceManager),
+            GetTranslation<Size>(currentMonster.Size),
             currentMonster.Alignment ?? string.Empty,
             currentMonster.HitPoints ?? 0,
             currentMonster.ArmorClass ?? 0,
@@ -328,5 +325,13 @@ public class EncounterService(ILogger<EncounterService> logger) : IEncounterServ
             currentMonster.LegendaryActions ?? [],
             currentMonster.Reactions ?? []
         );
+    }
+
+    private static string GetTranslation<T>(string original) where T : struct, Enum
+    {
+        string? translation = null;
+        if (Enum.TryParse(original, out T type))
+            translation = type.GetName(Resources.Enum.ResourceManager);
+        return translation ?? original;
     }
 }
