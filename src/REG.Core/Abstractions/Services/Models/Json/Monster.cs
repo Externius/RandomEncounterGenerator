@@ -2,109 +2,93 @@ using System.Text.Json.Serialization;
 
 namespace REG.Core.Abstractions.Services.Models.Json;
 
-public class Monster
-{
-    [JsonPropertyName("name")] public required string Name { get; set; }
-
-    [JsonPropertyName("size")] public required string Size { get; set; }
-
-    [JsonPropertyName("type")] public required string Type { get; set; }
-
-    [JsonPropertyName("subtype")] public string? Subtype { get; set; }
-
-    [JsonPropertyName("alignment")] public string? Alignment { get; set; }
-
-    [JsonPropertyName("armor_class")] public int? ArmorClass { get; set; }
-
-    [JsonPropertyName("hit_points")] public int? HitPoints { get; set; }
-
-    [JsonPropertyName("hit_dice")] public string? HitDice { get; set; }
-
-    [JsonPropertyName("speed")] public string? Speed { get; set; }
-
-    [JsonPropertyName("strength")] public int? Strength { get; set; }
-
-    [JsonPropertyName("dexterity")] public int? Dexterity { get; set; }
-
-    [JsonPropertyName("constitution")] public int? Constitution { get; set; }
-
-    [JsonPropertyName("intelligence")] public int? Intelligence { get; set; }
-
-    [JsonPropertyName("wisdom")] public int? Wisdom { get; set; }
-
-    [JsonPropertyName("charisma")] public int? Charisma { get; set; }
-
-    [JsonPropertyName("constitution_save")]
-    public int? ConstitutionSave { get; set; }
-
-    [JsonPropertyName("intelligence_save")]
-    public int? IntelligenceSave { get; set; }
-
-    [JsonPropertyName("wisdom_save")] public int? WisdomSave { get; set; }
-
-    [JsonPropertyName("history")] public int? History { get; set; }
-
-    [JsonPropertyName("perception")] public int? Perception { get; set; }
-
-    [JsonPropertyName("damage_vulnerabilities")]
-    public string? DamageVulnerabilities { get; set; }
-
-    [JsonPropertyName("damage_resistances")]
-    public string? DamageResistances { get; set; }
-
-    [JsonPropertyName("damage_immunities")]
-    public string? DamageImmunities { get; set; }
-
-    [JsonPropertyName("condition_immunities")]
-    public string? ConditionImmunities { get; set; }
-
-    [JsonPropertyName("senses")] public string? Senses { get; set; }
-
-    [JsonPropertyName("languages")] public string? Languages { get; set; }
-
-    [JsonPropertyName("challenge_rating")] public required string ChallengeRating { get; set; }
-
-    [JsonPropertyName("special_abilities")]
-    public List<SpecialAbility> SpecialAbilities { get; set; } = [];
-
-    [JsonPropertyName("actions")] public List<Action> Actions { get; set; } = [];
-
-    [JsonPropertyName("legendary_actions")]
-    public List<LegendaryAction> LegendaryActions { get; set; } = [];
-
-    [JsonPropertyName("medicine")] public int? Medicine { get; set; }
-
-    [JsonPropertyName("religion")] public int? Religion { get; set; }
-
-    [JsonPropertyName("dexterity_save")] public int? DexteritySave { get; set; }
-
-    [JsonPropertyName("charisma_save")] public int? CharismaSave { get; set; }
-
-    [JsonPropertyName("stealth")] public int? Stealth { get; set; }
-
-    [JsonPropertyName("persuasion")] public int? Persuasion { get; set; }
-
-    [JsonPropertyName("insight")] public int? Insight { get; set; }
-
-    [JsonPropertyName("deception")] public int? Deception { get; set; }
-
-    [JsonPropertyName("arcana")] public int? Arcana { get; set; }
-
-    [JsonPropertyName("athletics")] public int? Athletics { get; set; }
-
-    [JsonPropertyName("acrobatics")] public int? Acrobatics { get; set; }
-
-    [JsonPropertyName("strength_save")] public int? StrengthSave { get; set; }
-
-    [JsonPropertyName("reactions")] public List<Reaction> Reactions { get; set; } = [];
-
-    [JsonPropertyName("survival")] public int? Survival { get; set; }
-
-    [JsonPropertyName("investigation")] public int? Investigation { get; set; }
-
-    [JsonPropertyName("nature")] public int? Nature { get; set; }
-
-    [JsonPropertyName("intimidation")] public int? Intimidation { get; set; }
-
-    [JsonPropertyName("performance")] public int? Performance { get; set; }
-}
+public record Monster(
+    [property: JsonPropertyName("name")] string Name,
+    [property: JsonPropertyName("size")] string Size,
+    [property: JsonPropertyName("type")] string Type,
+    [property: JsonPropertyName("subtype")]
+    string? Subtype,
+    [property: JsonPropertyName("alignment")]
+    string? Alignment,
+    [property: JsonPropertyName("armor_class")]
+    int? ArmorClass,
+    [property: JsonPropertyName("hit_points")]
+    int? HitPoints,
+    [property: JsonPropertyName("hit_dice")]
+    string? HitDice,
+    [property: JsonPropertyName("speed")] string? Speed,
+    [property: JsonPropertyName("strength")]
+    int? Strength,
+    [property: JsonPropertyName("dexterity")]
+    int? Dexterity,
+    [property: JsonPropertyName("constitution")]
+    int? Constitution,
+    [property: JsonPropertyName("intelligence")]
+    int? Intelligence,
+    [property: JsonPropertyName("wisdom")] int? Wisdom,
+    [property: JsonPropertyName("charisma")]
+    int? Charisma,
+    [property: JsonPropertyName("constitution_save")]
+    int? ConstitutionSave,
+    [property: JsonPropertyName("intelligence_save")]
+    int? IntelligenceSave,
+    [property: JsonPropertyName("wisdom_save")]
+    int? WisdomSave,
+    [property: JsonPropertyName("history")]
+    int? History,
+    [property: JsonPropertyName("perception")]
+    int? Perception,
+    [property: JsonPropertyName("damage_vulnerabilities")]
+    string? DamageVulnerabilities,
+    [property: JsonPropertyName("damage_resistances")]
+    string? DamageResistances,
+    [property: JsonPropertyName("damage_immunities")]
+    string? DamageImmunities,
+    [property: JsonPropertyName("condition_immunities")]
+    string? ConditionImmunities,
+    [property: JsonPropertyName("senses")] string? Senses,
+    [property: JsonPropertyName("languages")]
+    string? Languages,
+    [property: JsonPropertyName("challenge_rating")]
+    string ChallengeRating,
+    [property: JsonPropertyName("special_abilities")]
+    SpecialAbility[]? SpecialAbilities,
+    [property: JsonPropertyName("actions")]
+    Action[]? Actions,
+    [property: JsonPropertyName("legendary_actions")]
+    LegendaryAction[]? LegendaryActions,
+    [property: JsonPropertyName("medicine")]
+    int? Medicine,
+    [property: JsonPropertyName("religion")]
+    int? Religion,
+    [property: JsonPropertyName("dexterity_save")]
+    int? DexteritySave,
+    [property: JsonPropertyName("charisma_save")]
+    int? CharismaSave,
+    [property: JsonPropertyName("stealth")]
+    int? Stealth,
+    [property: JsonPropertyName("persuasion")]
+    int? Persuasion,
+    [property: JsonPropertyName("insight")]
+    int? Insight,
+    [property: JsonPropertyName("deception")]
+    int? Deception,
+    [property: JsonPropertyName("arcana")] int? Arcana,
+    [property: JsonPropertyName("athletics")]
+    int? Athletics,
+    [property: JsonPropertyName("acrobatics")]
+    int? Acrobatics,
+    [property: JsonPropertyName("strength_save")]
+    int? StrengthSave,
+    [property: JsonPropertyName("reactions")]
+    Reaction[]? Reactions,
+    [property: JsonPropertyName("survival")]
+    int? Survival,
+    [property: JsonPropertyName("investigation")]
+    int? Investigation,
+    [property: JsonPropertyName("nature")] int? Nature,
+    [property: JsonPropertyName("intimidation")]
+    int? Intimidation,
+    [property: JsonPropertyName("performance")]
+    int? Performance
+);
