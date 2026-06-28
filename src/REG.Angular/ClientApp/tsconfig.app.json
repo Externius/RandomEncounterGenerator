@@ -9,7 +9,9 @@
   },
   "files": [
     "src/main.ts",
-    "src/polyfills.ts"
+    "src/server.ts",
+    "src/polyfills.ts",
+    "src/express-server.ts"
   ],
   "include": [
     "src/**/*.d.ts"

@@ -1,11 +1,13 @@
 import {Component, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-alert-dialog',
-  standalone: false,
+  imports: [TranslatePipe],
   templateUrl: './alertdialog.component.html'
 })
+
 export class AlertDialogComponent {
   @Input() title = '';
   @Input() message = '';

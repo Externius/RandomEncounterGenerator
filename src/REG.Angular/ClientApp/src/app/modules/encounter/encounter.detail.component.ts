@@ -2,11 +2,14 @@ import {Component, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {EncounterDetailModel} from '../../shared/models/encounter.model';
 import {EncounterService} from '../../core/http/encounter.service';
+import {TranslatePipe} from "@ngx-translate/core";
+import {DecimalPipe} from "@angular/common";
+import {SavingThrowPipe} from "../../shared/pipes/saving.throw.pipe";
 
 @Component({
   selector: 'app-encounter-detail',
   templateUrl: './encounter.detail.component.html',
-  standalone: false,
+  imports: [TranslatePipe, DecimalPipe, SavingThrowPipe],
   providers: [EncounterService]
 })
 export class EncounterDetailComponent {

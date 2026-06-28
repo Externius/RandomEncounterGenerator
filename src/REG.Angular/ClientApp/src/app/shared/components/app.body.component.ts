@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-body',
-  standalone: false,
+  imports: [RouterOutlet],
   templateUrl: './app.body.component.html'
 })
-export class AppBodyComponent {}
+export class AppBodyComponent {
+}

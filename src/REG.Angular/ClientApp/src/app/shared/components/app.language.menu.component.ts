@@ -2,10 +2,11 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
+import {NgbDropdown, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-language-menu',
-  standalone: false,
+  imports: [NgbDropdown, NgbDropdownMenu, NgbDropdownToggle],
   templateUrl: './app.language.menu.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
