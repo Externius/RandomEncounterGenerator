@@ -58,7 +58,7 @@
   </table>
 </div>
 <div class="row row-cols-1 row-cols-md-4 g-4">
-  @for (monster of encounterModel.encounters; track monster) {
+  @for (monster of encounterModel.encounters; track monster.name) {
     <div class="card text-bg-light">
       <div class="row g-0">
         <div class="col-md-2 text-center mt-3">
