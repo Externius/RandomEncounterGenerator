@@ -1,32 +1,34 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject, Injector} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable, EMPTY} from 'rxjs';
+import {Observable, EMPTY, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {TranslateService} from '@ngx-translate/core';
 import {AlertDialogComponent} from '../alertdialog/alertdialog.component';
+import {TranslateService} from '@ngx-translate/core';
+import {PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
-  constructor(private modalService: NgbModal, private translate: TranslateService) {
-  }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    request = request.clone({
-      withCredentials: true
-    });
+  private readonly modalService = inject(NgbModal);
+  private readonly injector = inject(Injector);
+  private readonly platformId = inject(PLATFORM_ID);
 
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const request = req.clone({withCredentials: true});
     return next.handle(request).pipe(
-      catchError((err) => {
-        if ([500].indexOf(err.status) !== -1 || [400].indexOf(err.status) !== -1) {
+      catchError(err => {
+        const isBrowser = isPlatformBrowser(this.platformId);
+        if (isBrowser && (err.status === 400 || err.status === 500)) {
+          const translate = this.injector.get(TranslateService);
           const dialogRef = this.modalService.open(AlertDialogComponent);
-          dialogRef.componentInstance.title = this.translate.instant('error.title');
-          dialogRef.componentInstance.message = err.error.Message;
-          dialogRef.componentInstance.stackTrace = err.error.StackTrace;
-        } else {
-          throw err;
+          dialogRef.componentInstance.title = translate.instant('error.title');
+          dialogRef.componentInstance.message = err.error?.Message;
+          dialogRef.componentInstance.stackTrace = err.error?.StackTrace;
+          return EMPTY;
         }
-        return EMPTY;
+        return throwError(() => err);
       })
     );
   }

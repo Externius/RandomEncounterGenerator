@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
-@Pipe({standalone: false, name: 'savingThrow'})
+@Pipe({name: 'savingThrow'})
 export class SavingThrowPipe implements PipeTransform {
   transform(value: number, ability: number): string {
     if (value > 0) {

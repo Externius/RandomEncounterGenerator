@@ -11,7 +11,6 @@ export interface SortEvent {
 }
 
 @Directive({
-  standalone: false,
   selector: 'th[sortable]'
 })
 export class SortableHeaderDirective {

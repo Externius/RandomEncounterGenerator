@@ -131,7 +131,7 @@
       </tr>
       </thead>
       <tbody>
-        @for (action of detail.actions; track action) {
+        @for (action of detail.actions; track action.name) {
           <tr>
             <td class="">{{ action.name }}</td>
             <td class="">{{ action.desc }}</td>
@@ -159,7 +159,7 @@
         </tr>
         </thead>
         <tbody>
-          @for (reaction of detail.reactions; track reaction) {
+          @for (reaction of detail.reactions; track reaction.name) {
             <tr>
               <td class="">{{ reaction.name }}</td>
               <td class="">{{ reaction.desc }}</td>
@@ -187,7 +187,7 @@
         </tr>
         </thead>
         <tbody>
-          @for (ability of detail.specialAbilities; track ability) {
+          @for (ability of detail.specialAbilities; track ability.name) {
             <tr>
               <td class="">{{ ability.name }}</td>
               <td class="">{{ ability.desc }}</td>
@@ -216,7 +216,7 @@
         </tr>
         </thead>
         <tbody>
-          @for (action of detail.legendaryActions; track action) {
+          @for (action of detail.legendaryActions; track action.name) {
             <tr>
               <td class="">{{ action.name }}</td>
               <td class="">{{ action.desc }}</td>

@@ -9,11 +9,15 @@ import {
   Reaction,
   LegendaryAction
 } from '../../shared/models/encounter.model';
-import {FormGroup, FormBuilder} from '@angular/forms';
+import {FormGroup, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {SortEvent, SortableHeaderDirective} from '../../shared/directive/sortable.directive';
 import {faDiceD20} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EncounterDetailComponent} from './encounter.detail.component';
+import {TranslatePipe} from "@ngx-translate/core";
+import {NgSelectComponent} from "@ng-select/ng-select";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {DecimalPipe} from "@angular/common";
 
 const compare = (
   v1: string | number | SpecialAbility[] | Action[] | Reaction[] | LegendaryAction[],
@@ -23,7 +27,7 @@ const compare = (
 @Component({
   selector: 'app-encounter',
   templateUrl: './encounter.list.component.html',
-  standalone: false,
+  imports: [TranslatePipe, NgSelectComponent, FaIconComponent, DecimalPipe, ReactiveFormsModule, SortableHeaderDirective],
   providers: [EncounterListService]
 })
 export class EncounterListComponent implements OnInit {

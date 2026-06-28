@@ -34,7 +34,6 @@
         <ProjectReference Include="..\REG.Core\REG.Core.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <TypeScriptCompile Include="ClientApp\src\app\app.routing.module.ts"/>
         <TypeScriptCompile Include="ClientApp\src\app\core\alertdialog\alertdialog.component.ts"/>
         <TypeScriptCompile Include="ClientApp\src\app\core\http\encounter.service.ts"/>
         <TypeScriptCompile Include="ClientApp\src\app\core\http\http.option.ts"/>
