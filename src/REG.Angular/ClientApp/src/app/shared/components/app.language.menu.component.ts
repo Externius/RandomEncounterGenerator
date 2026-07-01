@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie-service';
-import {NgbDropdown, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { NgbDropdown, NgbDropdownMenu, NgbDropdownToggle } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-language-menu',
@@ -11,7 +11,11 @@ import {NgbDropdown, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppLanguageMenuComponent {
-  constructor(private cookieService: CookieService, public translate: TranslateService, private router: Router) {
+  constructor(
+    private cookieService: CookieService,
+    public translate: TranslateService,
+    private router: Router
+  ) {
     const cookie = this.cookieService.get('.AspNetCore.Culture');
     if (cookie) {
       const lang = cookie.slice(-2);

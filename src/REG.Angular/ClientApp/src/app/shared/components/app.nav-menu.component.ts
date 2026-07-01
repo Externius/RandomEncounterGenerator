@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {TranslatePipe} from "@ngx-translate/core";
-import {RouterLink, RouterLinkActive} from "@angular/router";
-import {NgClass} from "@angular/common";
-import {AppLanguageMenuComponent} from "./app.language.menu.component";
+import { Component } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { AppLanguageMenuComponent } from './app.language.menu.component';
 
 @Component({
   selector: 'app-nav-menu',
