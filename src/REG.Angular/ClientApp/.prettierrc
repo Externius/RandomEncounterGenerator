@@ -3,5 +3,9 @@
   "trailingComma": "none",
   "singleQuote": true,
   "printWidth": 120,
-  "endOfLine":"auto"
+  "endOfLine": "auto",
+  "bracketSpacing": true,
+  "arrowParens": "avoid",
+  "tabWidth": 2,
+  "bracketSameLine": false
 }
