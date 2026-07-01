@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChildren, QueryList, ChangeDetectorRef} from '@angular/core';
-import {EncounterListService} from './encounter.list.service';
+import { Component, OnInit, ViewChildren, QueryList, ChangeDetectorRef } from '@angular/core';
+import { EncounterListService } from './encounter.list.service';
 import {
   EncounterOptionModel,
   EncounterModel,
@@ -9,15 +9,15 @@ import {
   Reaction,
   LegendaryAction
 } from '../../shared/models/encounter.model';
-import {FormGroup, FormBuilder, ReactiveFormsModule} from '@angular/forms';
-import {SortEvent, SortableHeaderDirective} from '../../shared/directive/sortable.directive';
-import {faDiceD20} from '@fortawesome/free-solid-svg-icons';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {EncounterDetailComponent} from './encounter.detail.component';
-import {TranslatePipe} from "@ngx-translate/core";
-import {NgSelectComponent} from "@ng-select/ng-select";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {DecimalPipe} from "@angular/common";
+import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { SortEvent, SortableHeaderDirective } from '../../shared/directive/sortable.directive';
+import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EncounterDetailComponent } from './encounter.detail.component';
+import { TranslatePipe } from '@ngx-translate/core';
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { DecimalPipe } from '@angular/common';
 
 const compare = (
   v1: string | number | SpecialAbility[] | Action[] | Reaction[] | LegendaryAction[],
@@ -27,7 +27,14 @@ const compare = (
 @Component({
   selector: 'app-encounter',
   templateUrl: './encounter.list.component.html',
-  imports: [TranslatePipe, NgSelectComponent, FaIconComponent, DecimalPipe, ReactiveFormsModule, SortableHeaderDirective],
+  imports: [
+    TranslatePipe,
+    NgSelectComponent,
+    FaIconComponent,
+    DecimalPipe,
+    ReactiveFormsModule,
+    SortableHeaderDirective
+  ],
   providers: [EncounterListService]
 })
 export class EncounterListComponent implements OnInit {
@@ -58,13 +65,13 @@ export class EncounterListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.encounterListService.getMonsterTypes().subscribe((data) => {
+    this.encounterListService.getMonsterTypes().subscribe(data => {
       this._monsterTypes = data as [];
     });
-    this.encounterListService.getDifficulties().subscribe((data) => {
+    this.encounterListService.getDifficulties().subscribe(data => {
       this.difficulties = data as [];
     });
-    this.encounterListService.getSizes().subscribe((data) => {
+    this.encounterListService.getSizes().subscribe(data => {
       this._sizes = data as [];
     });
     this.encounterOptionsForm = this.formBuilder.group(new EncounterOptionModel());
@@ -80,12 +87,12 @@ export class EncounterListComponent implements OnInit {
     }
 
     this.encounterListService.generate(JSON.stringify(this.encounterOptionsForm.value)).subscribe({
-      next: (data) => {
+      next: data => {
         Object.assign(this.encounterModel, data);
         this._originalDetails = [];
         Object.assign(this._originalDetails, this.encounterModel.encounters);
       },
-      error: (error) => {
+      error: error => {
         this.serverError = error.error.Message;
       },
       complete: () => {
@@ -94,8 +101,8 @@ export class EncounterListComponent implements OnInit {
     });
   }
 
-  onSort({column, direction}: SortEvent) {
-    this.headers.forEach((header) => {
+  onSort({ column, direction }: SortEvent) {
+    this.headers.forEach(header => {
       if (header.sortable !== column) {
         header.direction = '';
       }
