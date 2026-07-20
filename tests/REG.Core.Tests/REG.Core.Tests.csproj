@@ -16,7 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Temporary workaround -->
-    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" VersionOverride="3.0.3" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" VersionOverride="3.0.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\REG.Resources\REG.Resources.csproj" />
