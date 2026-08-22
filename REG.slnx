@@ -8,6 +8,7 @@
     <File Path="LICENSE" />
     <File Path="OpenGameLicense.txt" />
     <File Path="README.md" />
+    <File Path="global.json" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/REG.Angular/REG.Angular.csproj" />
