@@ -47,13 +47,13 @@ jobs:
         run: dotnet test --no-restore --verbosity normal
 
       - name: dotnet publish
-        run: dotnet publish ./src/REG.Angular/REG.Angular.csproj -c Release -o ${{env.DOTNET_ROOT}}/REG
+        run: dotnet publish ./src/REG.WebApi/REG.WebApi.csproj -c Release -o ${{env.DOTNET_ROOT}}/webapi
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v7
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/REG
+          path: ${{env.DOTNET_ROOT}}/webapi
 
   github-release:
     needs: build
