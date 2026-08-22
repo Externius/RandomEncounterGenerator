@@ -1,0 +1,12 @@
+<ul class="navbar-nav ml-auto">
+  <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right">
+    <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="languageDropdown" role="button">
+      {{ translate.getCurrentLang()?.toUpperCase() ?? "en" }}
+    </a>
+    <div ngbDropdownMenu aria-labelledby="languageDropdown" class="dropdown-menu">
+      @for (lang of translate.getLangs(); track lang) {
+        <a class="dropdown-item" (click)="langClick(lang)">{{ lang.toUpperCase() }}</a>
+      }
+    </div>
+  </li>
+</ul>

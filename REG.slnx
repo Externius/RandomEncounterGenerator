@@ -11,9 +11,9 @@
     <File Path="global.json" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src/REG.Angular/REG.Angular.csproj" />
     <Project Path="src/REG.Core/REG.Core.csproj" />
     <Project Path="src/REG.Resources/REG.Resources.csproj" />
+    <Project Path="src/REG.WebApi/REG.WebApi.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/REG.Core.Tests/REG.Core.Tests.csproj" />

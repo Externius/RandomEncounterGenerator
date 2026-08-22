@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <ItemGroup>
+        <ProjectReference Include="..\REG.Core\REG.Core.csproj"/>
+        <ProjectReference Include="..\REG.Resources\REG.Resources.csproj"/>
+    </ItemGroup>
+</Project>
