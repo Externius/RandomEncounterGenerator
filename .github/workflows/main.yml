@@ -4,6 +4,10 @@ env:
   AZURE_WEBAPP_NAME: app-reg
   AZURE_WEBAPP_PACKAGE_PATH: '.'
   DOTNET_VERSION: '10.x'
+  NODE_VERSION: '24.x'
+  PROJECT_PATH: src/REG.Angular
+  AZURE_ANGULAR_WEBAPP_NAME: app-reg-angular
+  AZURE_ANGULAR_WEBAPP_PACKAGE_PATH: '.'
 
 on:
   push:
@@ -15,7 +19,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-webapi:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -33,13 +37,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
 
-      - name: Replace token
-        uses: cschleiden/replace-tokens@v1
-        with:
-          files: '["**/*.ts"]'
-        env:
-          API_URL: ${{ secrets.AZURE_WEBAPP_API_URL }}
-
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
@@ -55,8 +52,48 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/webapi
 
+  build-angular:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: ${{ env.PROJECT_PATH }}/package-lock.json
+
+      - name: Replace token
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["**/*.ts"]'
+        env:
+          API_URL: ${{ secrets.AZURE_WEBAPP_API_URL }}
+
+      - name: Install Angular Dependencies
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: npm ci
+
+      - name: Build Angular
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: npm run build
+
+      - name: Prepare deployment bundle
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          mkdir -p deploy
+          cp package*.json deploy/
+          cp -R dist deploy/
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v7
+        with:
+          name: .angular
+          path: ${{env.PROJECT_PATH}}/deploy
+  
   github-release:
-    needs: build
+    needs: [ build-webapi, build-angular ]
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub Release
@@ -66,11 +103,11 @@ jobs:
           tag_name: ${{ github.ref_name }}
           token: ${{ secrets.RELEASE_TOKEN }}
   
-  deploy:
+  deploy-webapi:
     permissions:
       contents: none
     runs-on: ubuntu-latest
-    needs: build
+    needs: [ build-webapi ]
     environment:
       name: 'Development'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -88,3 +125,23 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+  deploy-angular:
+    permissions:
+      contents: none
+    runs-on: ubuntu-latest
+    needs: [ build-angular ]
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v8
+        with:
+          name: .angular
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_ANGULAR_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_ANGULAR_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_ANGULAR_WEBAPP_PACKAGE_PATH }}
