@@ -1,6 +1,6 @@
 {
   "name": "reg.angular",
-  "version": "0.4.22",
+  "version": "0.4.23",
   "scripts": {
     "ng": "ng",
     "lint": "eslint . --ext .ts",
@@ -56,8 +56,8 @@
     "@types/express": "5.0.6",
     "@types/jasmine": "6.0.0",
     "@types/node": "26.2.0",
-    "@typescript-eslint/eslint-plugin": "8.67.0",
-    "@typescript-eslint/parser": "8.67.0",
+    "@typescript-eslint/eslint-plugin": "8.68.0",
+    "@typescript-eslint/parser": "8.68.0",
     "eslint": "10.9.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.6",
