@@ -10,7 +10,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
     <PackageReference Include="Shouldly" />
     <PackageReference Include="xunit.v3" />
-    <PackageReference Include="coverlet.collector" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\REG.Resources\REG.Resources.csproj" />
