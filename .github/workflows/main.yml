@@ -3,7 +3,7 @@ name: Release CI/CD
 env:
   AZURE_WEBAPP_NAME: app-reg
   AZURE_WEBAPP_PACKAGE_PATH: '.'
-  DOTNET_VERSION: '10.x'
+  DOTNET_VERSION: '11.x'
   NODE_VERSION: '24.x'
   PROJECT_PATH: src/REG.Angular
   AZURE_ANGULAR_WEBAPP_NAME: app-reg-angular
