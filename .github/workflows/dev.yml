@@ -1,7 +1,7 @@
 name: Build and run unit tests
 
 env:
-  DOTNET_VERSION: '10.x'
+  DOTNET_VERSION: '11.x'
   NODE_VERSION: '24.x'
   PROJECT_PATH: src/REG.Angular
   
